@@ -117,20 +117,19 @@ Critical specifics often missed:
 ```bash
 # Develop
 npm install
-npm run start            # dev server at http://localhost:8081/
+npm run start                          # dev server at http://localhost:8081/
 
-# Build .ch5z
-npm run build:archive    # → dist/prod/office-v3-ui.ch5z (~9 MB)
+# Build + deploy from a real TTY (VS Code terminal, iTerm, etc.):
+npm run build:onestepwithpassword      # builds .ch5z and runs ch5-cli deploy -p
+# Or split:
+npm run build:archive                  # → dist/prod/office-v3-ui.ch5z (~9 MB)
+npm run build:deploywithpassword       # answers SFTP prompts in TTY
 
-# Deploy (interactive prompts — needs PTY, see DEPLOY.md Method 1)
-python3 /tmp/panel/drive_deploy.py        # Python pty driver wrapping ch5-cli deploy -p
-# OR (no key/no prompt — needs SSH key registered):
-npm run build:deploy
-# OR (last resort, password embedded):
-npm run build:deploywithpassword
+# Headless / CI / non-TTY fallback:
+python3 deploy/drive_deploy.py         # pty driver, see deploy/README.md
 ```
 
-`ch5-cli deploy -p` uses inquirer for prompts → **piping stdin fails with `ERR_USE_AFTER_CLOSE`**. Always use the Python pty driver from DEPLOY.md if no SSH key is registered.
+`ch5-cli deploy -p` uses inquirer for prompts → in any real TTY (VS Code's integrated terminal, normal shell) the prompts answer themselves naturally. Piping stdin or running headless **fails** with `ERR_USE_AFTER_CLOSE` — that's the only case the pty driver is needed.
 
 Success signal in deploy output: `Device output: Success. Restarting UI...`. The REST API has no CH5-project introspection, so this string is the canonical confirmation.
 
