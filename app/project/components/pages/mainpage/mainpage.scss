@@ -157,123 +157,133 @@
    LEFT STATIC COLUMN — 480 px wide, sits to the right of sidebar
    ============================================================ */
 
+/* ============================================================
+   LEFT STATIC COLUMN — sectioned, hairline-divided, modular type
+   ============================================================ */
+
 .mainpage__left {
   position: absolute;
-  left: 112px;          /* sidebar (88) + 24 gutter */
-  top: 108px;           /* topbar (88) + 20 gutter */
-  bottom: 124px;        /* bottom + 24 gutter */
+  left: 112px;
+  top: 108px;
+  bottom: 124px;
   width: 880px;
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  gap: 0;
+  overflow: hidden;
 
-  /* Yamaha header card */
-  .left__yamaha {
-    padding: 22px 28px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-
-    .v3-title { font-size: 32px; }
-    .v3-eyebrow { font-size: 12px; }
-  }
-
-  /* Source-mode picker */
-  .left__sources {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-
-    ch5-button {
-      --ch5-button--regular-height: 140px;
-      --ch5-button--regular-image-width: 48px;
-      --ch5-button--regular-image-height: 48px;
-      --ch5-button--regular-font-size: 13px;
-      --ch5-button--label-padding: 0 10px;
-    }
-  }
-
-  /* Toggles row */
-  .left__toggles {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-
-    ch5-toggle {
-      --ch5-toggle--height: 64px;
-      --ch5-toggle--font-size: 13px;
-    }
-  }
-
-  /* Q-SYS audio gauge */
-  .left__qsys-audio {
-    padding: 16px 22px;
+  /* Each section is separated by a hairline rather than its own card.
+     This produces a calmer, Linear-style rhythm than nested glass cards. */
+  .lh-section {
+    padding: 18px 4px;
+    border-bottom: 1px solid var(--hairline);
     display: flex;
     flex-direction: column;
     gap: 12px;
+  }
+  .lh-section:last-of-type {
+    border-bottom: none;
+    margin-top: auto;
+  }
 
-    ch5-slider {
-      --ch5-slider--height: 26px;
+  /* Yamaha display headline — most prominent thing in the column */
+  .lh-yamaha {
+    padding-top: 6px;
+    padding-bottom: 22px;
+
+    .v3-title {
+      font-size: 36px;
+      line-height: 1.05;
     }
   }
 
-  /* PC audio + dB readout */
-  .left__pc-audio {
+  /* USB strip sits at the bottom of the column */
+  .lh-usb {
+    border-bottom: none;
+    padding-bottom: 6px;
+  }
+
+  /* Audio row: gauge + dB readout side-by-side */
+  .audio-row {
     display: grid;
     grid-template-columns: 1fr auto;
-    gap: 14px;
     align-items: center;
+    gap: 16px;
 
-    ch5-button {
-      --ch5-button--regular-height: 60px;
-      --ch5-button--regular-font-size: 14px;
+    .audio-row__gauge {
+      width: 100%;
+      --ch5-slider--height: 36px;
     }
-    .left__db {
-      font-size: 18px;
+    .audio-row__db {
+      font-family: var(--font-sans);
       font-weight: 400;
       font-feature-settings: "tnum" on;
-      letter-spacing: 0.04em;
-      padding: 14px 22px;
-      background: var(--panel);
-      border: 1px solid var(--hairline);
-      border-radius: var(--radius-sm);
-      min-width: 130px;
+      font-size: 18px;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      min-width: 92px;
       text-align: right;
       white-space: nowrap;
     }
   }
+}
 
-  /* Browser / Office / Lock — same height for rhythm */
-  .left__actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 12px;
+/* ============================================================
+   Segmented control — 3-up and 4-up rows
+   Selected segment fills with accent + brighter label. Unselected
+   stays as faint glass with hairline-strong border on hover.
+   ============================================================ */
 
-    ch5-button {
-      --ch5-button--regular-height: 60px;
-      --ch5-button--regular-font-size: 14px;
-    }
-  }
+.seg-3,
+.seg-4 {
+  display: grid;
+  gap: 10px;
+}
+.seg-3 { grid-template-columns: repeat(3, 1fr); }
+.seg-4 { grid-template-columns: repeat(4, 1fr); }
 
-  /* USB drives */
-  .left__usb {
-    margin-top: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding: 14px 20px 18px;
-    background: var(--panel-soft);
-    border: 1px solid var(--hairline);
-    border-radius: var(--radius);
+/* Source-mode tile (icon top, label bottom). Square-ish proportion. */
+.seg-btn {
+  --ch5-button--regular-height: 130px;
+  --ch5-button--regular-image-width: 56px;
+  --ch5-button--regular-image-height: 56px;
+  --ch5-button--regular-font-size: 14px;
+  --ch5-button--default-background-color: rgba(255, 255, 255, 0.025);
+  --ch5-button--default-border-color: var(--hairline);
+  --ch5-button--default-label-font-color: var(--text-dim);
+  --ch5-button--default-pressed-background-color: rgba(255, 255, 255, 0.06);
+  --ch5-button--default-selected-background-color: rgba(120, 180, 255, 0.16);
+  --ch5-button--default-selected-border-color: var(--accent);
+  --ch5-button--default-selected-label-font-color: var(--text);
+}
 
-    ch5-button-list {
-      --ch5-button-list--orientation: horizontal;
-      --ch5-button--regular-width: 180px;
-      --ch5-button--regular-height: 86px;
-      --ch5-button--regular-image-width: 30px;
-      --ch5-button--regular-image-height: 30px;
-    }
-  }
+/* Toggle row — shorter, cleaner. Same selected = filled accent pattern. */
+.seg-3--toggles .seg-btn--toggle,
+.seg-btn--toggle {
+  --ch5-button--regular-height: 56px;
+  --ch5-button--regular-font-size: 14px;
+}
+
+/* Action row — uniform 64px height pills with icon on the left */
+.action-btn {
+  --ch5-button--regular-height: 64px;
+  --ch5-button--regular-image-width: 22px;
+  --ch5-button--regular-image-height: 22px;
+  --ch5-button--regular-font-size: 14px;
+  --ch5-button--default-background-color: rgba(255, 255, 255, 0.03);
+  --ch5-button--default-border-color: var(--hairline);
+  --ch5-button--default-label-font-color: var(--text);
+  --ch5-button--default-selected-background-color: rgba(120, 180, 255, 0.14);
+  --ch5-button--default-selected-border-color: var(--accent-soft);
+}
+
+/* USB strip */
+.lh-usb ch5-button-list {
+  --ch5-button-list--orientation: horizontal;
+  --ch5-button--regular-width: 100%;
+  --ch5-button--regular-height: 80px;
+  --ch5-button--regular-image-width: 28px;
+  --ch5-button--regular-image-height: 28px;
 }
 
 /* ============================================================

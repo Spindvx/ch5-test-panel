@@ -275,28 +275,15 @@ ch5-button.glass-btn.danger {
   --ch5-button--default-label-font-color:    var(--danger);
 }
 
-/* Toggle pill — ch5-button used as a soft on/off pill */
-ch5-button.toggle-pill {
-  --ch5-button--default-background-color:           rgba(255, 255, 255, 0.03);
+/* Toggle pill — selected = filled accent (NO leading dot, the fill IS the indicator) */
+ch5-button.toggle-pill,
+ch5-button.seg-btn--toggle {
+  --ch5-button--default-background-color:           rgba(255, 255, 255, 0.025);
   --ch5-button--default-border-color:               var(--hairline);
   --ch5-button--default-label-font-color:           var(--text-dim);
-  --ch5-button--default-selected-background-color:  rgba(120, 180, 255, 0.18);
+  --ch5-button--default-selected-background-color:  rgba(120, 180, 255, 0.16);
   --ch5-button--default-selected-border-color:      var(--accent);
   --ch5-button--default-selected-label-font-color:  var(--text);
-}
-ch5-button.toggle-pill .cb-btn::before {
-  content: "";
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--text-mute);
-  flex-shrink: 0;
-  transition: background-color 160ms ease, box-shadow 160ms ease;
-}
-ch5-button.toggle-pill[selected="true"] .cb-btn::before,
-ch5-button.toggle-pill[selected] .cb-btn::before {
-  background: var(--accent);
-  box-shadow: 0 0 10px var(--accent-glow);
 }
 
 /* ============================================================
