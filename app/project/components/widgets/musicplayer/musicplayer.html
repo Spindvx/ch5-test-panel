@@ -1,0 +1,21 @@
+<!-- MusicPlayer widget — receivestateshow=25. Wraps ch5-media-player on Sonos. -->
+<template id="MusicPlayer-widget">
+  <div class="music-widget">
+    <header class="music-widget__header">
+      <span class="v3-eyebrow">Music Player</span>
+      <h1 class="v3-title">
+        <ch5-jointotext-string receivestatevalue="MusicPlayerCONTRACT.MediaPlayer.Player_Name" textwhenempty="—"></ch5-jointotext-string>
+      </h1>
+    </header>
+    <ch5-media-player
+        class="music-widget__player"
+        contractname="MusicPlayerCONTRACT.MediaPlayer"
+        receivestatecrpc="MusicPlayerCONTRACT.MediaPlayer.CRPC_FB"
+        sendeventcrpc="MusicPlayerCONTRACT.MediaPlayer.CRPC"
+        receivestatemessage="MusicPlayerCONTRACT.MediaPlayer.Message_FB"
+        receivestaterefreshmediaplayer="MusicPlayerCONTRACT.MediaPlayer.Refresh"
+        receivestatedeviceoffline="MusicPlayerCONTRACT.MediaPlayer.Offline"
+        receivestateplayername="MusicPlayerCONTRACT.MediaPlayer.Player_Name">
+    </ch5-media-player>
+  </div>
+</template>

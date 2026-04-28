@@ -1,0 +1,23 @@
+.music-widget {
+  height: 100%;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background: var(--panel);
+  -webkit-backdrop-filter: blur(var(--blur));
+  backdrop-filter: blur(var(--blur));
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-rest);
+}
+
+.music-widget__header {
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.music-widget__player {
+  flex: 1;
+  width: 100%;
+}

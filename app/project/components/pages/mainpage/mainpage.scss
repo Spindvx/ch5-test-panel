@@ -1,0 +1,269 @@
+/* MainPage glass dashboard layout — TS-1070 (1920x1200 WUXGA, 10.1" diagonal).
+   Touch targets are sized for finger taps: ≥56 px primary, ≥44 px secondary. */
+
+#MainPage-page.mainpage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: var(--font-sans);
+  color: var(--text);
+
+  /* Wallpaper / overlay */
+  ch5-background#mp-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .mainpage__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      radial-gradient(ellipse at 30% 0%, rgba(0, 30, 50, 0.35), transparent 70%),
+      linear-gradient(180deg, rgba(7, 9, 12, 0.55), rgba(7, 9, 12, 0.85));
+    pointer-events: none;
+  }
+
+  > *:not(ch5-background):not(.mainpage__overlay) { z-index: 2; }
+}
+
+/* ============================================================
+   TOP BAR — 88 px tall
+   ============================================================ */
+
+.mainpage__topbar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 88px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 0 32px 0 116px;       /* leave room for sidebar (88) + 28 gutter */
+  border-bottom: 1px solid var(--hairline);
+
+  .topbar__left {
+    display: flex; align-items: baseline; gap: 18px;
+  }
+  .topbar__center {
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+  }
+  .topbar__right {
+    display: flex; justify-content: flex-end; align-items: center;
+
+    ch5-button.topbar__mic {
+      --ch5-button--regular-width: 64px;
+      --ch5-button--regular-height: 64px;
+      --ch5-button--regular-image-width: 32px;
+      --ch5-button--regular-image-height: 32px;
+    }
+  }
+
+  .clock-display {
+    font-size: 36px;
+    font-feature-settings: "tnum" on;
+  }
+
+  .v3-eyebrow { font-size: 12px; }
+  .v3-readout { font-size: 16px; }
+}
+
+/* ============================================================
+   SIDEBAR — 88 px wide
+   ============================================================ */
+
+.mainpage__sidebar {
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 88px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 0 16px;
+  gap: 12px;
+  z-index: 3;
+
+  ch5-button {
+    --ch5-button--regular-width: 64px;
+    --ch5-button--regular-height: 64px;
+    --ch5-button--regular-image-width: 30px;
+    --ch5-button--regular-image-height: 30px;
+  }
+
+  .sidebar__spacer { flex: 1; }
+
+  .sidebar__power {
+    --ch5-button--default-background-color: rgba(255, 110, 110, 0.06);
+    --ch5-button--default-border-color: rgba(255, 110, 110, 0.20);
+  }
+}
+
+/* ============================================================
+   LEFT STATIC COLUMN — 480 px wide, sits to the right of sidebar
+   ============================================================ */
+
+.mainpage__left {
+  position: absolute;
+  left: 116px;          /* sidebar (88) + 28 gutter */
+  top: 108px;           /* topbar (88) + 20 gutter */
+  bottom: 124px;        /* bottom (100) + 24 gutter */
+  width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  /* Yamaha header card */
+  .left__yamaha {
+    padding: 18px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    .v3-title { font-size: 28px; }
+  }
+
+  /* Source-mode picker */
+  .left__sources {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+
+    ch5-button {
+      --ch5-button--regular-height: 110px;
+      --ch5-button--regular-image-width: 38px;
+      --ch5-button--regular-image-height: 38px;
+      --ch5-button--regular-font-size: 14px;
+    }
+  }
+
+  /* Toggles row */
+  .left__toggles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+
+    ch5-toggle {
+      --ch5-toggle--height: 56px;
+      --ch5-toggle--font-size: 14px;
+    }
+  }
+
+  /* Q-SYS audio gauge */
+  .left__qsys-audio {
+    padding: 14px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    ch5-slider {
+      --ch5-slider--height: 22px;
+    }
+  }
+
+  /* PC audio + dB readout */
+  .left__pc-audio {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: center;
+
+    ch5-button {
+      --ch5-button--regular-height: 60px;
+      --ch5-button--regular-font-size: 14px;
+    }
+    .left__db {
+      font-size: 18px;
+      letter-spacing: 0.04em;
+      padding: 14px 18px;
+      background: var(--panel);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-sm);
+      min-width: 110px;
+      text-align: right;
+    }
+  }
+
+  /* Browser / Office / Lock */
+  .left__actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+
+    ch5-button, ch5-toggle {
+      --ch5-button--regular-height: 60px;
+      --ch5-toggle--height: 60px;
+      --ch5-button--regular-font-size: 14px;
+      --ch5-toggle--font-size: 14px;
+    }
+  }
+
+  /* USB drives */
+  .left__usb {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px 16px 14px;
+    background: var(--panel-soft);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+
+    ch5-button-list {
+      --ch5-button-list--orientation: horizontal;
+      --ch5-button--regular-width: 96px;
+      --ch5-button--regular-height: 70px;
+      --ch5-button--regular-image-width: 26px;
+      --ch5-button--regular-image-height: 26px;
+    }
+  }
+}
+
+/* ============================================================
+   RIGHT PANE — sits to the right of left column
+   ============================================================ */
+
+.mainpage__right {
+  position: absolute;
+  left: 624px;          /* sidebar (88) + 28 + leftcol (480) + 28 */
+  right: 28px;
+  top: 108px;
+  bottom: 124px;
+
+  > ch5-template {
+    position: absolute;
+    inset: 0;
+    display: block;
+  }
+}
+
+/* ============================================================
+   BOTTOM BAR — 100 px tall
+   ============================================================ */
+
+.mainpage__bottom {
+  position: absolute;
+  left: 116px;
+  right: 28px;
+  bottom: 22px;
+  height: 84px;
+  display: grid;
+  grid-template-columns: auto auto 1fr auto auto;
+  gap: 18px;
+  align-items: center;
+  padding: 0 24px;
+
+  ch5-button {
+    --ch5-button--regular-width: 64px;
+    --ch5-button--regular-height: 64px;
+    --ch5-button--regular-image-width: 30px;
+    --ch5-button--regular-image-height: 30px;
+  }
+
+  .bottom__volume {
+    --ch5-slider--height: 50px;
+    width: 100%;
+  }
+}
+
+/* CH5 receivestateshow handles widget visibility natively. */

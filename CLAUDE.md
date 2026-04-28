@@ -16,7 +16,7 @@ The previous agent built a "neo-noir / cyberpunk" UI under `app/` with magenta+c
 
 | Device | IP | Notes |
 |---|---|---|
-| TS-1070 (touch panel, target) | 192.168.50.105 | admin / `CNZav2114`, SFTP user same. Cert CN `TS-1070-C442680F1403.crestron`. Resolution **1280×800**. |
+| TS-1070 (touch panel, target) | 192.168.50.105 | admin / `CNZav2114`, SFTP user same. Cert CN `TS-1070-C442680F1403.crestron`. Resolution **1920×1200 WUXGA**. |
 | CP3 (control processor, runs SIMPL) | 192.168.50.113 | IPID `0x03` for the panel's WebXPanel CIP. Office_V0.2 SIMPL program lives here. |
 | DM-NVX-350 #1 | 192.168.50.38 | Encoder/decoder. Web UI uses AngularJS — needs headless browser to fully script. |
 | DM-NVX-350 #2 | 192.168.50.81 | |
@@ -139,7 +139,7 @@ Success signal in deploy output: `Device output: Success. Restarting UI...`. The
 ## Sandbox capabilities (this Claude session)
 
 - **Network**: GitHub MCP allowed. Direct `curl` to `github.com` works for **public** repos only (or release assets on public repos). Dropbox, generic web hosts blocked. Private repo content needs to come via git fetch (which is auth'd through a local proxy at `127.0.0.1:39171`) or via the GitHub MCP.
-- **Browser**: `playwright` v1.56 + chromium installed globally and confirmed working. Can render the dev server's pages and capture screenshots at 1280×800 to verify the UI before deploying.
+- **Browser**: `playwright` v1.56 + chromium installed globally and confirmed working. Can render the dev server's pages and capture screenshots at 1920×1200 WUXGA to verify the UI before deploying.
 - **Git**: Configured with signing key. Branch `claude/create-tsw-panel-QXRcn` is the active dev branch (per the system prompt). All work commits to that branch.
 
 ---
@@ -149,10 +149,16 @@ Success signal in deploy output: `Device output: Success. Restarting UI...`. The
 - **Don't invent join numbers.** Use only joins from `reference/construct/JOIN_MAP.md`. If something needs a join we haven't documented, flag it as a TODO comment and ask before inventing.
 - **Glass theme tokens** (in `app/project/assets/scss/custom-themes/office-v3-theme.css`):
   - `--bg`, `--panel`, `--panel-strong`, `--hairline`, `--text`, `--text-dim`, `--accent`, `--danger`, `--mint`, `--radius`
-  - One subtle accent (cool white-cyan), no magenta, no kana, Inter typeface
+  - One subtle accent (cool white-cyan), no magenta, no kana
+- **Typography**: **Plus Jakarta Sans** via `@fontsource-variable/plus-jakarta-sans` (Google Fonts, free, bundled offline as woff2). Variable family weights 200-800 + matching italic variable. (Fontshare CDN is blocked in this sandbox so General Sans wasn't available; Plus Jakarta Sans is the closest modern match — slightly humanist, distinctive without being generic.)
+  - Default body: weight 300 (Light)
+  - Buttons / labels: weight 400 (Regular)
+  - Accent / display headers ("Yamaha:", "Display Output:", page titles): weight 200 italic (Thin Italic) — distinctive thin italic per user direction.
+  - Numbers / readouts (volume, dB, frame rates): weight 400 with `font-feature-settings: "tnum"`.
 - **Static frame** (top, left column, bottom) is always-rendered HTML in `mainpage`. Right pane uses CH5 templates with `receivestateshow` for swapping — same pattern as Office_V2.
 - **Asset spelling preserved** — `Initilizing` (with missing 'a') is the original Construct typo. Don't fix it; SIMPL references that exact name.
-- **Screenshots before deploy** — render the dev server with Playwright and visually verify against the user's screenshot before pushing to the panel. The TS-1070 viewport is 1280×800.
+- **`MainPage.USBRouter` is NVX USB routing**, not removable USB drives. The 4 buttons route mouse/keyboard between devices via the NVX system. Label as "USB Routing".
+- **Screenshots before deploy** — render the dev server with Playwright and visually verify against the user's screenshot before pushing to the panel. The TS-1070 viewport is 1920×1200 WUXGA.
 
 ---
 

@@ -1,0 +1,296 @@
+<!--
+  MainPage — Office TSW glass dashboard
+  Static frame (top bar / sidebar / left column / bottom bar) + swappable right pane.
+  Joins are real, sourced from reference/construct/JOIN_MAP.md.
+  Widget receivestateshow:  2=NVX  3=Q-SYS  4=AppleTV  5=Settings  12=Initializing  25=MusicPlayer
+-->
+
+<!-- Right-pane widget templates are pre-registered via the "widgets" array
+     in project-config.json. By the time this page renders, the
+     <template id="X-widget"> definitions exist in the DOM. -->
+
+<section id="MainPage-page" class="mainpage details-container" aria-labelledby="MainPage">
+
+  <!-- Wallpaper layer (under everything) -->
+  <ch5-background
+      id="mp-bg"
+      receivestateurl="MainPage.Background.Url"
+      url="./app/project/assets/img/Wallpaper2.jpg"
+      backgroundcolor="rgba(0,0,0,0)"
+      imgbackgroundcolor="transparent">
+  </ch5-background>
+  <div class="mainpage__overlay"></div>
+
+  <!-- ============ TOP BAR ============ -->
+  <header class="mainpage__topbar">
+    <div class="topbar__left">
+      <ch5-datetime class="clock-display" displaytype="time" id="mp-clock"></ch5-datetime>
+      <span class="topbar__clock-meta v3-eyebrow">
+        <ch5-jointotext-string receivestatevalue="11" textwhenempty=""></ch5-jointotext-string>
+      </span>
+    </div>
+    <div class="topbar__center">
+      <span class="v3-eyebrow">Q-SYS Core</span>
+      <span class="v3-readout">
+        <ch5-jointotext-string receivestatevalue="14" textwhenempty="—"></ch5-jointotext-string>
+      </span>
+    </div>
+    <div class="topbar__right">
+      <ch5-button
+          id="mp-mic"
+          customclass="topbar__mic glass-btn"
+          shape="rounded-rectangle"
+          sendeventontouch="40"
+          receivestateselected="40"
+          iconurl="./app/project/assets/img/Mic Unmute.png"
+          label="">
+      </ch5-button>
+    </div>
+  </header>
+
+  <!-- ============ SIDEBAR ============ -->
+  <nav class="mainpage__sidebar side-nav-rail" aria-label="Main navigation">
+    <ch5-button
+        id="mp-nav-nvx"
+        sendeventontouch="2" receivestateselected="2"
+        iconurl="./app/project/assets/img/NVXLogo.png" label=""
+        shape="rounded-rectangle">
+    </ch5-button>
+    <ch5-button
+        id="mp-nav-qsys"
+        sendeventontouch="3" receivestateselected="3"
+        iconurl="./app/project/assets/img/Q-SYS White.png" label=""
+        shape="rounded-rectangle">
+    </ch5-button>
+    <ch5-button
+        id="mp-nav-apple"
+        sendeventontouch="4" receivestateselected="4"
+        iconurl="./app/project/assets/img/Apple Logo.png" label=""
+        shape="rounded-rectangle">
+    </ch5-button>
+    <ch5-button
+        id="mp-nav-music"
+        sendeventontouch="25" receivestateselected="25"
+        iconurl="./app/project/assets/img/Airplay Icon.png" label=""
+        shape="rounded-rectangle">
+    </ch5-button>
+    <ch5-button
+        id="mp-nav-settings"
+        sendeventontouch="5" receivestateselected="5"
+        iconurl="./app/project/assets/img/Settings.png" label=""
+        shape="rounded-rectangle">
+    </ch5-button>
+    <div class="sidebar__spacer"></div>
+    <ch5-button
+        id="mp-nav-power"
+        sendeventontouch="1" receivestateselected="1"
+        iconurl="./app/project/assets/img/Power.png" label=""
+        shape="rounded-rectangle"
+        customclass="sidebar__power">
+    </ch5-button>
+  </nav>
+
+  <!-- ============ STATIC LEFT COLUMN ============ -->
+  <aside class="mainpage__left">
+
+    <!-- Yamaha source label -->
+    <div class="left__yamaha glass-panel">
+      <span class="v3-eyebrow">Yamaha</span>
+      <span class="v3-title">
+        <ch5-jointotext-string receivestatevalue="8" textwhenempty="…"></ch5-jointotext-string>
+      </span>
+    </div>
+
+    <!-- Source mode picker (Q-SYS / Bluetooth / AirPlay) -->
+    <div class="left__sources">
+      <ch5-button
+          shape="rounded-rectangle"
+          sendeventontouch="68" receivestateselected="68"
+          label="Q-SYS"
+          iconurl="./app/project/assets/img/Q-SYS White.png" iconposition="top">
+      </ch5-button>
+      <ch5-button
+          shape="rounded-rectangle"
+          sendeventontouch="69" receivestateselected="69"
+          label="Bluetooth"
+          iconurl="./app/project/assets/img/Bluetooth Icon.svg" iconposition="top">
+      </ch5-button>
+      <ch5-button
+          shape="rounded-rectangle"
+          sendeventontouch="70" receivestateselected="70"
+          label="AirPlay"
+          iconurl="./app/project/assets/img/Airplay Icon.png" iconposition="top">
+      </ch5-button>
+    </div>
+
+    <!-- Audio toggles -->
+    <div class="left__toggles">
+      <ch5-toggle
+          sendeventonclick="50" receivestatevalue="50"
+          labelon="7 Ch" labeloff="2 Ch">
+      </ch5-toggle>
+      <ch5-toggle
+          sendeventonclick="47" receivestatevalue="47"
+          labelon="Bass On" labeloff="Bass Off">
+      </ch5-toggle>
+      <ch5-toggle
+          sendeventonclick="11" receivestatevalue="11"
+          labelon="Occ On" labeloff="Occ Off">
+      </ch5-toggle>
+    </div>
+
+    <!-- Q-SYS Audio gauge (small inline gauge slider, analog 2) -->
+    <div class="left__qsys-audio glass-panel">
+      <span class="v3-eyebrow">Q-SYS Audio</span>
+      <ch5-slider
+          slidertype="gauge" max="65535"
+          sendeventonchange="2" receivestatevalue="2"
+          nohandle="true" tapsettable="true">
+      </ch5-slider>
+    </div>
+
+    <!-- PC Audio + Ducker dB readout -->
+    <div class="left__pc-audio">
+      <ch5-button
+          shape="rounded-rectangle"
+          sendeventontouch="45" receivestateselected="45"
+          label="PC Audio"
+          iconurl="./app/project/assets/img/windows logo.png" iconposition="last">
+      </ch5-button>
+      <span class="v3-readout left__db">
+        <ch5-jointotext-string receivestatevalue="4" textwhenempty="XX.X dB"></ch5-jointotext-string>
+      </span>
+    </div>
+
+    <!-- Browser / Office toggle / Lock PC -->
+    <div class="left__actions">
+      <ch5-button
+          shape="rounded-rectangle"
+          sendeventontouch="6" receivestateselected="6"
+          label="Browser"
+          iconclass="fab fa-chrome" iconposition="last">
+      </ch5-button>
+      <ch5-toggle
+          sendeventonclick="48" receivestatevalue="49"
+          labelon="Office On" labeloff="Office Off">
+      </ch5-toggle>
+      <ch5-button
+          shape="rounded-rectangle"
+          sendeventontouch="7" receivestateselected="7"
+          label="Lock PC"
+          iconurl="./app/project/assets/img/windows logo.png" iconposition="last">
+      </ch5-button>
+    </div>
+
+    <!-- USB Router — NVX-side USB routing for mouse/keyboard between
+         devices (not removable USB drives). Uses MainPage.USBRouter SO. -->
+    <div class="left__usb">
+      <span class="v3-eyebrow">USB Routing</span>
+      <ch5-button-list
+          numberofitems="4"
+          indexid="idx"
+          buttonshape="rounded-rectangle"
+          orientation="horizontal"
+          contractname="MainPage.USBRouter"
+          contractitemlabeltype="textContent"
+          labelmodebtnlist="simple"
+          buttoniconurl="./app/project/assets/img/USB.png"
+          usecontractfornumitems="true"
+          receivestatenumberofitems="MainPage.USBRouter.ListNumberOfItems">
+        <ch5-button-list-individual-button componentname="USB1"></ch5-button-list-individual-button>
+        <ch5-button-list-individual-button componentname="USB2"></ch5-button-list-individual-button>
+        <ch5-button-list-individual-button componentname="USB3"></ch5-button-list-individual-button>
+        <ch5-button-list-individual-button componentname="USB4"></ch5-button-list-individual-button>
+      </ch5-button-list>
+    </div>
+
+  </aside>
+
+  <!-- ============ RIGHT PANE (swappable) ============ -->
+  <main class="mainpage__right">
+    <ch5-template
+        templateid="NVXControl-widget"
+        id="rp-nvx"
+        componentname="NVXControl"
+        receivestateshow="2"
+        context="NVXControlCONTRACT:MainPage.YamahaAmp">
+    </ch5-template>
+    <ch5-template
+        templateid="QSYSLevels-widget"
+        id="rp-qsys"
+        componentname="QSYSLevels"
+        receivestateshow="3"
+        context="QSYSLevelsCONTRACT:.MainPage">
+    </ch5-template>
+    <ch5-template
+        templateid="AppleTV-widget"
+        id="rp-apple"
+        componentname="AppleTV"
+        receivestateshow="4"
+        context="AppleTVCONTRACT:MainPage.AppleTV">
+    </ch5-template>
+    <ch5-template
+        templateid="Settings-widget"
+        id="rp-settings"
+        componentname="Settings"
+        receivestateshow="5"
+        context="SettingsCONTRACT:MainPage.Sandbox">
+    </ch5-template>
+    <ch5-template
+        templateid="MusicPlayer-widget"
+        id="rp-music"
+        componentname="MusicPlayer"
+        receivestateshow="25"
+        context="MusicPlayerCONTRACT:MainPage.MusicPlayer">
+    </ch5-template>
+    <ch5-template
+        templateid="Initilizing-widget"
+        id="rp-init"
+        componentname="Initilizing"
+        receivestateshow="12">
+    </ch5-template>
+  </main>
+
+  <!-- ============ BOTTOM BAR — master volume ============ -->
+  <!-- TODO(joins): vol-up / vol-down digital joins (8/9 placeholder) need
+       confirmation from the SIMPL .smw — currently they pulse the placeholder
+       joins; ask user before deploying if they should adjust the analog 1
+       value directly via SIMPL. -->
+  <footer class="mainpage__bottom glass-panel-strong">
+    <ch5-button
+        id="mp-power-bottom"
+        shape="rounded-rectangle"
+        sendeventontouch="1" receivestateselected="1"
+        iconurl="./app/project/assets/img/Power.png" label="">
+    </ch5-button>
+    <ch5-button
+        id="mp-vol-down"
+        class="bottom__voldown"
+        shape="rounded-rectangle"
+        sendeventontouch="9" receivestateselected="9"
+        iconclass="fas fa-volume-down" label="">
+    </ch5-button>
+    <ch5-slider
+        class="bottom__volume"
+        slidertype="gauge"
+        max="65535" value="0"
+        sendeventonchange="1" receivestatevalue="1"
+        nohandle="false" handleshape="circle"
+        tapsettable="true">
+    </ch5-slider>
+    <ch5-button
+        id="mp-vol-up"
+        class="bottom__volup"
+        shape="rounded-rectangle"
+        sendeventontouch="8" receivestateselected="8"
+        iconclass="fas fa-volume-up" label="">
+    </ch5-button>
+    <ch5-button
+        id="mp-mute"
+        shape="rounded-rectangle"
+        sendeventontouch="10" receivestateselected="10"
+        iconurl="./app/project/assets/img/Mute Icon.png" label="">
+    </ch5-button>
+  </footer>
+
+</section>

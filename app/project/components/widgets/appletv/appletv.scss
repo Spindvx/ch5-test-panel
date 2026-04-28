@@ -1,0 +1,52 @@
+.appletv-widget {
+  height: 100%;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background: var(--panel);
+  -webkit-backdrop-filter: blur(var(--blur));
+  backdrop-filter: blur(var(--blur));
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-rest);
+}
+
+.appletv-widget__header {
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.appletv-widget__body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.appletv-widget__nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.appletv-widget__dpad {
+  --ch5-dpad--width: 220px;
+  --ch5-dpad--height: 220px;
+}
+
+.appletv-widget__hb {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+
+  ch5-button { --ch5-button--regular-height: 56px; }
+}
+
+.appletv-widget__keypad {
+  --ch5-keypad--width: 100%;
+  --ch5-keypad--height: 360px;
+}

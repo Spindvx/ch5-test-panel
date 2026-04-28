@@ -1,0 +1,209 @@
+<!--
+  NVX Control widget — 4 displays + 8 HDMI sources + power.
+  Right pane shown when digital join 2 is high.
+  Joins from reference/construct/JOIN_MAP.md (Office_V0.2 program).
+-->
+<template id="NVXControl-widget">
+  <div class="nvx-widget">
+
+    <!-- Header: dynamic display name + streaming status, power on right -->
+    <header class="nvx-widget__header">
+      <div class="nvx-widget__title">
+        <span class="v3-eyebrow">Display Output</span>
+        <h1 class="v3-title">
+          <ch5-jointotext-string receivestatevalue="24" textwhenempty="Display"></ch5-jointotext-string>
+          <span class="v3-readout"> /
+            <ch5-jointotext-string receivestatevalue="17" textwhenempty="—"></ch5-jointotext-string>
+          </span>
+        </h1>
+      </div>
+      <ch5-button
+          id="nvx-power"
+          customclass="nvx-widget__power danger"
+          shape="rounded-rectangle"
+          sendeventontouch="24" receivestateselected="24"
+          iconurl="./app/project/assets/img/Power.png"
+          label="">
+      </ch5-button>
+    </header>
+
+    <!-- Display row: 4 NVX decoders -->
+    <section class="nvx-widget__displays" aria-label="NVX displays">
+      <span class="v3-eyebrow nvx-widget__rowlabel">Displays</span>
+      <div class="nvx-widget__display-grid">
+        <!-- Display 1 -->
+        <ch5-button
+            class="nvx-tile nvx-tile--display"
+            shape="rounded-rectangle"
+            iconurl="./app/project/assets/img/NVXLogo.png" iconposition="top"
+            sendeventontouch="80" receivestateselected="80"
+            receivestateenable="15"
+            label="">
+          <ch5-button-label>
+            <template>
+              <span class="nvx-tile__name">
+                <ch5-jointotext-string receivestatevalue="35" textwhenempty="Display 1"></ch5-jointotext-string>
+              </span>
+              <span class="nvx-tile__status">
+                <ch5-jointotext-string receivestatevalue="17" textwhenempty="Streaming Stopped"></ch5-jointotext-string>
+              </span>
+            </template>
+          </ch5-button-label>
+        </ch5-button>
+        <!-- Display 2 -->
+        <ch5-button
+            class="nvx-tile nvx-tile--display"
+            shape="rounded-rectangle"
+            iconurl="./app/project/assets/img/NVXLogo.png" iconposition="top"
+            sendeventontouch="81" receivestateselected="81"
+            receivestateenable="15"
+            label="">
+          <ch5-button-label>
+            <template>
+              <span class="nvx-tile__name">
+                <ch5-jointotext-string receivestatevalue="36" textwhenempty="Display 2"></ch5-jointotext-string>
+              </span>
+              <span class="nvx-tile__status">
+                <ch5-jointotext-string receivestatevalue="20" textwhenempty="Streaming Stopped"></ch5-jointotext-string>
+              </span>
+            </template>
+          </ch5-button-label>
+        </ch5-button>
+        <!-- Display 3 -->
+        <ch5-button
+            class="nvx-tile nvx-tile--display"
+            shape="rounded-rectangle"
+            iconurl="./app/project/assets/img/NVXLogo.png" iconposition="top"
+            sendeventontouch="82" receivestateselected="82"
+            receivestateenable="17"
+            label="">
+          <ch5-button-label>
+            <template>
+              <span class="nvx-tile__name">
+                <ch5-jointotext-string receivestatevalue="37" textwhenempty="Display 3"></ch5-jointotext-string>
+              </span>
+              <span class="nvx-tile__status">
+                <ch5-jointotext-string receivestatevalue="21" textwhenempty="Streaming Stopped"></ch5-jointotext-string>
+              </span>
+            </template>
+          </ch5-button-label>
+        </ch5-button>
+        <!-- Display 4 -->
+        <ch5-button
+            class="nvx-tile nvx-tile--display"
+            shape="rounded-rectangle"
+            iconurl="./app/project/assets/img/NVXLogo.png" iconposition="top"
+            sendeventontouch="83" receivestateselected="83"
+            receivestateenable="21"
+            label="">
+          <ch5-button-label>
+            <template>
+              <span class="nvx-tile__name">
+                <ch5-jointotext-string receivestatevalue="38" textwhenempty="Display 4"></ch5-jointotext-string>
+              </span>
+              <span class="nvx-tile__status">
+                <ch5-jointotext-string receivestatevalue="22" textwhenempty="Streaming Stopped"></ch5-jointotext-string>
+              </span>
+            </template>
+          </ch5-button-label>
+        </ch5-button>
+      </div>
+    </section>
+
+    <!-- Source grid: 8 HDMI sources (2 rows x 4 cols) -->
+    <section class="nvx-widget__sources" aria-label="HDMI sources">
+      <span class="v3-eyebrow nvx-widget__rowlabel">Sources</span>
+      <div class="nvx-widget__source-grid">
+        <!-- HDMI 1 — Windows PC -->
+        <ch5-button class="nvx-tile nvx-tile--source"
+            shape="rounded-rectangle" iconposition="top"
+            iconurl="./app/project/assets/img/windows logo.png"
+            sendeventontouch="90" receivestateselected="90" receivestateenable="15"
+            label="">
+          <ch5-button-label><template>
+            <span class="nvx-tile__name"><ch5-jointotext-string receivestatevalue="50" textwhenempty="HDMI 1"></ch5-jointotext-string></span>
+            <span class="nvx-tile__status"><ch5-jointotext-string receivestatevalue="18" textwhenempty="Disconnected"></ch5-jointotext-string></span>
+          </template></ch5-button-label>
+        </ch5-button>
+        <!-- HDMI 2 — Laptop -->
+        <ch5-button class="nvx-tile nvx-tile--source"
+            shape="rounded-rectangle" iconposition="top"
+            iconurl="./app/project/assets/img/Laptop.png"
+            sendeventontouch="91" receivestateselected="91" receivestateenable="15"
+            label="">
+          <ch5-button-label><template>
+            <span class="nvx-tile__name"><ch5-jointotext-string receivestatevalue="51" textwhenempty="HDMI 2"></ch5-jointotext-string></span>
+            <span class="nvx-tile__status"><ch5-jointotext-string receivestatevalue="19" textwhenempty="Disconnected"></ch5-jointotext-string></span>
+          </template></ch5-button-label>
+        </ch5-button>
+        <!-- HDMI 3 -->
+        <ch5-button class="nvx-tile nvx-tile--source"
+            shape="rounded-rectangle" iconposition="top"
+            iconurl="./app/project/assets/img/HDMI.png"
+            sendeventontouch="92" receivestateselected="92" receivestateenable="16"
+            label="">
+          <ch5-button-label><template>
+            <span class="nvx-tile__name"><ch5-jointotext-string receivestatevalue="52" textwhenempty="HDMI 3"></ch5-jointotext-string></span>
+            <span class="nvx-tile__status"><ch5-jointotext-string receivestatevalue="25" textwhenempty="Disconnected"></ch5-jointotext-string></span>
+          </template></ch5-button-label>
+        </ch5-button>
+        <!-- HDMI 4 — Apple TV -->
+        <ch5-button class="nvx-tile nvx-tile--source"
+            shape="rounded-rectangle" iconposition="top"
+            iconurl="./app/project/assets/img/Apple Logo.png"
+            sendeventontouch="93" receivestateselected="93" receivestateenable="16"
+            label="">
+          <ch5-button-label><template>
+            <span class="nvx-tile__name"><ch5-jointotext-string receivestatevalue="53" textwhenempty="HDMI 4"></ch5-jointotext-string></span>
+            <span class="nvx-tile__status"><ch5-jointotext-string receivestatevalue="26" textwhenempty="Disconnected"></ch5-jointotext-string></span>
+          </template></ch5-button-label>
+        </ch5-button>
+        <!-- HDMI 5 -->
+        <ch5-button class="nvx-tile nvx-tile--source"
+            shape="rounded-rectangle" iconposition="top"
+            iconurl="./app/project/assets/img/HDMI.png"
+            sendeventontouch="94" receivestateselected="94" receivestateenable="17"
+            label="">
+          <ch5-button-label><template>
+            <span class="nvx-tile__name"><ch5-jointotext-string receivestatevalue="54" textwhenempty="HDMI 5"></ch5-jointotext-string></span>
+            <span class="nvx-tile__status"><ch5-jointotext-string receivestatevalue="27" textwhenempty="Disconnected"></ch5-jointotext-string></span>
+          </template></ch5-button-label>
+        </ch5-button>
+        <!-- HDMI 6 -->
+        <ch5-button class="nvx-tile nvx-tile--source"
+            shape="rounded-rectangle" iconposition="top"
+            iconurl="./app/project/assets/img/HDMI.png"
+            sendeventontouch="95" receivestateselected="95" receivestateenable="17"
+            label="">
+          <ch5-button-label><template>
+            <span class="nvx-tile__name"><ch5-jointotext-string receivestatevalue="55" textwhenempty="HDMI 6"></ch5-jointotext-string></span>
+            <span class="nvx-tile__status"><ch5-jointotext-string receivestatevalue="28" textwhenempty="Disconnected"></ch5-jointotext-string></span>
+          </template></ch5-button-label>
+        </ch5-button>
+        <!-- HDMI 7 — Nintendo Switch -->
+        <ch5-button class="nvx-tile nvx-tile--source"
+            shape="rounded-rectangle" iconposition="top"
+            iconurl="./app/project/assets/img/Nintendo Switch.png"
+            sendeventontouch="96" receivestateselected="96" receivestateenable="17"
+            label="">
+          <ch5-button-label><template>
+            <span class="nvx-tile__name"><ch5-jointotext-string receivestatevalue="56" textwhenempty="HDMI 7"></ch5-jointotext-string></span>
+            <span class="nvx-tile__status"><ch5-jointotext-string receivestatevalue="29" textwhenempty="Disconnected"></ch5-jointotext-string></span>
+          </template></ch5-button-label>
+        </ch5-button>
+        <!-- HDMI 8 — PS5 -->
+        <ch5-button class="nvx-tile nvx-tile--source"
+            shape="rounded-rectangle" iconposition="top"
+            iconurl="./app/project/assets/img/PS5.png"
+            sendeventontouch="97" receivestateselected="97" receivestateenable="21"
+            label="">
+          <ch5-button-label><template>
+            <span class="nvx-tile__name"><ch5-jointotext-string receivestatevalue="57" textwhenempty="HDMI 8"></ch5-jointotext-string></span>
+            <span class="nvx-tile__status"><ch5-jointotext-string receivestatevalue="30" textwhenempty="Disconnected"></ch5-jointotext-string></span>
+          </template></ch5-button-label>
+        </ch5-button>
+      </div>
+    </section>
+
+  </div>
+</template>
