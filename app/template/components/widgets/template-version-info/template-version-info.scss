@@ -1,0 +1,284 @@
+// Copyright (C) 2022 to the present, Crestron Electronics, Inc.
+// All rights reserved.
+// No part of this software may be reproduced in any form, machine
+// or natural, without the express written consent of Crestron Electronics.
+// Use of this source code is subject to the terms of the Crestron Software License Agreement
+// under which you licensed this source code.
+
+@import "./../../../../template/assets/scss/all-var-fns-mix";
+
+#template-version-info-page {
+  $version-modal-dialog-content-color: $color-lightgrey !default;
+  $border-type: solid;
+  $version-modal-dialog-border-width: 1px;
+
+  margin-left: 1rem;
+
+  div.ch5-modal-dialog.project-info-dialog {
+    width: 60vw;
+    max-height: 70vh;
+    max-width: 630px;
+    border: $version-modal-dialog-border-width $border-type $black;
+    min-height: min(430px, 70vh);
+    overflow: initial;
+
+    .ch5-modal-dialog-header {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .spacer {
+      border: 1px solid gray;
+      margin: 0 0 10px 0;
+    }
+
+    #version-tab-content,
+    #webxpanel-tab-content,
+    #diagnostics-tab-content {
+      max-height: calc(70vh - 130px);
+      overflow: auto;
+    }
+
+    #tab-wrapper {
+      margin-top: 10px;
+      display: flex;
+      max-width: 65%;
+
+      button {
+        background-color: rgba(211, 211, 211, 0.5);
+        flex-grow: 1;
+        opacity: 0.7;
+        font-weight: normal;
+        color: black;
+
+        &:first-child {
+          border-right: none;
+          border-top-left-radius: 3px;
+        }
+
+        &:last-child {
+          border-left: none;
+          border-top-right-radius: 3px;
+        }
+
+        &.selected {
+          font-weight: bold;
+          opacity: 1;
+        }
+      }
+    }
+
+    #webxpanel-tab-content {
+      .connection {
+        margin-bottom: 10px;
+        display: flex;
+        flex-direction: column;
+
+        .info-row {
+          margin-left: 10px;
+        }
+      }
+    }
+
+    #diagnostics-tab-content {
+      #diagnostics-info {
+        display: flex;
+        flex-wrap: wrap;
+
+        span {
+          flex: 1 0 50%;
+          height: 2rem;
+          line-height: 2rem;
+        }
+
+        @media only screen and (max-width: 740px) {
+          span {
+            flex: 1 0 100%;
+          }
+        }
+      }
+
+      button#subscribeLogButton {
+        border: 1px solid darkgray;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        width: 100%;
+        color: black;
+
+        &:hover {
+          background: rgba(200, 200, 200, 0.5);
+        }
+
+        &:active {
+          background: rgba(180, 180, 180, 0.5);
+        }
+      }
+    }
+
+    .ch5-modal-dialog-contents {
+      padding: 0;
+    }
+
+    .ch5-modal-dialog-close-icon-btn {
+      padding: 0;
+      margin: 0;
+      @include size(auto);
+      background-color: transparent;
+
+      span.ch5-modal-dialog-close-icon {
+        display: block;
+        font-size: rem-calc(24px);
+      }
+    }
+
+    p {
+      color: $version-modal-dialog-content-color;
+      font-size: rem-calc(18px);
+
+      span {
+        display: block;
+      }
+    }
+
+    h4 {
+      font-size: rem-calc(24px);
+    }
+
+    @media only screen and (max-width: 988px) {
+      width: 85vw;
+    }
+
+    @media only screen and (max-width: 800px) {
+      #tab-wrapper {
+        max-width: 80%;
+      }
+    }
+
+    @media only screen and (max-width: 650px) {
+      width: 90vw;
+
+      #tab-wrapper {
+        max-width: 75%;
+      }
+
+      .ch5-modal-dialog-contents {
+        font-size: 18px;
+      }
+    }
+
+    @media only screen and (max-width: 560px) {
+      #diagnosticsTableElement {
+        font-size: 16px;
+      }
+    }
+
+    @media only screen and (max-width: 500px) {
+      .ch5-modal-dialog-contents {
+        font-size: 16px;
+
+        #diagnosticsTableElement {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
+
+#template-version-info-page {
+  .ch5-modal-dialog.project-info-dialog {
+    border: 1px solid var(--theme-shell--remote-logger-modal-border);
+    color: var(--theme-colors--theme-body-font-color);
+    background-color: var(--theme-shell--remote-logger-modal-background-color);
+    ;
+
+    h4 {
+      color: var(--theme-colors--theme-body-font-color);
+    }
+
+    p {
+      color: var(--theme-colors--theme-body-font-color);
+    }
+
+    .ch5-modal-dialog-close-icon-btn {
+      color: var(--theme-colors--theme-body-font-color);
+    }
+
+    #version-tab-content,
+    #webxpanel-tab-content,
+    #diagnostics-tab-content {
+      color: var(--theme-colors--theme-body-font-color);
+    }
+
+    #tab-wrapper {
+      button {
+        border: 1px solid var(--theme-shell--version-info-modal-tab-buttons-border-color);
+
+        &:first-child {
+          border-right: none;
+          border-top-left-radius: 3px;
+        }
+
+        &:last-child {
+          border-left: none;
+          border-top-right-radius: 3px;
+        }
+
+        &.selected {
+          background-color: var(--theme-shell--version-info-modal-tab-button-selected-background-color);
+        }
+      }
+    }
+
+    table {
+      width: 100%;
+
+      th,
+      td {
+        border: 1px solid var(--theme-shell--version-info-modal-table-data-rows-border-color);
+        padding: 5px;
+      }
+
+      tr:nth-child(even) {
+        background-color: var(--theme-shell--version-info-table-row-even-background-color);
+      }
+
+      tr:nth-child(odd) {
+        background-color: var(--theme-shell--version-info-table-row-odd-background-color);
+      }
+
+      thead tr:first-child {
+        background-color: var(--theme-shell--version-info-modal-table-header-background-color);
+      }
+    }
+  }
+}
+
+.project-info-dialog,
+.logs-widget,
+.info-widget,
+.theme-widget {
+  ch5-button {
+    --ch5-button--small-width: 36px;
+    --ch5-button--small-height: 36px;
+
+    --ch5-button--small-icon-size: 32px;
+    --ch5-button--small-pressed-icon-size: 32px;
+    --ch5-button--small-selected-icon-size: 32px;
+    --ch5-button--default-border-width: 0;
+    --ch5-button--default-pressed-border-width: 0;
+    --ch5-button--default-selected-border-width: 0;
+
+    --ch5-button--default-background-color: transparent;
+    --ch5-button--default-pressed-background-color: transparent;
+    --ch5-button--default-selected-background-color: transparent;
+    --ch5-button--default-label-font-color: var(--theme-shell--widget-icon-color);
+    --ch5-button--default-pressed-label-font-color: var(--theme-shell--widget-icon-color);
+    --ch5-button--default-selected-label-font-color: var(--theme-shell--widget-icon-color);
+    --ch5-button--default-checkbox-color: var(--theme-shell--widget-icon-color);
+    --ch5-button--default-pressed-checkbox-color: var(--theme-shell--widget-icon-color);
+    --ch5-button--default-selected-checkbox-color: var(--theme-shell--widget-icon-color);
+    --ch5-button--default-icon-color: var(--theme-shell--widget-icon-color);
+    --ch5-button--default-pressed-icon-color: var(--theme-shell--widget-icon-color);
+    --ch5-button--default-selected-icon-color: var(--theme-shell--widget-icon-color);
+  }
+}

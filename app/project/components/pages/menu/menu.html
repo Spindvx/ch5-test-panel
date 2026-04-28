@@ -1,0 +1,61 @@
+<!--
+    Office V3 UI — Menu (Home)
+    Neo-noir landing pad. Joins preserved from v2.
+    Join 1 = Present
+-->
+<section id="menu-page" class="page-dark" style="height:100vh; display:flex; flex-direction:column; box-sizing:border-box;">
+
+    <!-- Page header: title + kana sub-label + live datetime -->
+    <div class="v3-pageheader">
+        <div>
+            <span class="v3-eyebrow">// HOME</span>
+            <div class="v3-title" style="font-size:34px; margin-top:4px;">SPINDUX OFFICE</div>
+            <span class="v3-kana">スピンダックス・オフィス</span>
+        </div>
+        <div style="text-align:right;">
+            <ch5-datetime format="ddd, MMM DD" timeformat="hh:mm TT"
+                style="font-family:'JetBrains Mono', monospace; font-size:18px; color:var(--neon-cyan); letter-spacing:0.06em;"></ch5-datetime>
+            <div class="v3-eyebrow" style="margin-top:4px;">SYSTEM ONLINE</div>
+        </div>
+    </div>
+
+    <!-- Status grid: current source + receiver -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:32px;">
+
+        <div class="v3-card accent-magenta">
+            <div class="v3-eyebrow">CURRENT SOURCE</div>
+            <div class="v3-value magenta" id="current-source-display" style="font-size:24px; margin-top:6px;">Desk — HDMI</div>
+            <div style="margin-top:8px; font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--noir-text-dim); letter-spacing:0.15em;">SRC.01 // HDMI-IN.A</div>
+        </div>
+
+        <div class="v3-card accent-cyan">
+            <div class="v3-eyebrow">DESTINATION</div>
+            <div class="v3-value cyan" id="current-tx-display" style="font-size:24px; margin-top:6px;">TX 2 — Meeting Room</div>
+            <div style="margin-top:8px; font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--noir-text-dim); letter-spacing:0.15em;">RX.DESK // STREAM ACTIVE</div>
+        </div>
+
+    </div>
+
+    <!-- Eyebrow above primary action -->
+    <div class="v3-eyebrow" style="margin-bottom:10px;">QUICK ACTION ▸ JOIN.001</div>
+
+    <!-- Present button — primary neon magenta -->
+    <ch5-button
+        type="text"
+        shape="rectangle"
+        size="xlarge"
+        label="START PRESENTATION"
+        iconClass="fas fa-play"
+        iconPosition="left"
+        sendEventOnClick="1"
+        customClass="btn-noir primary"
+        style="height:88px; font-size:20px;">
+    </ch5-button>
+
+    <!-- Footer hint -->
+    <div style="margin-top:auto; padding-top:24px; display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--noir-line); padding-top:16px;">
+        <div class="v3-eyebrow">◢ NAVIGATE VIA SIDEBAR</div>
+        <div class="v3-eyebrow" style="color:var(--neon-mint);">◉ ALL SYSTEMS NOMINAL</div>
+    </div>
+
+</section>

@@ -1,0 +1,105 @@
+// Copyright (C) 2022 to the present, Crestron Electronics, Inc.
+// All rights reserved.
+// No part of this software may be reproduced in any form, machine
+// or natural, without the express written consent of Crestron Electronics.
+// Use of this source code is subject to the terms of the Crestron Software License Agreement
+// under which you licensed this source code.
+
+.list-item {
+  ch5-button {
+    --ch5-button--text-background-color: var(--theme-shell--navigation-button-list-background-color);
+    --ch5-button--text-pressed-background-color: var(--theme-shell--navigation-button-list-background-color);
+    --ch5-button--text-selected-background-color: var(--theme-shell--navigation-button-list-background-color);
+  }
+}
+
+.footer-page {
+  background-color: var(--theme-colors--theme-background-color);
+  color: var(--theme-colors--theme-body-font-color);
+}
+
+// navbars
+.navbar-dark {
+  &.navbar-default {
+    &,
+    .navbar-nav {
+      background-color: var(--theme-shell--header-background-color);
+    }
+
+    .btn-link {
+      color: var(--theme-colors--theme-body-font-color);
+    }
+
+    // VERTICAL MENU START
+    .toggler {
+      .toggle-icon {
+        border-color: var(--theme-colors--theme-body-font-color);
+
+        &::before,
+        &::after {
+          background-color: var(--theme-colors--theme-body-font-color);
+        }
+      }
+    }
+
+    // VERTICAL MENU END
+    .active,
+    .navbar-nav .active a {
+      color: var(--theme-shell--navigation-button-list-collapsible-icon);
+    }
+  }
+}
+
+// bottom navigation
+.swiper-thumb {
+  background-color: var(--theme-shell--navigation-button-background-color);
+
+  .list-item {
+    ch5-button {
+      --ch5-button--text-border-width: 0;
+      --ch5-button--text-selected-border-width: 0;
+      --ch5-button--text-pressed-border-width: 0;
+    }
+  }
+}
+
+.thumb-action svg {
+  fill: var(--theme-shell--navigation-button-list-collapsible-icon);
+}
+
+.horizontal-menu,
+.horizontal-footer-menu {
+  .swiper-thumb {
+    .list-item {
+      ch5-button {
+        --ch5-button--text-label-font-color: var(--theme-colors--theme-body-font-color);
+        --ch5-button--text-pressed-label-font-color: var(--theme-colors--theme-body-font-color);
+        --ch5-button--text-selected-label-font-color: var(--theme-colors--theme-body-font-color);
+        --ch5-button--text-icon-color: var(--theme-colors--theme-body-font-color);
+        --ch5-button--text-pressed-icon-color: var(--theme-colors--theme-body-font-color);
+        --ch5-button--text-selected-icon-color: var(--theme-colors--theme-body-font-color);
+        --ch5-button--text-border-width: 0;
+        --ch5-button--text-selected-border-width: 0;
+        --ch5-button--text-pressed-border-width: 0;
+      }
+    }
+  }
+}
+
+.vertical-menu {
+  .swiper-thumb {
+    .list-item {
+      ch5-button {
+        --ch5-button--text-label-font-color: var(--theme-colors--theme-body-font-color);
+        --ch5-button--text-pressed-label-font-color: var(--theme-colors--theme-body-font-color);
+        --ch5-button--text-selected-label-font-color: var(--theme-colors--theme-body-font-color);
+        --ch5-button--text-icon-color: var(--theme-colors--theme-body-font-color);
+        --ch5-button--text-pressed-icon-color: var(--theme-colors--theme-body-font-color);
+        --ch5-button--text-selected-icon-color: var(--theme-colors--theme-body-font-color);
+        --ch5-button--text-border-width: 0;
+        --ch5-button--text-selected-border-width: 0;
+        --ch5-button--text-pressed-border-width: 0;
+      }
+    }
+  }
+}

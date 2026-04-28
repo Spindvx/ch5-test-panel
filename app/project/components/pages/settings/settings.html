@@ -1,0 +1,95 @@
+<!--
+    Office V3 UI — Settings
+    Joins preserved:
+      22 = TX mode, 23 = RX mode
+      29/30 = NVX route 1/2
+      18/20 = enables
+      27 = sleep
+-->
+<section id="settings-page" class="page-dark" style="height:100vh; display:flex; flex-direction:column; box-sizing:border-box;">
+
+    <div class="v3-pageheader">
+        <div>
+            <span class="v3-eyebrow">// CONFIG</span>
+            <div class="v3-title" style="font-size:30px; margin-top:4px;">SETTINGS</div>
+            <span class="v3-kana">セッティングス</span>
+        </div>
+        <div class="v3-eyebrow" style="text-align:right;">SECTOR // ADMIN</div>
+    </div>
+
+    <!-- TX/RX mode -->
+    <div class="v3-eyebrow" style="margin-bottom:8px;">▸ DEVICE MODE</div>
+    <div style="display:flex; gap:14px; margin-bottom:18px;">
+        <ch5-button type="text" shape="rectangle" size="large"
+            label="TX MODE" iconClass="fas fa-upload" iconPosition="top"
+            sendEventOnClick="22" receiveStateSelected="22"
+            customClass="btn-noir"
+            style="flex:1; height:88px; font-size:14px;"></ch5-button>
+        <ch5-button type="text" shape="rectangle" size="large"
+            label="RX MODE" iconClass="fas fa-download" iconPosition="top"
+            sendEventOnClick="23" receiveStateSelected="23"
+            customClass="btn-noir"
+            style="flex:1; height:88px; font-size:14px;"></ch5-button>
+    </div>
+
+    <!-- NVX routes -->
+    <div class="v3-eyebrow" style="margin-bottom:8px;">▸ NVX ROUTES</div>
+    <div style="display:flex; gap:14px; margin-bottom:18px;">
+        <ch5-button type="text" shape="rectangle" size="large"
+            label="ROUTE 01" iconClass="fas fa-network-wired" iconPosition="left"
+            sendEventOnClick="29" receiveStateSelected="29"
+            customClass="btn-noir"
+            style="flex:1; height:64px; font-size:14px;"></ch5-button>
+        <ch5-button type="text" shape="rectangle" size="large"
+            label="ROUTE 02" iconClass="fas fa-network-wired" iconPosition="left"
+            sendEventOnClick="30" receiveStateSelected="30"
+            customClass="btn-noir"
+            style="flex:1; height:64px; font-size:14px;"></ch5-button>
+    </div>
+
+    <!-- Enables -->
+    <div class="v3-eyebrow" style="margin-bottom:8px;">▸ STREAM ENABLES</div>
+    <div style="display:flex; gap:14px; margin-bottom:18px;">
+        <ch5-button type="text" shape="rectangle" size="large"
+            label="ENABLE RX" iconClass="fas fa-bolt" iconPosition="left"
+            sendEventOnClick="18" receiveStateSelected="18"
+            customClass="btn-noir"
+            style="flex:1; height:64px; font-size:14px;"></ch5-button>
+        <ch5-button type="text" shape="rectangle" size="large"
+            label="ENABLE SOURCE" iconClass="fas fa-bolt" iconPosition="left"
+            sendEventOnClick="20" receiveStateSelected="20"
+            customClass="btn-noir"
+            style="flex:1; height:64px; font-size:14px;"></ch5-button>
+    </div>
+
+    <!-- Diagnostics card -->
+    <div class="v3-card accent-cyan" style="margin-bottom:18px;">
+        <div class="v3-eyebrow">DIAGNOSTICS</div>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:10px;">
+            <div>
+                <div class="v3-eyebrow" style="font-size:10px;">UPTIME</div>
+                <div class="v3-mono" style="font-size:18px; color:var(--neon-cyan); margin-top:2px;">14d:06h</div>
+            </div>
+            <div>
+                <div class="v3-eyebrow" style="font-size:10px;">FW</div>
+                <div class="v3-mono" style="font-size:18px; color:var(--neon-mint); margin-top:2px;">2.17.2</div>
+            </div>
+            <div>
+                <div class="v3-eyebrow" style="font-size:10px;">UI</div>
+                <div class="v3-mono" style="font-size:18px; color:var(--neon-magenta); margin-top:2px;">v3.0.0</div>
+            </div>
+        </div>
+    </div>
+
+    <div style="flex:1;"></div>
+
+    <!-- Sleep -->
+    <ch5-button type="text" shape="rectangle" size="xlarge"
+        label="SLEEP / WAKE"
+        iconClass="fas fa-moon" iconPosition="left"
+        sendEventOnClick="27"
+        customClass="btn-noir secondary"
+        style="height:72px; font-size:18px;">
+    </ch5-button>
+
+</section>

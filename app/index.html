@@ -1,0 +1,40 @@
+<!--
+    Copyright (C) 2022 to the present, Crestron Electronics, Inc.
+    All rights reserved.
+    No part of this software may be reproduced in any form, machine
+    or natural, without the express written consent of Crestron Electronics.
+    Use of this source code is subject to the terms of the Crestron Software License Agreement 
+    under which you licensed this source code.  
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title data-ch5-i18n="-+app.title+-"></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <link rel="icon" type="image/x-icon" id="favicon" />
+  <link rel="stylesheet" id="shellTemplateSelectedThemeCss">
+  <link rel="stylesheet" id="externalCss">
+  <% for (var css in htmlWebpackPlugin.files.css) { %>
+  <link rel="stylesheet" href="./<%= htmlWebpackPlugin.files.css[css] %>">
+  <% } %>
+
+</head>
+					
+<body>
+  <div id="widgets-and-standalone-pages">
+  </div>
+  <ch5-import-htmlsnippet id="template-page-import-page"
+    url="./app/template/components/pages/template-page/template-page.html">
+  </ch5-import-htmlsnippet>
+
+  <!-- Loader -->
+  <div id="loader" class="loader"></div>
+
+  <% for (var js in htmlWebpackPlugin.files.js) { %>
+  <script src="<%= htmlWebpackPlugin.files.js[js] %>"></script>
+  <% } %>
+</body>
+
+</html>

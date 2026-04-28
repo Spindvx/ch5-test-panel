@@ -1,0 +1,218 @@
+{
+  "projectName": "office-v3-ui",
+  "projectType": "shell-template",
+  "version": "1.0.0",
+  "faviconPath": "favicon.ico",
+  "menuOrientation": "vertical",
+  "selectedTheme": "dark-theme",
+  "useWebXPanel": true,
+  "forceDeviceXPanel": false,
+  "themes": [
+    {
+      "name": "light-theme",
+      "brandLogo": {
+        "url": "./app/template/assets/img/ch5-logo-light.svg",
+        "alt": "Crestron Logo",
+        "receiveStateUrl": ""
+      }
+    },
+    {
+      "name": "dark-theme",
+      "brandLogo": {
+        "url": "./app/template/assets/img/ch5-logo-dark.svg",
+        "alt": "Crestron Logo",
+        "receiveStateUrl": ""
+      }
+    }
+  ],
+  "config": {
+    "controlSystem": {}
+  },
+  "customSignals": {
+    "receiveStateTheme": "templateTheme",
+    "sendEventTheme": "templateTheme",
+    "receiveStateLanguage": "templateLanguage",
+    "sendEventLanguage": "templateLanguage"
+  },
+  "header": {
+    "display": true,
+    "displayInfo": false,
+    "displayTheme": false,
+    "diagnostics": {
+      "logs": {
+        "logAfterProjectLoad": true,
+        "receiveStateLogDiagnostics": "",
+        "logDiagnostics": "none"
+      }
+    },
+    "$component": ""
+  },
+  "footer": {
+    "display": false,
+    "$component": ""
+  },
+  "content": {
+    "$defaultView": "menu",
+    "triggerViewProperties": {
+      "gestureable": false,
+      "disableAnimation": true
+    },
+    "pages": [
+      {
+        "pageName": "menu",
+        "fullPath": "./app/project/components/pages/menu/",
+        "fileName": "menu.html",
+        "preloadPage": true,
+        "cachePage": false,
+        "standAloneView": false,
+        "navigation": {
+          "sequence": 1,
+          "label": "Menu",
+          "isI18nLabel": false,
+          "iconClass": "fas fa-home",
+          "iconUrl": "",
+          "iconPosition": "top"
+        },
+        "animation": {
+          "transitionIn": "",
+          "transitionOut": "",
+          "transitionDuration": "0.3s",
+          "transitionDelay": "0s"
+        }
+      },
+      {
+        "pageName": "nvxControl",
+        "fullPath": "./app/project/components/pages/nvx-control/",
+        "fileName": "nvxControl.html",
+        "preloadPage": true,
+        "cachePage": false,
+        "standAloneView": false,
+        "navigation": {
+          "sequence": 2,
+          "label": "NVX",
+          "isI18nLabel": false,
+          "iconClass": "fas fa-video",
+          "iconUrl": "",
+          "iconPosition": "top"
+        },
+        "animation": {
+          "transitionIn": "",
+          "transitionOut": "",
+          "transitionDuration": "0.3s",
+          "transitionDelay": "0s"
+        }
+      },
+      {
+        "pageName": "qsysLevels",
+        "fullPath": "./app/project/components/pages/qsys-levels/",
+        "fileName": "qsysLevels.html",
+        "preloadPage": true,
+        "cachePage": false,
+        "standAloneView": false,
+        "navigation": {
+          "sequence": 3,
+          "label": "Q-SYS",
+          "isI18nLabel": false,
+          "iconClass": "fas fa-volume-up",
+          "iconUrl": "",
+          "iconPosition": "top"
+        },
+        "animation": {
+          "transitionIn": "",
+          "transitionOut": "",
+          "transitionDuration": "0.3s",
+          "transitionDelay": "0s"
+        }
+      },
+      {
+        "pageName": "volume",
+        "fullPath": "./app/project/components/pages/volume/",
+        "fileName": "volume.html",
+        "preloadPage": true,
+        "cachePage": false,
+        "standAloneView": false,
+        "navigation": {
+          "sequence": 4,
+          "label": "Volume",
+          "isI18nLabel": false,
+          "iconClass": "fas fa-volume-down",
+          "iconUrl": "",
+          "iconPosition": "top"
+        },
+        "animation": {
+          "transitionIn": "",
+          "transitionOut": "",
+          "transitionDuration": "0.3s",
+          "transitionDelay": "0s"
+        }
+      },
+      {
+        "pageName": "clock",
+        "fullPath": "./app/project/components/pages/clock/",
+        "fileName": "clock.html",
+        "preloadPage": false,
+        "cachePage": false,
+        "standAloneView": false,
+        "navigation": {
+          "sequence": 5,
+          "label": "Clock",
+          "isI18nLabel": false,
+          "iconClass": "fas fa-clock",
+          "iconUrl": "",
+          "iconPosition": "top"
+        },
+        "animation": {
+          "transitionIn": "",
+          "transitionOut": "",
+          "transitionDuration": "0.3s",
+          "transitionDelay": "0s"
+        }
+      },
+      {
+        "pageName": "settings",
+        "fullPath": "./app/project/components/pages/settings/",
+        "fileName": "settings.html",
+        "preloadPage": false,
+        "cachePage": false,
+        "standAloneView": false,
+        "navigation": {
+          "sequence": 6,
+          "label": "Settings",
+          "isI18nLabel": false,
+          "iconClass": "fas fa-cog",
+          "iconUrl": "",
+          "iconPosition": "top"
+        },
+        "animation": {
+          "transitionIn": "",
+          "transitionOut": "",
+          "transitionDuration": "0.3s",
+          "transitionDelay": "0s"
+        }
+      },
+      {
+        "pageName": "appleTv",
+        "fullPath": "./app/project/components/pages/apple-tv/",
+        "fileName": "appleTv.html",
+        "preloadPage": false,
+        "cachePage": false,
+        "standAloneView": false,
+        "navigation": {
+          "sequence": 7,
+          "label": "Apple TV",
+          "isI18nLabel": false,
+          "iconClass": "fab fa-apple",
+          "iconUrl": "",
+          "iconPosition": "top"
+        },
+        "animation": {
+          "transitionIn": "",
+          "transitionOut": "",
+          "transitionDuration": "0.3s",
+          "transitionDelay": "0s"
+        }
+      }
+    ],
+    "widgets": []
+  }
+}
