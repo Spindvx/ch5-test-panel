@@ -4,3 +4,14 @@ dist/
 .DS_Store
 .env
 .env.local
+
+# Crestron Construct binaries — track docs/exports, ignore proprietary blobs
+reference/construct/*.smw
+reference/construct/*.smwx
+reference/construct/*.vtz
+reference/construct/*.vtp
+reference/construct/*.vt5
+reference/construct/*.vtpro
+reference/construct/*.cpz
+reference/construct/*.sgd
+reference/construct/*.zip
