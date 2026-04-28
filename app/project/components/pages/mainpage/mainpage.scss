@@ -229,33 +229,29 @@
 }
 
 /* ============================================================
-   Segmented control — 3-up and 4-up rows
-   Selected segment fills with accent + brighter label. Unselected
-   stays as faint glass with hairline-strong border on hover.
-   Cells are centered so wide grid columns don't stretch the button
-   into an awkwardly long rectangle.
+   Segmented control — 3-up and 4-up rows.
+   Buttons fill their grid cell entirely (no max-width). Heights are
+   tuned so the resulting aspect ratio doesn't read as overstretched.
    ============================================================ */
 
 .seg-3,
 .seg-4 {
   display: grid;
   gap: 12px;
-  justify-items: center;       /* keep cells from stretching button width */
 }
 .seg-3 { grid-template-columns: repeat(3, 1fr); }
 .seg-4 { grid-template-columns: repeat(4, 1fr); }
 
-.seg-3 > *,
-.seg-4 > * { width: 100%; }    /* fill cell by default */
+.seg-3 > ch5-button,
+.seg-4 > ch5-button { width: 100%; }
 
-/* Source-mode tile (icon top, label bottom). Closer to 1:1 / 4:5
-   portrait rectangle so the icon + label feel balanced rather than
-   floating in a wide landscape rectangle. */
+/* Source-mode tile — fills its cell at ~290 px wide. Height ~280 px so
+   the icon+label sit centered in a near-square portrait. */
 .seg-btn {
-  --ch5-button--regular-height: 200px;
-  --ch5-button--regular-image-width: 60px;
-  --ch5-button--regular-image-height: 60px;
-  --ch5-button--regular-font-size: 15px;
+  --ch5-button--regular-height: 280px;
+  --ch5-button--regular-image-width: 64px;
+  --ch5-button--regular-image-height: 64px;
+  --ch5-button--regular-font-size: 16px;
   --ch5-button--default-background-color: rgba(255, 255, 255, 0.025);
   --ch5-button--default-border-color: var(--hairline);
   --ch5-button--default-label-font-color: var(--text-dim);
@@ -263,38 +259,35 @@
   --ch5-button--default-selected-background-color: rgba(120, 180, 255, 0.16);
   --ch5-button--default-selected-border-color: var(--accent);
   --ch5-button--default-selected-label-font-color: var(--text);
-  max-width: 240px;             /* keeps source tiles from going elongated */
 }
 
-/* Toggle pill — landscape but constrained so it doesn't stretch wide */
+/* Toggle pill — fills cell at ~290 wide × 88 tall (proportional, not stretched). */
 .seg-3--toggles .seg-btn--toggle,
 .seg-btn--toggle {
-  --ch5-button--regular-height: 60px;
+  --ch5-button--regular-height: 88px;
   --ch5-button--regular-font-size: 15px;
-  max-width: 240px;
 }
 
-/* Action row — 4-up uniform pills with icon-first */
+/* Action button — fills 4-up cell at ~210 wide × 80 tall. */
 .action-btn {
-  --ch5-button--regular-height: 64px;
-  --ch5-button--regular-image-width: 22px;
-  --ch5-button--regular-image-height: 22px;
+  --ch5-button--regular-height: 80px;
+  --ch5-button--regular-image-width: 24px;
+  --ch5-button--regular-image-height: 24px;
   --ch5-button--regular-font-size: 15px;
   --ch5-button--default-background-color: rgba(255, 255, 255, 0.03);
   --ch5-button--default-border-color: var(--hairline);
   --ch5-button--default-label-font-color: var(--text);
   --ch5-button--default-selected-background-color: rgba(120, 180, 255, 0.14);
   --ch5-button--default-selected-border-color: var(--accent-soft);
-  max-width: 220px;
 }
 
-/* USB strip */
+/* USB strip — buttons fill row */
 .lh-usb ch5-button-list {
   --ch5-button-list--orientation: horizontal;
   --ch5-button--regular-width: 100%;
-  --ch5-button--regular-height: 80px;
-  --ch5-button--regular-image-width: 28px;
-  --ch5-button--regular-image-height: 28px;
+  --ch5-button--regular-height: 88px;
+  --ch5-button--regular-image-width: 30px;
+  --ch5-button--regular-image-height: 30px;
 }
 
 /* ============================================================

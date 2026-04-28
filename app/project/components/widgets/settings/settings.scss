@@ -30,15 +30,26 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
 
-    ch5-button { --ch5-button--regular-height: 56px; }
+    ch5-button {
+      --ch5-button--regular-height: 64px;
+      --ch5-button--regular-font-size: 15px;
+      width: 100%;
+    }
   }
 
+  /* Wallpaper / occupancy lists — buttons fill the row width evenly.
+     ch5-button-list uses its own internal grid; we just enlarge the
+     individual button width so the row reads as a full-width strip. */
   ch5-button-list {
-    --ch5-button--regular-height: 64px;
-    --ch5-button--regular-width: 90px;
+    --ch5-button-list--orientation: horizontal;
+    --ch5-button-list--background-color: transparent;
+    --ch5-button-list--border-color: transparent;
+    --ch5-button--regular-height: 72px;
+    --ch5-button--regular-width: 100%;
     --ch5-button--default-background-color: var(--panel);
     --ch5-button--default-border-color: var(--hairline);
     --ch5-button--default-label-font-color: var(--text);
     --ch5-button--regular-font-size: 13px;
+    width: 100%;
   }
 }
