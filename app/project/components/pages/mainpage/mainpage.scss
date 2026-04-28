@@ -225,33 +225,33 @@
     align-items: center;
 
     ch5-button {
-      --ch5-button--regular-height: 70px;
-      --ch5-button--regular-font-size: 13px;
+      --ch5-button--regular-height: 60px;
+      --ch5-button--regular-font-size: 14px;
     }
     .left__db {
-      font-size: 20px;
+      font-size: 18px;
+      font-weight: 400;
       font-feature-settings: "tnum" on;
       letter-spacing: 0.04em;
-      padding: 18px 22px;
+      padding: 14px 22px;
       background: var(--panel);
       border: 1px solid var(--hairline);
       border-radius: var(--radius-sm);
       min-width: 130px;
       text-align: right;
+      white-space: nowrap;
     }
   }
 
-  /* Browser / Office / Lock */
+  /* Browser / Office / Lock — same height for rhythm */
   .left__actions {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 12px;
 
-    ch5-button, ch5-toggle {
-      --ch5-button--regular-height: 70px;
-      --ch5-toggle--height: 70px;
-      --ch5-button--regular-font-size: 13px;
-      --ch5-toggle--font-size: 13px;
+    ch5-button {
+      --ch5-button--regular-height: 60px;
+      --ch5-button--regular-font-size: 14px;
     }
   }
 
@@ -295,7 +295,7 @@
 }
 
 /* ============================================================
-   BOTTOM BAR — 100 px tall
+   BOTTOM BAR — Construct-style: mute on left, slider full-width
    ============================================================ */
 
 .mainpage__bottom {
@@ -305,21 +305,21 @@
   bottom: 22px;
   height: 84px;
   display: grid;
-  grid-template-columns: auto auto 1fr auto auto;
-  gap: 20px;
+  grid-template-columns: auto 1fr;     /* mute | full-width slider */
+  gap: 18px;
   align-items: center;
   padding: 0 24px;
 
-  ch5-button {
+  .bottom__mute {
     --ch5-button--regular-width: 64px;
-    --ch5-button--regular-height: 64px;
-    --ch5-button--regular-image-width: 30px;
-    --ch5-button--regular-image-height: 30px;
+    --ch5-button--regular-height: 56px;
+    --ch5-button--regular-image-width: 26px;
+    --ch5-button--regular-image-height: 26px;
   }
 
   .bottom__volume {
-    --ch5-slider--height: 50px;
     width: 100%;
+    --ch5-slider--height: 50px;
   }
 }
 

@@ -178,7 +178,7 @@ ch5-button {
   --ch5-button--default-border-width:               1px;
   --ch5-button--default-label-font-color:           var(--text);
 
-  --ch5-button--regular-font-size:                  13px;
+  --ch5-button--regular-font-size:                  14px;
 
   --ch5-button--default-pressed-background-color:   var(--panel-strong);
   --ch5-button--default-pressed-border-color:       var(--accent-soft);
@@ -193,12 +193,66 @@ ch5-button {
   overflow: hidden;
 }
 
+/* Center the icon + label stack inside every ch5-button. By default
+   CH5 left-aligns its content; we want the icon and label centered. */
 ch5-button .cb-btn,
-ch5-button button {
+ch5-button .ch5-button {
+  display: flex !important;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  padding: 0 14px;
   -webkit-backdrop-filter: blur(var(--blur));
   backdrop-filter: blur(var(--blur));
   box-shadow: var(--shadow-rest);
-  transition: box-shadow 120ms ease, background-color 120ms ease;
+  transition: box-shadow 120ms ease, background-color 120ms ease, border-color 120ms ease;
+}
+
+/* When iconposition=top, stack vertically with the icon above the label */
+ch5-button[iconposition="top"] .cb-btn,
+ch5-button[iconposition="top"] .ch5-button {
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 12px;
+}
+
+/* The actual <i.cb-icon> element — never collapse, fill the size CH5 expects */
+ch5-button .cb-icon,
+ch5-button .ch5-button--img {
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  display: inline-block !important;
+  flex-shrink: 0;
+  opacity: 0.9;
+  transition: opacity 120ms ease;
+}
+
+ch5-button[selected="true"] .cb-icon,
+ch5-button[selected] .cb-icon { opacity: 1; }
+
+/* Labels: single line, never truncate. Override CH5's internal
+   text-overflow:ellipsis with stronger specificity. */
+ch5-button .cb-lbl,
+ch5-button .ch5-button--label,
+ch5-button .ch5-button--label.cb-lbl,
+ch5-button button .cb-lbl,
+ch5-button button .ch5-button--label {
+  font-family: var(--font-sans) !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.2 !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  text-overflow: unset !important;
+  max-width: none !important;
+  width: auto !important;
+  flex: 0 0 auto;
 }
 
 ch5-button[selected="true"] .cb-btn,
@@ -221,6 +275,30 @@ ch5-button.glass-btn.danger {
   --ch5-button--default-label-font-color:    var(--danger);
 }
 
+/* Toggle pill — ch5-button used as a soft on/off pill */
+ch5-button.toggle-pill {
+  --ch5-button--default-background-color:           rgba(255, 255, 255, 0.03);
+  --ch5-button--default-border-color:               var(--hairline);
+  --ch5-button--default-label-font-color:           var(--text-dim);
+  --ch5-button--default-selected-background-color:  rgba(120, 180, 255, 0.18);
+  --ch5-button--default-selected-border-color:      var(--accent);
+  --ch5-button--default-selected-label-font-color:  var(--text);
+}
+ch5-button.toggle-pill .cb-btn::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-mute);
+  flex-shrink: 0;
+  transition: background-color 160ms ease, box-shadow 160ms ease;
+}
+ch5-button.toggle-pill[selected="true"] .cb-btn::before,
+ch5-button.toggle-pill[selected] .cb-btn::before {
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+
 /* ============================================================
    ch5-toggle: glass pill
    ============================================================ */
@@ -240,15 +318,39 @@ ch5-toggle {
    ============================================================ */
 
 ch5-slider {
-  --ch5-slider--background-color:           var(--panel);
-  --ch5-slider--border-color:               var(--hairline);
+  --ch5-slider--background-color:           transparent;
+  --ch5-slider--border-color:               transparent;
   --ch5-slider--bar-color:                  rgba(255, 255, 255, 0.06);
   --ch5-slider--filled-bar-color:           var(--accent);
   --ch5-slider--handle-color:               var(--text);
   --ch5-slider--handle-border-color:        var(--accent-soft);
   --ch5-slider--tooltip-background-color:   rgba(0, 0, 0, 0.7);
   --ch5-slider--tooltip-color:              var(--text);
+  display: block;
+  width: 100%;
   border-radius: var(--radius);
+}
+
+/* Bottom-bar full-width slider — bigger track + glass treatment */
+ch5-slider.bottom__volume {
+  --ch5-slider--filled-bar-color:           rgba(190, 220, 250, 0.85);
+}
+
+ch5-slider .noUi-base,
+ch5-slider .noUi-target {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid var(--hairline) !important;
+  border-radius: 999px !important;
+  -webkit-backdrop-filter: blur(var(--blur));
+  backdrop-filter: blur(var(--blur));
+  height: 100% !important;
+}
+
+ch5-slider .noUi-connect,
+ch5-slider .noUi-connects {
+  background: linear-gradient(90deg, var(--accent-soft), var(--accent)) !important;
+  box-shadow: 0 0 22px var(--accent-glow);
+  border-radius: 999px !important;
 }
 
 .fader-strip,

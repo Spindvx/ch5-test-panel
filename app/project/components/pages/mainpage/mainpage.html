@@ -129,20 +129,26 @@
       </ch5-button>
     </div>
 
-    <!-- Audio toggles -->
+    <!-- Audio toggles — ch5-button as toggle pill (cleaner than ch5-toggle) -->
     <div class="left__toggles">
-      <ch5-toggle
-          sendeventonclick="50" receivestatevalue="50"
-          labelon="7 Ch" labeloff="2 Ch">
-      </ch5-toggle>
-      <ch5-toggle
-          sendeventonclick="47" receivestatevalue="47"
-          labelon="Bass On" labeloff="Bass Off">
-      </ch5-toggle>
-      <ch5-toggle
-          sendeventonclick="11" receivestatevalue="11"
-          labelon="Occ On" labeloff="Occ Off">
-      </ch5-toggle>
+      <ch5-button
+          class="toggle-pill"
+          shape="rounded-rectangle"
+          sendeventontouch="50" receivestateselected="50"
+          label="7 Channel">
+      </ch5-button>
+      <ch5-button
+          class="toggle-pill"
+          shape="rounded-rectangle"
+          sendeventontouch="47" receivestateselected="47"
+          label="Bass Boost">
+      </ch5-button>
+      <ch5-button
+          class="toggle-pill"
+          shape="rounded-rectangle"
+          sendeventontouch="11" receivestateselected="11"
+          label="Occupancy">
+      </ch5-button>
     </div>
 
     <!-- Q-SYS Audio gauge (small inline gauge slider, analog 2) -->
@@ -168,7 +174,7 @@
       </span>
     </div>
 
-    <!-- Browser / Office toggle / Lock PC -->
+    <!-- Browser / Office / Lock — Office is now a button toggle (selected = on) -->
     <div class="left__actions">
       <ch5-button
           shape="rounded-rectangle"
@@ -176,10 +182,12 @@
           label="Browser"
           iconclass="fab fa-chrome" iconposition="last">
       </ch5-button>
-      <ch5-toggle
-          sendeventonclick="48" receivestatevalue="49"
-          labelon="Office On" labeloff="Office Off">
-      </ch5-toggle>
+      <ch5-button
+          class="toggle-pill"
+          shape="rounded-rectangle"
+          sendeventontouch="48" receivestateselected="49"
+          label="Office Mode">
+      </ch5-button>
       <ch5-button
           shape="rounded-rectangle"
           sendeventontouch="7" receivestateselected="7"
@@ -257,46 +265,23 @@
     </ch5-template>
   </main>
 
-  <!-- ============ BOTTOM BAR — master volume ============ -->
-  <!-- TODO(joins): vol-up / vol-down digital joins (8/9 placeholder) need
-       confirmation from the SIMPL .smw — currently they pulse the placeholder
-       joins; ask user before deploying if they should adjust the analog 1
-       value directly via SIMPL. -->
+  <!-- ============ BOTTOM BAR — master volume (Construct-style: full-width slider + mute) ============ -->
   <footer class="mainpage__bottom glass-panel-strong">
     <ch5-button
-        id="mp-power-bottom"
+        id="mp-mute"
+        class="bottom__mute"
         shape="rounded-rectangle"
-        sendeventontouch="1" receivestateselected="1"
-        iconurl="./app/project/assets/img/Power.png" label="">
-    </ch5-button>
-    <ch5-button
-        id="mp-vol-down"
-        class="bottom__voldown"
-        shape="rounded-rectangle"
-        sendeventontouch="9" receivestateselected="9"
-        iconclass="fas fa-volume-down" label="">
+        sendeventontouch="10" receivestateselected="10"
+        iconurl="./app/project/assets/img/Mute%20Icon.png" label="">
     </ch5-button>
     <ch5-slider
         class="bottom__volume"
         slidertype="gauge"
         max="65535" value="0"
         sendeventonchange="1" receivestatevalue="1"
-        nohandle="false" handleshape="circle"
+        nohandle="true" handleshape="rectangle"
         tapsettable="true">
     </ch5-slider>
-    <ch5-button
-        id="mp-vol-up"
-        class="bottom__volup"
-        shape="rounded-rectangle"
-        sendeventontouch="8" receivestateselected="8"
-        iconclass="fas fa-volume-up" label="">
-    </ch5-button>
-    <ch5-button
-        id="mp-mute"
-        shape="rounded-rectangle"
-        sendeventontouch="10" receivestateselected="10"
-        iconurl="./app/project/assets/img/Mute%20Icon.png" label="">
-    </ch5-button>
   </footer>
 
   <!-- Default the right pane to NVX on cold start so the panel never lands
