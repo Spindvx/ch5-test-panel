@@ -1,0 +1,371 @@
+{
+  "name": "Office_V2",
+  "timestamp": "2026-04-08T19:53:48.8891775+00:00",
+  "version": "1.0.0.0",
+  "schema_version": 1,
+  "extra_value": "",
+  "signals": {
+    "states": {
+      "boolean": {
+        "2": {
+          "1001": "MainPage.ButtonList.Button1ItemSelected",
+          "1002": "MainPage.ButtonList.Button2ItemSelected",
+          "1003": "MainPage.ButtonList.Button3ItemSelected",
+          "1004": "MainPage.ButtonList.Button4ItemSelected"
+        },
+        "3": {
+          "1001": "MainPage.USBRouter.Button1ItemSelected",
+          "1002": "MainPage.USBRouter.Button2ItemSelected",
+          "1003": "MainPage.USBRouter.Button3ItemSelected",
+          "1004": "MainPage.USBRouter.Button4ItemSelected"
+        },
+        "6": {
+          "1": "MainPage.AppleTV.Dpad.HideCenterButton",
+          "3": "MainPage.AppleTV.Dpad.DisableCenterButton"
+        },
+        "8": {
+          "1001": "MainPage.Sandbox.TPLockscreenWallpaper.Button1ItemSelected",
+          "1002": "MainPage.Sandbox.TPLockscreenWallpaper.Button2ItemSelected",
+          "1003": "MainPage.Sandbox.TPLockscreenWallpaper.Button3ItemSelected",
+          "1004": "MainPage.Sandbox.TPLockscreenWallpaper.Button4ItemSelected",
+          "1005": "MainPage.Sandbox.TPLockscreenWallpaper.Button5ItemSelected",
+          "1006": "MainPage.Sandbox.TPLockscreenWallpaper.Button6ItemSelected",
+          "1007": "MainPage.Sandbox.TPLockscreenWallpaper.Button7ItemSelected",
+          "1008": "MainPage.Sandbox.TPLockscreenWallpaper.Button8ItemSelected",
+          "1009": "MainPage.Sandbox.TPLockscreenWallpaper.Button9ItemSelected"
+        },
+        "9": {
+          "1001": "MainPage.Sandbox.TX03RXModeSource.Button1ItemSelected",
+          "1002": "MainPage.Sandbox.TX03RXModeSource.Button2ItemSelected",
+          "1003": "MainPage.Sandbox.TX03RXModeSource.Button3ItemSelected",
+          "1004": "MainPage.Sandbox.TX03RXModeSource.Button4ItemSelected",
+          "1005": "MainPage.Sandbox.TX03RXModeSource.Button5ItemSelected",
+          "1006": "MainPage.Sandbox.TX03RXModeSource.Button6ItemSelected",
+          "1007": "MainPage.Sandbox.TX03RXModeSource.Button7ItemSelected",
+          "1008": "MainPage.Sandbox.TX03RXModeSource.Button8ItemSelected",
+          "1009": "MainPage.Sandbox.TX03RXModeSource.Button9ItemSelected"
+        },
+        "10": {
+          "1001": "MainPage.Sandbox.TPHomescreenWP.Button1ItemSelected",
+          "1002": "MainPage.Sandbox.TPHomescreenWP.Button2ItemSelected",
+          "1003": "MainPage.Sandbox.TPHomescreenWP.Button3ItemSelected",
+          "1004": "MainPage.Sandbox.TPHomescreenWP.Button4ItemSelected",
+          "1005": "MainPage.Sandbox.TPHomescreenWP.Button5ItemSelected",
+          "1006": "MainPage.Sandbox.TPHomescreenWP.Button6ItemSelected",
+          "1007": "MainPage.Sandbox.TPHomescreenWP.Button7ItemSelected",
+          "1008": "MainPage.Sandbox.TPHomescreenWP.Button8ItemSelected",
+          "1009": "MainPage.Sandbox.TPHomescreenWP.Button9ItemSelected"
+        },
+        "11": {
+          "1001": "MainPage.Sandbox.OccupancyTimeout.Button1ItemSelected",
+          "1002": "MainPage.Sandbox.OccupancyTimeout.Button2ItemSelected",
+          "1003": "MainPage.Sandbox.OccupancyTimeout.Button3ItemSelected",
+          "1004": "MainPage.Sandbox.OccupancyTimeout.Button4ItemSelected",
+          "1005": "MainPage.Sandbox.OccupancyTimeout.Button5ItemSelected"
+        },
+        "14": {
+          "1": "MainPage.MusicPlayer.MediaPlayer.Refresh",
+          "2": "MainPage.MusicPlayer.MediaPlayer.Offline"
+        }
+      },
+      "numeric": {
+        "3": {
+          "1": "MainPage.USBRouter.ListNumberOfItems"
+        },
+        "8": {
+          "1": "MainPage.Sandbox.TPLockscreenWallpaper.ListNumberOfItems"
+        },
+        "9": {
+          "1": "MainPage.Sandbox.TX03RXModeSource.ListNumberOfItems"
+        },
+        "10": {
+          "1": "MainPage.Sandbox.TPHomescreenWP.ListNumberOfItems"
+        }
+      },
+      "string": {
+        "1": {
+          "4": "MainPage.Background.Url"
+        },
+        "2": {
+          "1": "MainPage.ButtonList.Button1Text",
+          "2": "MainPage.ButtonList.Button2Text",
+          "3": "MainPage.ButtonList.Button3Text",
+          "4": "MainPage.ButtonList.Button4Text"
+        },
+        "3": {
+          "1": "MainPage.USBRouter.Button1Text",
+          "2": "MainPage.USBRouter.Button2Text",
+          "3": "MainPage.USBRouter.Button3Text",
+          "4": "MainPage.USBRouter.Button4Text"
+        },
+        "8": {
+          "1": "MainPage.Sandbox.TPLockscreenWallpaper.Button1Text",
+          "2": "MainPage.Sandbox.TPLockscreenWallpaper.Button2Text",
+          "3": "MainPage.Sandbox.TPLockscreenWallpaper.Button3Text",
+          "4": "MainPage.Sandbox.TPLockscreenWallpaper.Button4Text",
+          "5": "MainPage.Sandbox.TPLockscreenWallpaper.Button5Text",
+          "6": "MainPage.Sandbox.TPLockscreenWallpaper.Button6Text",
+          "7": "MainPage.Sandbox.TPLockscreenWallpaper.Button7Text",
+          "8": "MainPage.Sandbox.TPLockscreenWallpaper.Button8Text",
+          "9": "MainPage.Sandbox.TPLockscreenWallpaper.Button9Text",
+          "501": "MainPage.Sandbox.TPLockscreenWallpaper.Button1IconClass",
+          "502": "MainPage.Sandbox.TPLockscreenWallpaper.Button2IconClass",
+          "503": "MainPage.Sandbox.TPLockscreenWallpaper.Button3IconClass",
+          "504": "MainPage.Sandbox.TPLockscreenWallpaper.Button4IconClass",
+          "505": "MainPage.Sandbox.TPLockscreenWallpaper.Button5IconClass",
+          "506": "MainPage.Sandbox.TPLockscreenWallpaper.Button6IconClass",
+          "507": "MainPage.Sandbox.TPLockscreenWallpaper.Button7IconClass",
+          "508": "MainPage.Sandbox.TPLockscreenWallpaper.Button8IconClass",
+          "509": "MainPage.Sandbox.TPLockscreenWallpaper.Button9IconClass"
+        },
+        "9": {
+          "1": "MainPage.Sandbox.TX03RXModeSource.Button1Text",
+          "2": "MainPage.Sandbox.TX03RXModeSource.Button2Text",
+          "3": "MainPage.Sandbox.TX03RXModeSource.Button3Text",
+          "4": "MainPage.Sandbox.TX03RXModeSource.Button4Text",
+          "5": "MainPage.Sandbox.TX03RXModeSource.Button5Text",
+          "6": "MainPage.Sandbox.TX03RXModeSource.Button6Text",
+          "7": "MainPage.Sandbox.TX03RXModeSource.Button7Text",
+          "8": "MainPage.Sandbox.TX03RXModeSource.Button8Text",
+          "9": "MainPage.Sandbox.TX03RXModeSource.Button9Text",
+          "501": "MainPage.Sandbox.TX03RXModeSource.Button1IconClass",
+          "502": "MainPage.Sandbox.TX03RXModeSource.Button2IconClass",
+          "503": "MainPage.Sandbox.TX03RXModeSource.Button3IconClass",
+          "504": "MainPage.Sandbox.TX03RXModeSource.Button4IconClass",
+          "505": "MainPage.Sandbox.TX03RXModeSource.Button5IconClass",
+          "506": "MainPage.Sandbox.TX03RXModeSource.Button6IconClass",
+          "507": "MainPage.Sandbox.TX03RXModeSource.Button7IconClass",
+          "508": "MainPage.Sandbox.TX03RXModeSource.Button8IconClass",
+          "509": "MainPage.Sandbox.TX03RXModeSource.Button9IconClass"
+        },
+        "10": {
+          "1": "MainPage.Sandbox.TPHomescreenWP.Button1Text",
+          "2": "MainPage.Sandbox.TPHomescreenWP.Button2Text",
+          "3": "MainPage.Sandbox.TPHomescreenWP.Button3Text",
+          "4": "MainPage.Sandbox.TPHomescreenWP.Button4Text",
+          "5": "MainPage.Sandbox.TPHomescreenWP.Button5Text",
+          "6": "MainPage.Sandbox.TPHomescreenWP.Button6Text",
+          "7": "MainPage.Sandbox.TPHomescreenWP.Button7Text",
+          "8": "MainPage.Sandbox.TPHomescreenWP.Button8Text",
+          "9": "MainPage.Sandbox.TPHomescreenWP.Button9Text",
+          "501": "MainPage.Sandbox.TPHomescreenWP.Button1IconClass",
+          "502": "MainPage.Sandbox.TPHomescreenWP.Button2IconClass",
+          "503": "MainPage.Sandbox.TPHomescreenWP.Button3IconClass",
+          "504": "MainPage.Sandbox.TPHomescreenWP.Button4IconClass",
+          "505": "MainPage.Sandbox.TPHomescreenWP.Button5IconClass",
+          "506": "MainPage.Sandbox.TPHomescreenWP.Button6IconClass",
+          "507": "MainPage.Sandbox.TPHomescreenWP.Button7IconClass",
+          "508": "MainPage.Sandbox.TPHomescreenWP.Button8IconClass",
+          "509": "MainPage.Sandbox.TPHomescreenWP.Button9IconClass"
+        },
+        "11": {
+          "1": "MainPage.Sandbox.OccupancyTimeout.Button1Text",
+          "2": "MainPage.Sandbox.OccupancyTimeout.Button2Text",
+          "3": "MainPage.Sandbox.OccupancyTimeout.Button3Text",
+          "4": "MainPage.Sandbox.OccupancyTimeout.Button4Text",
+          "5": "MainPage.Sandbox.OccupancyTimeout.Button5Text"
+        },
+        "14": {
+          "1": "MainPage.MusicPlayer.MediaPlayer.CRPC_FB",
+          "2": "MainPage.MusicPlayer.MediaPlayer.Player_Name",
+          "3": "MainPage.MusicPlayer.MediaPlayer.Message_FB"
+        }
+      }
+    },
+    "events": {
+      "boolean": {
+        "MainPage.ButtonList.Button1ItemPress": {
+          "joinId": 1001,
+          "smartObjectId": 2
+        },
+        "MainPage.ButtonList.Button2ItemPress": {
+          "joinId": 1002,
+          "smartObjectId": 2
+        },
+        "MainPage.ButtonList.Button3ItemPress": {
+          "joinId": 1003,
+          "smartObjectId": 2
+        },
+        "MainPage.ButtonList.Button4ItemPress": {
+          "joinId": 1004,
+          "smartObjectId": 2
+        },
+        "MainPage.USBRouter.Button1ItemPress": {
+          "joinId": 1001,
+          "smartObjectId": 3
+        },
+        "MainPage.USBRouter.Button2ItemPress": {
+          "joinId": 1002,
+          "smartObjectId": 3
+        },
+        "MainPage.USBRouter.Button3ItemPress": {
+          "joinId": 1003,
+          "smartObjectId": 3
+        },
+        "MainPage.USBRouter.Button4ItemPress": {
+          "joinId": 1004,
+          "smartObjectId": 3
+        },
+        "MainPage.AppleTV.Dpad.Visibility": {
+          "joinId": 1,
+          "smartObjectId": 6
+        },
+        "MainPage.AppleTV.Dpad.Up": {
+          "joinId": 4,
+          "smartObjectId": 6
+        },
+        "MainPage.AppleTV.Dpad.Down": {
+          "joinId": 5,
+          "smartObjectId": 6
+        },
+        "MainPage.AppleTV.Dpad.Left": {
+          "joinId": 6,
+          "smartObjectId": 6
+        },
+        "MainPage.AppleTV.Dpad.Right": {
+          "joinId": 7,
+          "smartObjectId": 6
+        },
+        "MainPage.AppleTV.Dpad.Center": {
+          "joinId": 8,
+          "smartObjectId": 6
+        },
+        "MainPage.Sandbox.TPLockscreenWallpaper.Button1ItemPress": {
+          "joinId": 1001,
+          "smartObjectId": 8
+        },
+        "MainPage.Sandbox.TPLockscreenWallpaper.Button2ItemPress": {
+          "joinId": 1002,
+          "smartObjectId": 8
+        },
+        "MainPage.Sandbox.TPLockscreenWallpaper.Button3ItemPress": {
+          "joinId": 1003,
+          "smartObjectId": 8
+        },
+        "MainPage.Sandbox.TPLockscreenWallpaper.Button4ItemPress": {
+          "joinId": 1004,
+          "smartObjectId": 8
+        },
+        "MainPage.Sandbox.TPLockscreenWallpaper.Button5ItemPress": {
+          "joinId": 1005,
+          "smartObjectId": 8
+        },
+        "MainPage.Sandbox.TPLockscreenWallpaper.Button6ItemPress": {
+          "joinId": 1006,
+          "smartObjectId": 8
+        },
+        "MainPage.Sandbox.TPLockscreenWallpaper.Button7ItemPress": {
+          "joinId": 1007,
+          "smartObjectId": 8
+        },
+        "MainPage.Sandbox.TPLockscreenWallpaper.Button8ItemPress": {
+          "joinId": 1008,
+          "smartObjectId": 8
+        },
+        "MainPage.Sandbox.TPLockscreenWallpaper.Button9ItemPress": {
+          "joinId": 1009,
+          "smartObjectId": 8
+        },
+        "MainPage.Sandbox.TX03RXModeSource.Button1ItemPress": {
+          "joinId": 1001,
+          "smartObjectId": 9
+        },
+        "MainPage.Sandbox.TX03RXModeSource.Button2ItemPress": {
+          "joinId": 1002,
+          "smartObjectId": 9
+        },
+        "MainPage.Sandbox.TX03RXModeSource.Button3ItemPress": {
+          "joinId": 1003,
+          "smartObjectId": 9
+        },
+        "MainPage.Sandbox.TX03RXModeSource.Button4ItemPress": {
+          "joinId": 1004,
+          "smartObjectId": 9
+        },
+        "MainPage.Sandbox.TX03RXModeSource.Button5ItemPress": {
+          "joinId": 1005,
+          "smartObjectId": 9
+        },
+        "MainPage.Sandbox.TX03RXModeSource.Button6ItemPress": {
+          "joinId": 1006,
+          "smartObjectId": 9
+        },
+        "MainPage.Sandbox.TX03RXModeSource.Button7ItemPress": {
+          "joinId": 1007,
+          "smartObjectId": 9
+        },
+        "MainPage.Sandbox.TX03RXModeSource.Button8ItemPress": {
+          "joinId": 1008,
+          "smartObjectId": 9
+        },
+        "MainPage.Sandbox.TX03RXModeSource.Button9ItemPress": {
+          "joinId": 1009,
+          "smartObjectId": 9
+        },
+        "MainPage.Sandbox.TPHomescreenWP.Button1ItemPress": {
+          "joinId": 1001,
+          "smartObjectId": 10
+        },
+        "MainPage.Sandbox.TPHomescreenWP.Button2ItemPress": {
+          "joinId": 1002,
+          "smartObjectId": 10
+        },
+        "MainPage.Sandbox.TPHomescreenWP.Button3ItemPress": {
+          "joinId": 1003,
+          "smartObjectId": 10
+        },
+        "MainPage.Sandbox.TPHomescreenWP.Button4ItemPress": {
+          "joinId": 1004,
+          "smartObjectId": 10
+        },
+        "MainPage.Sandbox.TPHomescreenWP.Button5ItemPress": {
+          "joinId": 1005,
+          "smartObjectId": 10
+        },
+        "MainPage.Sandbox.TPHomescreenWP.Button6ItemPress": {
+          "joinId": 1006,
+          "smartObjectId": 10
+        },
+        "MainPage.Sandbox.TPHomescreenWP.Button7ItemPress": {
+          "joinId": 1007,
+          "smartObjectId": 10
+        },
+        "MainPage.Sandbox.TPHomescreenWP.Button8ItemPress": {
+          "joinId": 1008,
+          "smartObjectId": 10
+        },
+        "MainPage.Sandbox.TPHomescreenWP.Button9ItemPress": {
+          "joinId": 1009,
+          "smartObjectId": 10
+        },
+        "MainPage.Sandbox.OccupancyTimeout.Button1ItemPress": {
+          "joinId": 1001,
+          "smartObjectId": 11
+        },
+        "MainPage.Sandbox.OccupancyTimeout.Button2ItemPress": {
+          "joinId": 1002,
+          "smartObjectId": 11
+        },
+        "MainPage.Sandbox.OccupancyTimeout.Button3ItemPress": {
+          "joinId": 1003,
+          "smartObjectId": 11
+        },
+        "MainPage.Sandbox.OccupancyTimeout.Button4ItemPress": {
+          "joinId": 1004,
+          "smartObjectId": 11
+        },
+        "MainPage.Sandbox.OccupancyTimeout.Button5ItemPress": {
+          "joinId": 1005,
+          "smartObjectId": 11
+        }
+      },
+      "numeric": {},
+      "string": {
+        "MainPage.MusicPlayer.MediaPlayer.CRPC": {
+          "joinId": 1,
+          "smartObjectId": 14
+        }
+      }
+    }
+  }
+}
