@@ -291,17 +291,83 @@ ch5-jointotext-numeric {
 }
 
 /* ============================================================
-   ch5-dpad / ch5-keypad
+   ch5-dpad / ch5-keypad — full glass theming
    ============================================================ */
 
-ch5-dpad,
+ch5-dpad {
+  --ch5-dpad--default-background:                rgba(255, 255, 255, 0.04);
+  --ch5-dpad--default-border-color:              var(--hairline);
+  --ch5-dpad--default-color:                     var(--text);
+  --ch5-dpad--label-font-color:                  var(--text);
+  --ch5-dpad--background-color:                  transparent;
+}
+
+/* Each ch5-dpad-button gets the same glass pill look */
+ch5-dpad-button,
+ch5-dpad-button button,
+ch5-dpad button.ch5-dpad-btn {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid var(--hairline) !important;
+  color: var(--text) !important;
+  -webkit-backdrop-filter: blur(var(--blur));
+  backdrop-filter: blur(var(--blur));
+  border-radius: 14px;
+  transition: background-color 120ms ease, box-shadow 120ms ease;
+}
+
+ch5-dpad-button[selected="true"] button,
+ch5-dpad-button[selected] button,
+ch5-dpad button.ch5-dpad-btn:active {
+  background-color: rgba(120, 180, 255, 0.18) !important;
+  border-color: var(--accent-soft) !important;
+  box-shadow: var(--shadow-sel);
+}
+
 ch5-keypad {
-  --ch5-dpad--background-color:           var(--panel);
-  --ch5-dpad--border-color:               var(--hairline);
-  --ch5-dpad--label-font-color:           var(--text);
-  --ch5-keypad--background-color:         var(--panel);
-  --ch5-keypad--border-color:             var(--hairline);
-  --ch5-keypad--label-font-color:         var(--text);
+  --ch5-keypad--background-color:                transparent;
+  --ch5-keypad--default-color:                   var(--text);
+  --ch5-keypad--label-font-color:                var(--text);
+  background: transparent;
+}
+
+/* Each ch5-keypad-button glass pill */
+ch5-keypad-button,
+ch5-keypad-button button,
+ch5-keypad button.ch5-keypad-btn,
+ch5-keypad .keypad-btn {
+  background-color: rgba(255, 255, 255, 0.04) !important;
+  background-image: none !important;
+  border: 1px solid var(--hairline) !important;
+  color: var(--text) !important;
+  -webkit-backdrop-filter: blur(var(--blur));
+  backdrop-filter: blur(var(--blur));
+  border-radius: var(--radius-sm);
+  transition: background-color 120ms ease, box-shadow 120ms ease;
+}
+
+ch5-keypad-button:active button,
+ch5-keypad-button[pressed] button,
+ch5-keypad button.ch5-keypad-btn:active,
+ch5-keypad .keypad-btn:active {
+  background-color: rgba(120, 180, 255, 0.18) !important;
+  border-color: var(--accent-soft) !important;
+}
+
+/* Major/minor labels inside keypad buttons */
+ch5-keypad .ch5-keypad-btn-major,
+ch5-keypad .ch5-keypad-btn-text-major {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  color: var(--text);
+}
+
+ch5-keypad .ch5-keypad-btn-minor,
+ch5-keypad .ch5-keypad-btn-text-minor {
+  font-family: var(--font-italic);
+  font-style: italic;
+  font-weight: 200;
+  color: var(--text-dim);
+  letter-spacing: 0.06em;
 }
 
 /* ============================================================
