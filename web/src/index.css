@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body {
+    background: #07090c;
+    color: rgba(255, 255, 255, 0.94);
+    font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    margin: 0;
+    overflow: hidden;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-panel border border-hairline backdrop-blur-glass;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset,
+                0 8px 22px rgba(0, 0, 0, 0.35);
+  }
+  .glass-strong {
+    @apply bg-panel-strong border border-hairline-strong backdrop-blur-glass-strong;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset,
+                0 8px 22px rgba(0, 0, 0, 0.35);
+  }
+  .eyebrow {
+    @apply italic font-extralight text-[11px] tracking-[0.18em] uppercase text-text-dim;
+  }
+  .display-title {
+    @apply italic font-extralight text-[36px] leading-[1.05] tracking-[-0.01em] text-text;
+  }
+  .tnum {
+    font-feature-settings: "tnum" on;
+  }
+}

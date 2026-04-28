@@ -15,3 +15,7 @@ reference/construct/*.vtpro
 reference/construct/*.cpz
 reference/construct/*.sgd
 reference/construct/*.zip
+
+# React prototype build output
+web/dist/
+web/node_modules/
