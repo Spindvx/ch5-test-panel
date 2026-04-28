@@ -134,7 +134,8 @@
       --ch5-button--regular-height: 140px;
       --ch5-button--regular-image-width: 48px;
       --ch5-button--regular-image-height: 48px;
-      --ch5-button--regular-font-size: 16px;
+      --ch5-button--regular-font-size: 13px;
+      --ch5-button--label-padding: 0 10px;
     }
   }
 
@@ -146,7 +147,7 @@
 
     ch5-toggle {
       --ch5-toggle--height: 64px;
-      --ch5-toggle--font-size: 15px;
+      --ch5-toggle--font-size: 13px;
     }
   }
 
@@ -171,17 +172,17 @@
 
     ch5-button {
       --ch5-button--regular-height: 70px;
-      --ch5-button--regular-font-size: 15px;
+      --ch5-button--regular-font-size: 13px;
     }
     .left__db {
-      font-size: 22px;
+      font-size: 20px;
       font-feature-settings: "tnum" on;
       letter-spacing: 0.04em;
       padding: 18px 22px;
       background: var(--panel);
       border: 1px solid var(--hairline);
       border-radius: var(--radius-sm);
-      min-width: 140px;
+      min-width: 130px;
       text-align: right;
     }
   }
@@ -195,8 +196,8 @@
     ch5-button, ch5-toggle {
       --ch5-button--regular-height: 70px;
       --ch5-toggle--height: 70px;
-      --ch5-button--regular-font-size: 15px;
-      --ch5-toggle--font-size: 15px;
+      --ch5-button--regular-font-size: 13px;
+      --ch5-toggle--font-size: 13px;
     }
   }
 

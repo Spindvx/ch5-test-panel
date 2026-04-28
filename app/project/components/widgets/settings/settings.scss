@@ -23,18 +23,22 @@
 .settings-widget__row {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 
   .settings-widget__btn-row {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
+    gap: 10px;
 
-    ch5-button { --ch5-button--regular-height: 44px; }
+    ch5-button { --ch5-button--regular-height: 56px; }
   }
 
   ch5-button-list {
-    --ch5-button--regular-height: 60px;
-    --ch5-button--regular-width: 80px;
+    --ch5-button--regular-height: 64px;
+    --ch5-button--regular-width: 90px;
+    --ch5-button--default-background-color: var(--panel);
+    --ch5-button--default-border-color: var(--hairline);
+    --ch5-button--default-label-font-color: var(--text);
+    --ch5-button--regular-font-size: 13px;
   }
 }

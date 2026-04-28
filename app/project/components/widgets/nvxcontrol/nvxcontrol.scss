@@ -14,37 +14,50 @@
   box-shadow: var(--shadow-rest), var(--shadow-inner);
 }
 
-/* Header: title + power button */
+/* Header: title + power button (right-aligned, lightweight) */
 .nvx-widget__header {
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
   gap: 12px;
-  padding-bottom: 12px;
+  padding-bottom: 14px;
   border-bottom: 1px solid var(--hairline);
 
   .nvx-widget__title {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 4px;
 
+    .v3-eyebrow {
+      font-size: 11px;
+    }
     h1.v3-title {
-      font-size: 24px;
+      font-family: var(--font-italic);
+      font-style: italic;
+      font-weight: 200;
+      font-size: 22px;
+      letter-spacing: -0.005em;
     }
     h1.v3-title .v3-readout {
+      font-family: var(--font-sans);
       font-style: normal;
       font-weight: 400;
-      font-size: 18px;
+      font-size: 16px;
       color: var(--text-dim);
-      letter-spacing: 0.02em;
+      letter-spacing: 0.04em;
     }
   }
 
+  /* Power: small, hairline outline, red wash only on press */
   ch5-button.nvx-widget__power {
-    --ch5-button--regular-width: 44px;
-    --ch5-button--regular-height: 44px;
-    --ch5-button--regular-image-width: 22px;
-    --ch5-button--regular-image-height: 22px;
+    --ch5-button--regular-width: 40px;
+    --ch5-button--regular-height: 40px;
+    --ch5-button--regular-image-width: 18px;
+    --ch5-button--regular-image-height: 18px;
+    --ch5-button--default-background-color: transparent;
+    --ch5-button--default-border-color: rgba(255, 110, 110, 0.28);
+    --ch5-button--default-pressed-background-color: rgba(255, 110, 110, 0.18);
+    --ch5-button--default-pressed-border-color: var(--danger);
   }
 }
 
@@ -78,16 +91,38 @@
 /* Tiles */
 .nvx-tile {
   --ch5-button--regular-width: 100%;
-  --ch5-button--regular-image-width: 38px;
-  --ch5-button--regular-image-height: 38px;
+  --ch5-button--regular-image-width: 44px;
+  --ch5-button--regular-image-height: 44px;
 }
 
+/* Display tile — destination, heavier card treatment */
 .nvx-tile--display {
-  --ch5-button--regular-height: 100px;
+  --ch5-button--regular-height: 150px;
+  --ch5-button--default-background-color: var(--panel-strong);
+  --ch5-button--default-border-color: var(--hairline-strong);
+
+  /* "OUT" eyebrow inside the card via pseudo */
+  position: relative;
+}
+.nvx-tile--display::before {
+  content: "OUT";
+  position: absolute;
+  top: 10px; right: 14px;
+  font-family: var(--font-italic);
+  font-style: italic;
+  font-weight: 200;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--text-mute);
+  z-index: 1;
+  pointer-events: none;
 }
 
+/* Source tile — lighter card, ineligible state dims */
 .nvx-tile--source {
-  --ch5-button--regular-height: 110px;
+  --ch5-button--regular-height: 160px;
+  --ch5-button--default-background-color: var(--panel);
+  --ch5-button--default-border-color: var(--hairline);
 }
 
 .nvx-tile__name {
@@ -97,7 +132,10 @@
   font-size: 14px;
   letter-spacing: -0.005em;
   color: var(--text);
-  margin-top: 2px;
+  margin-top: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .nvx-tile__status {
@@ -106,13 +144,28 @@
   font-style: italic;
   font-weight: 200;
   font-size: 11px;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
   color: var(--text-dim);
 }
 
 /* Disabled tile (receivestateenable false) — dim it */
 .nvx-tile[disabled],
 .nvx-tile[disabled="true"] {
-  opacity: 0.42;
+  opacity: 0.32;
   pointer-events: none;
+  filter: saturate(0.6);
+}
+
+/* Selected highlight on source tiles — accent border + soft glow */
+.nvx-tile--source[selected="true"],
+.nvx-tile--source[selected] {
+  --ch5-button--default-selected-background-color: rgba(120, 180, 255, 0.16);
+  --ch5-button--default-selected-border-color: var(--accent);
+}
+
+/* Selected highlight on display tile — fuller wash */
+.nvx-tile--display[selected="true"],
+.nvx-tile--display[selected] {
+  --ch5-button--default-selected-background-color: rgba(120, 180, 255, 0.22);
+  --ch5-button--default-selected-border-color: var(--accent);
 }
