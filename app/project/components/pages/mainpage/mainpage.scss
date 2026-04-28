@@ -261,11 +261,49 @@
   --ch5-button--default-selected-label-font-color: var(--text);
 }
 
-/* Toggle pill — fills cell at ~290 wide × 88 tall (proportional, not stretched). */
-.seg-3--toggles .seg-btn--toggle,
+/* Toggle pill — used for Office Mode in the Computer row only. */
 .seg-btn--toggle {
-  --ch5-button--regular-height: 88px;
+  --ch5-button--regular-height: 80px;
   --ch5-button--regular-font-size: 15px;
+}
+
+/* iOS-style switch row: small switch + label inline.
+   Three columns evenly distributed across the section width. */
+.toggle-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  align-items: center;
+}
+
+.toggle-row__item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 14px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle-row__label {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--text);
+  letter-spacing: -0.005em;
+}
+
+/* Small switch styling — track + thumb with cool-cyan accent when on */
+.toggle-row ch5-toggle {
+  --ch5-toggle--width: 56px;
+  --ch5-toggle--height: 32px;
+  --ch5-toggle--background-color: rgba(255, 255, 255, 0.06);
+  --ch5-toggle--border-color: var(--hairline);
+  --ch5-toggle--knob-color: rgba(255, 255, 255, 0.85);
+  --ch5-toggle--on-background-color: rgba(120, 180, 255, 0.4);
+  --ch5-toggle--on-border-color: var(--accent);
+  --ch5-toggle--on-knob-color: var(--text);
+  flex-shrink: 0;
 }
 
 /* Action button — fills 4-up cell at ~210 wide × 80 tall. */
@@ -281,13 +319,35 @@
   --ch5-button--default-selected-border-color: var(--accent-soft);
 }
 
-/* USB strip — buttons fill row */
+/* USB strip — heavily used set, large touch targets (124 px tall).
+   ch5-button-list sets fixed dimensions on its inner buttons; we
+   override --ch5-button--regular-height AND force the inner DOM via
+   selectors so the buttons actually grow. */
+.lh-usb {
+  padding-bottom: 4px;
+}
+
 .lh-usb ch5-button-list {
   --ch5-button-list--orientation: horizontal;
   --ch5-button--regular-width: 100%;
-  --ch5-button--regular-height: 88px;
-  --ch5-button--regular-image-width: 30px;
-  --ch5-button--regular-image-height: 30px;
+  --ch5-button--regular-height: 124px;
+  --ch5-button--regular-image-width: 48px;
+  --ch5-button--regular-image-height: 48px;
+  --ch5-button--regular-font-size: 15px;
+  display: block;
+  width: 100%;
+}
+
+.lh-usb ch5-button-list ch5-button {
+  --ch5-button--regular-height: 124px;
+  --ch5-button--regular-image-width: 48px;
+  --ch5-button--regular-image-height: 48px;
+  height: 124px !important;
+}
+
+.lh-usb ch5-button-list ch5-button .cb-btn {
+  height: 124px !important;
+  padding: 18px 14px !important;
 }
 
 /* ============================================================

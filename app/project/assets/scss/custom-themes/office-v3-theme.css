@@ -193,18 +193,32 @@ ch5-button {
   overflow: hidden;
 }
 
-/* Center the icon + label stack inside every ch5-button. By default
-   CH5 left-aligns its content; we want the icon and label centered. */
-ch5-button .cb-btn,
-ch5-button .ch5-button {
+/* All visual styling lives on .cb-btn (the inner <button>), not on the
+   outer <div class="ch5-button">. This avoids the "double rectangle"
+   effect where both the parent div and the child button render their
+   own background + border + padding. The parent div is fully
+   transparent and acts only as a sizing wrapper. */
+ch5-button > div.ch5-button {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+/* Center the icon + label stack inside the inner button. */
+ch5-button .cb-btn {
   display: flex !important;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   gap: 8px;
   text-align: center;
-  width: 100%;
-  height: 100%;
+  width: 100% !important;
+  height: 100% !important;
   padding: 0 14px;
   -webkit-backdrop-filter: blur(var(--blur));
   backdrop-filter: blur(var(--blur));
@@ -213,8 +227,7 @@ ch5-button .ch5-button {
 }
 
 /* When iconposition=top, stack vertically with the icon above the label */
-ch5-button[iconposition="top"] .cb-btn,
-ch5-button[iconposition="top"] .ch5-button {
+ch5-button[iconposition="top"] .cb-btn {
   flex-direction: column;
   gap: 10px;
   padding: 14px 12px;

@@ -151,25 +151,29 @@
         </span>
       </div>
 
-      <div class="seg-3 seg-3--toggles">
-        <ch5-button
-            class="seg-btn seg-btn--toggle"
-            shape="rounded-rectangle"
-            sendeventontouch="50" receivestateselected="50"
-            label="7 Channel">
-        </ch5-button>
-        <ch5-button
-            class="seg-btn seg-btn--toggle"
-            shape="rounded-rectangle"
-            sendeventontouch="47" receivestateselected="47"
-            label="Bass Boost">
-        </ch5-button>
-        <ch5-button
-            class="seg-btn seg-btn--toggle"
-            shape="rounded-rectangle"
-            sendeventontouch="11" receivestateselected="11"
-            label="Occupancy">
-        </ch5-button>
+      <!-- iOS-style switch toggles with label beside each -->
+      <div class="toggle-row">
+        <label class="toggle-row__item">
+          <ch5-toggle
+              sendeventonclick="50" receivestatevalue="50"
+              labelon="" labeloff="">
+          </ch5-toggle>
+          <span class="toggle-row__label">7 Channel</span>
+        </label>
+        <label class="toggle-row__item">
+          <ch5-toggle
+              sendeventonclick="47" receivestatevalue="47"
+              labelon="" labeloff="">
+          </ch5-toggle>
+          <span class="toggle-row__label">Bass Boost</span>
+        </label>
+        <label class="toggle-row__item">
+          <ch5-toggle
+              sendeventonclick="11" receivestatevalue="11"
+              labelon="" labeloff="">
+          </ch5-toggle>
+          <span class="toggle-row__label">Occupancy</span>
+        </label>
       </div>
     </section>
 
