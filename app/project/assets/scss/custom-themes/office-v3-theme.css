@@ -366,6 +366,19 @@ ch5-button-list ch5-button {
 }
 
 /* ============================================================
+   Global: keep buttons from stretching to ultra-wide rectangles when
+   they sit in 1fr grid cells. Constrain via max-width + center via
+   margin-auto so 280-px cells don't produce 280×60 awkward stretches.
+   Override per-button-class with explicit max-width if needed.
+   ============================================================ */
+
+.seg-3 ch5-button,
+.seg-4 ch5-button {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ============================================================
    ch5-text / readouts
    ============================================================ */
 

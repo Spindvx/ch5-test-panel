@@ -232,22 +232,30 @@
    Segmented control — 3-up and 4-up rows
    Selected segment fills with accent + brighter label. Unselected
    stays as faint glass with hairline-strong border on hover.
+   Cells are centered so wide grid columns don't stretch the button
+   into an awkwardly long rectangle.
    ============================================================ */
 
 .seg-3,
 .seg-4 {
   display: grid;
-  gap: 10px;
+  gap: 12px;
+  justify-items: center;       /* keep cells from stretching button width */
 }
 .seg-3 { grid-template-columns: repeat(3, 1fr); }
 .seg-4 { grid-template-columns: repeat(4, 1fr); }
 
-/* Source-mode tile (icon top, label bottom). Square-ish proportion. */
+.seg-3 > *,
+.seg-4 > * { width: 100%; }    /* fill cell by default */
+
+/* Source-mode tile (icon top, label bottom). Closer to 1:1 / 4:5
+   portrait rectangle so the icon + label feel balanced rather than
+   floating in a wide landscape rectangle. */
 .seg-btn {
-  --ch5-button--regular-height: 130px;
-  --ch5-button--regular-image-width: 56px;
-  --ch5-button--regular-image-height: 56px;
-  --ch5-button--regular-font-size: 14px;
+  --ch5-button--regular-height: 200px;
+  --ch5-button--regular-image-width: 60px;
+  --ch5-button--regular-image-height: 60px;
+  --ch5-button--regular-font-size: 15px;
   --ch5-button--default-background-color: rgba(255, 255, 255, 0.025);
   --ch5-button--default-border-color: var(--hairline);
   --ch5-button--default-label-font-color: var(--text-dim);
@@ -255,26 +263,29 @@
   --ch5-button--default-selected-background-color: rgba(120, 180, 255, 0.16);
   --ch5-button--default-selected-border-color: var(--accent);
   --ch5-button--default-selected-label-font-color: var(--text);
+  max-width: 240px;             /* keeps source tiles from going elongated */
 }
 
-/* Toggle row — shorter, cleaner. Same selected = filled accent pattern. */
+/* Toggle pill — landscape but constrained so it doesn't stretch wide */
 .seg-3--toggles .seg-btn--toggle,
 .seg-btn--toggle {
-  --ch5-button--regular-height: 56px;
-  --ch5-button--regular-font-size: 14px;
+  --ch5-button--regular-height: 60px;
+  --ch5-button--regular-font-size: 15px;
+  max-width: 240px;
 }
 
-/* Action row — uniform 64px height pills with icon on the left */
+/* Action row — 4-up uniform pills with icon-first */
 .action-btn {
   --ch5-button--regular-height: 64px;
   --ch5-button--regular-image-width: 22px;
   --ch5-button--regular-image-height: 22px;
-  --ch5-button--regular-font-size: 14px;
+  --ch5-button--regular-font-size: 15px;
   --ch5-button--default-background-color: rgba(255, 255, 255, 0.03);
   --ch5-button--default-border-color: var(--hairline);
   --ch5-button--default-label-font-color: var(--text);
   --ch5-button--default-selected-background-color: rgba(120, 180, 255, 0.14);
   --ch5-button--default-selected-border-color: var(--accent-soft);
+  max-width: 220px;
 }
 
 /* USB strip */
@@ -305,7 +316,7 @@
 }
 
 /* ============================================================
-   BOTTOM BAR — Construct-style: mute on left, slider full-width
+   BOTTOM BAR — mute on left, slider stretches the full remaining width
    ============================================================ */
 
 .mainpage__bottom {
@@ -314,10 +325,9 @@
   right: 24px;
   bottom: 22px;
   height: 84px;
-  display: grid;
-  grid-template-columns: auto 1fr;     /* mute | full-width slider */
-  gap: 18px;
+  display: flex;                         /* flex so slider grows naturally */
   align-items: center;
+  gap: 18px;
   padding: 0 24px;
 
   .bottom__mute {
@@ -325,12 +335,26 @@
     --ch5-button--regular-height: 56px;
     --ch5-button--regular-image-width: 26px;
     --ch5-button--regular-image-height: 26px;
+    flex-shrink: 0;
   }
 
+  /* Force the slider to fill the rest of the row. The CH5 slider has
+     internal widths set inline that prevent flex growth — override with
+     explicit width:100% + flex:1 + !important on the inner noUi elements. */
   .bottom__volume {
-    width: 100%;
-    --ch5-slider--height: 50px;
+    flex: 1 1 auto;
+    width: auto;
+    min-width: 0;
+    --ch5-slider--height: 56px;
   }
+}
+
+ch5-slider.bottom__volume,
+ch5-slider.bottom__volume .ch5-slider,
+ch5-slider.bottom__volume .noUi-base,
+ch5-slider.bottom__volume .noUi-target {
+  width: 100% !important;
+  max-width: none !important;
 }
 
 /* CH5 receivestateshow handles widget visibility natively. */
