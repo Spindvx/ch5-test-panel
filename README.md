@@ -1,56 +1,68 @@
-# Shell Template
+# Office V3 UI
 
-The shell template uses CH5 library and Vanilla Javascript which helps to kick-start your project to build fast, robust, and adaptable web apps with little changes. The project can be deployed on TSW Panels, Android and iOS devices.
- 
-## See www.crestron.com/developer for documentation
+A production AV touch panel interface for Crestron TS-1070 (1280x800).
 
-https://www.crestron.com/developer
+## Overview
 
-# Shell Template
+Dark luxury command center aesthetic — deep black backgrounds with electric cyan accents, designed for premium AV environments.
 
-The project have dependencies that require nodejs(https://nodejs.org), together with NPM.
+### Pages
 
-# Installation
+- **Menu** — Home screen with source selection grid
+- **NVX Control** — Video routing TX/RX management  
+- **Q-SYS Levels** — Audio fader control
+- **Volume** — Master volume with mute
+- **Clock** — Full-screen time display
+- **Settings** — System configuration
+- **Apple TV** — Media control
 
-## Install all global dependencies
+### Join Map
 
-Run `npm install -g @crestron/ch5-utilities-cli` to deploy the project on device.
+| Page | Join | Type | Description |
+|------|------|------|------------|
+| Menu Nav | 1-5, 25 | Digital | Page navigation (Home/NVX/Q-SYS/Volume/Clock/AppleTV) |
+| NVX TX | 75-77 | Digital | Source selection (TX1-TX3) |
+| NVX RX | 90 | Digital | Destination (Desk) |
+| Route | 24 | Digital | Confirm routing |
+| Q-SYS | 25-27 | Analog | Fader levels |
+| Q-SYS | 56-58 | Digital | Channel select |
+| Volume | 1 | Analog | Master volume |
+| Mute | 10 | Digital | Mute toggle |
+| Clock | 40 | Digital | Show/hide |
+| Settings | 22-23, 27, 29-30 | Digital | Various toggles |
 
-## Install all local dependencies
+## Development
 
-Run `npm run install` to install all dependencies for the project.
+```bash
+# Install deps
+npm install --include=dev
 
-## Development server
+# Dev server
+npm run start
 
-Run `npm run start` for a dev server. Navigate to `http://localhost:3000/`. The app will automatically reload if you change any of the source files.
+# Production build
+npm run build:prod
 
-# How to deploy the project in TSW device
+# Create archive
+npm run build:archive
+```
 
-Need to add the hostname or IP address of TSW device in package.json, like below code
-`"build:deploy": "ch5-cli deploy -H hostname -t touchscreen dist/shell-template-project.ch5z"`
+## Deploy
 
-## Production build
+```bash
+# Upload to TS-1070
+npm run build:deploy
+# or manually:
+# ch5-cli deploy -H 192.168.50.105 -t touchscreen dist/prod/office-v3-ui.ch5z
+```
 
-Run `npm run build:prod` to build the project in production mode. The build artifacts will be stored in the `dist/` directory.
+## Tech Stack
 
-## Create archive
+- CH5 (Crestron HTML5)
+- Vanilla JS
+- Webpack
 
-Run `npm run build:archive` to create .ch5z file which supports TSW device. The build artifacts will be stored in the `dist/` directory.
+## Panel
 
-## Deploy the project in TSW device
-
-Run `npm run build:deploy` to deploy the project in TSW device.
-
-## Deploy the project in one step
-
-Run `npm run build:onestep` to build, archive and deploy the project in one step.
-
-## Template Theme
-
-To change the template theme from join, the join name can be configured on app/project-config.json using the receiveStateTheme and sendEventTheme properties in customSignals.
-Initially the join for sendEvent and receiveState have been set to `templateTheme`.
-
-## Language Change
-
-To change the language from join, the join name can be configured on app/project-config.json using the receiveStateLanguage and sendEventLanguage properties in customSignals.
-Initially the join for sendEvent and receiveState have been set to `templateLanguage`.
+**IP:** 192.168.50.105  
+**Credentials:** admin / CNZav2114
