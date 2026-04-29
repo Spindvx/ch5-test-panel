@@ -10,6 +10,10 @@
   </head>
   <body class="font-sans antialiased">
     <div id="root"></div>
+    <!-- Crestron CIP runtime — loaded by the panel firmware from libraries/.
+         In dev we 404 here harmlessly; cip.ts only reads window.CrComLib
+         when VITE_CIP_MODE=live. -->
+    <script src="./libraries/cr-com-lib.js"></script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

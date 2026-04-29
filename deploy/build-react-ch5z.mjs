@@ -1,30 +1,48 @@
 #!/usr/bin/env node
 /**
- * Cross-platform Node version of build-react-ch5z.sh.
- * Works on PowerShell / cmd / bash equally — no shell tools required.
+ * Cross-platform Node bundler that produces a valid Crestron .ch5z by
+ * delegating to `ch5-cli archive` for the actual archive step. This is
+ * critical: the panel firmware verifies a SHA-256 in the manifest that
+ * ch5-cli computes — a manual `zip` won't satisfy it (the panel will
+ * upload fine via SFTP but reject activation with "Error installing
+ * User project").
  *
- * Usage (from repo root):
- *   node deploy/build-react-ch5z.mjs              # mock mode
- *   node deploy/build-react-ch5z.mjs --live       # real CIP, talks to CP3
+ * Steps:
+ *   1. Vite build of web/                          → web/dist/
+ *   2. Stage that dist/ into a CH5-shaped Shell/   → dist/prod/Shell/
+ *   3. Drop in contract + libs + theme placeholder
+ *   4. `npx ch5-cli archive -d dist/prod/Shell -o dist/prod -P samplesource=Shell -c config/contract.cse2j`
+ *      → dist/prod/office-react.ch5z (with valid manifest sha)
  *
- * Output: dist/prod/office-react.ch5z (~3 MB)
+ * Usage (from repo root, works on Windows PowerShell, macOS, Linux):
+ *   node deploy/build-react-ch5z.mjs            # mock mode
+ *   node deploy/build-react-ch5z.mjs --live     # real CIP
  *
- * Then deploy from any TTY (PowerShell, VS Code terminal, etc.):
+ * Then deploy from any TTY:
  *   npx ch5-cli deploy -p -H 192.168.50.105 -t touchscreen dist/prod/office-react.ch5z
  */
 import { execSync } from "node:child_process";
-import { createWriteStream, existsSync, mkdirSync, rmSync } from "node:fs";
+import { existsSync, rmSync, renameSync, readdirSync, statSync } from "node:fs";
 import { cp, mkdir, writeFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import archiver from "../web/node_modules/archiver/index.js";
+
+function listCh5z(dir) {
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir)
+    .filter((f) => f.endsWith(".ch5z"))
+    .map((name) => {
+      const path = join(dir, name);
+      return { name, path, mtime: statSync(path).mtimeMs };
+    });
+}
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO = resolve(__dirname, "..");
 const WEB = join(REPO, "web");
-const STAGE = join(REPO, "dist", "prod", "react-stage");
-const SHELL_DIR = join(STAGE, "Shell");
-const OUT = join(REPO, "dist", "prod", "office-react.ch5z");
+const STAGE = join(REPO, "dist", "prod", "Shell");
+const OUT_DIR = join(REPO, "dist", "prod");
+const OUT_FINAL = join(OUT_DIR, "office-react.ch5z");
 
 const isLive = process.argv.includes("--live");
 
@@ -41,80 +59,69 @@ async function main() {
   const env = { ...process.env, ...(isLive ? { VITE_CIP_MODE: "live" } : {}) };
   run("npx vite build", { cwd: WEB, env });
 
-  // 2. Stage
+  // 2. Stage Shell/
   if (existsSync(STAGE)) rmSync(STAGE, { recursive: true, force: true });
-  await mkdir(SHELL_DIR, { recursive: true });
-  await mkdir(join(SHELL_DIR, "config"), { recursive: true });
-  await mkdir(join(SHELL_DIR, "libraries"), { recursive: true });
+  await mkdir(STAGE, { recursive: true });
+  await mkdir(join(STAGE, "config"), { recursive: true });
+  await mkdir(join(STAGE, "libraries"), { recursive: true });
+  await mkdir(join(STAGE, "appui"), { recursive: true });
 
   // React bundle → panel index
-  await cp(join(WEB, "dist", "index.html"), join(SHELL_DIR, "index.html"));
-  await cp(join(WEB, "dist", "assets"), join(SHELL_DIR, "assets"), { recursive: true });
-  await cp(join(WEB, "public", "img"), join(SHELL_DIR, "img"), { recursive: true });
+  await cp(join(WEB, "dist", "index.html"), join(STAGE, "index.html"));
+  await cp(join(WEB, "dist", "assets"), join(STAGE, "assets"), { recursive: true });
+  await cp(join(WEB, "public", "img"), join(STAGE, "img"), { recursive: true });
 
-  // Crestron contract
-  await cp(join(REPO, "config", "contract.cse2j"), join(SHELL_DIR, "config", "contract.cse2j"));
+  // Crestron contract — same one the CH5 build uses
+  await cp(join(REPO, "config", "contract.cse2j"), join(STAGE, "config", "contract.cse2j"));
 
-  // CIP runtime libs (best-effort — both names CH5 ships under)
+  // CIP runtime libraries from node_modules so the panel has them when
+  // the React app loads them at runtime
   for (const lib of [
     join(WEB, "node_modules", "@crestron", "ch5-crcomlib", "build_bundles", "umd", "cr-com-lib.js"),
     join(WEB, "node_modules", "@crestron", "ch5-crcomlib", "dist", "cr-com-lib.js"),
   ]) {
     if (existsSync(lib)) {
-      await cp(lib, join(SHELL_DIR, "libraries", "cr-com-lib.js"));
+      await cp(lib, join(STAGE, "libraries", "cr-com-lib.js"));
       log(`copied ${lib}`);
       break;
     }
   }
 
-  // Manifest
-  await writeFile(
-    join(SHELL_DIR, "_manifest.json"),
-    JSON.stringify({ projectname: "Office.ch5", samplesource: "Shell", version: "1.0.0" }, null, 2)
+  // Empty appui manifest — ch5-cli archive expects this folder to exist
+  await writeFile(join(STAGE, "appui", "manifest"), "");
+
+  // 3. ch5-cli archive — generates the manifest with a valid SHA-256
+  if (existsSync(OUT_FINAL)) rmSync(OUT_FINAL);
+
+  // ch5-cli archive accepts a directory and outputs a .ch5z named after the
+  // -P samplesource value. We pass samplesource=Shell so it writes Shell.ch5z,
+  // then we rename to office-react.ch5z.
+  // ch5-cli names the output after the projectName in app/project-config.json
+  // (office-v3-ui.ch5z). Track the latest .ch5z mtime so we can rename it
+  // to office-react.ch5z regardless of the project name.
+  const before = listCh5z(OUT_DIR);
+  run(
+    `npx ch5-cli archive -P samplesource=Shell -d "${STAGE}" -o "${OUT_DIR}" -c "${join(REPO, "config", "contract.cse2j")}"`,
+    { cwd: REPO }
   );
+  const after = listCh5z(OUT_DIR);
+  const fresh = after.find(
+    (f) => !before.find((b) => b.name === f.name && b.mtime === f.mtime)
+  );
+  if (fresh) {
+    if (fresh.path !== OUT_FINAL) {
+      if (existsSync(OUT_FINAL)) rmSync(OUT_FINAL);
+      renameSync(fresh.path, OUT_FINAL);
+    }
+    log(`renamed ${fresh.name} → ${OUT_FINAL.split(/[\\/]/).pop()}`);
+  } else {
+    log("warning: ch5-cli produced no new .ch5z — check output above");
+  }
 
-  // 3. Zip → .ch5z
-  if (existsSync(OUT)) rmSync(OUT);
-
-  // CH5 archive: outer .ch5z is a zip containing Office.ch5 + _manifest.json,
-  // and Office.ch5 is itself a zip of the Shell/* contents.
-  const innerCh5 = join(STAGE, "Office.ch5");
-  await zipDir(SHELL_DIR, innerCh5);
-  log(`inner archive: ${innerCh5}`);
-
-  await zipFiles(OUT, [
-    { src: innerCh5, name: "Office.ch5" },
-    { src: join(SHELL_DIR, "_manifest.json"), name: "Office_manifest.json" },
-  ]);
-
-  log(`✅ Built ${OUT}`);
+  log(`✅ Built ${OUT_FINAL}`);
   console.log("");
   console.log("Deploy from any TTY (PowerShell / VS Code terminal):");
-  console.log(`  npx ch5-cli deploy -p -H 192.168.50.105 -t touchscreen ${OUT}`);
-}
-
-function zipDir(srcDir, outFile) {
-  return new Promise((resolveP, reject) => {
-    const out = createWriteStream(outFile);
-    const ar = archiver("zip", { zlib: { level: 9 } });
-    out.on("close", resolveP);
-    ar.on("error", reject);
-    ar.pipe(out);
-    ar.directory(srcDir, false);
-    ar.finalize();
-  });
-}
-
-function zipFiles(outFile, entries) {
-  return new Promise((resolveP, reject) => {
-    const out = createWriteStream(outFile);
-    const ar = archiver("zip", { zlib: { level: 9 } });
-    out.on("close", resolveP);
-    ar.on("error", reject);
-    ar.pipe(out);
-    for (const e of entries) ar.file(e.src, { name: e.name });
-    ar.finalize();
-  });
+  console.log(`  npx ch5-cli deploy -p -H 192.168.50.105 -t touchscreen "${OUT_FINAL}"`);
 }
 
 main().catch((e) => {

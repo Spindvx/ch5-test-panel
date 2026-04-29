@@ -1,37 +1,42 @@
 /**
  * CIP signal hooks. Single file, two modes:
  *
- *   import.meta.env.VITE_CIP_MODE === "live"  → real @crestron/ch5-crcomlib
- *   anything else (default in dev/screenshots) → mock with sample data
+ *   import.meta.env.VITE_CIP_MODE === "live"  → real CrComLib (loaded from
+ *                                               window by the panel firmware
+ *                                               via libraries/cr-com-lib.js)
+ *   anything else (dev / screenshots)         → mock with sample data
  *
- * Switch modes with a build-time env:
- *   VITE_CIP_MODE=live npm run build      ← production, real CP3
- *   npm run build                         ← screenshots / mock data
- *
- * In live mode the app calls WebXPanel.initialize() once on bootstrap
- * (see main.tsx) and every hook subscribes to / publishes via CrComLib.
- *
- * Joins are identical to the CH5 build's JOIN_MAP.md — the SIMPL
- * program at IPID 0x03 doesn't know or care which client framework
- * rendered the button.
+ * Joins are identical to JOIN_MAP.md — the SIMPL program at IPID 0x03
+ * doesn't know or care which client framework rendered the button.
  */
 import { useEffect, useState } from "react";
 
+declare global {
+  interface Window {
+    CrComLib?: {
+      subscribeState: (
+        type: "boolean" | "numeric" | "string" | "object",
+        signal: string,
+        cb: (val: any) => void
+      ) => string;
+      unsubscribeState: (
+        type: "boolean" | "numeric" | "string" | "object",
+        signal: string,
+        id: string
+      ) => void;
+      publishEvent: (
+        type: "boolean" | "numeric" | "string" | "object",
+        signal: string,
+        value: any
+      ) => void;
+    };
+  }
+}
+
 const LIVE = import.meta.env.VITE_CIP_MODE === "live";
 
-/* ============================================================
-   Live-mode lazy import wrapper. We only pull the Crestron lib in
-   when we actually need it so dev/screenshot builds stay tiny.
-   ============================================================ */
-
-let CrComLib: any = null;
-async function ensureLive() {
-  if (!LIVE) return null;
-  if (!CrComLib) {
-    const mod = await import("@crestron/ch5-crcomlib");
-    CrComLib = (mod as any).CrComLib ?? mod;
-  }
-  return CrComLib;
+function lib() {
+  return typeof window !== "undefined" ? window.CrComLib : undefined;
 }
 
 /* ============================================================
@@ -110,7 +115,6 @@ const mockString: Record<string, string> = {
    ============================================================ */
 
 export function useCIPBool(join: string): readonly [boolean, (v: boolean) => void] {
-  // Screenshot rigging: ?view=qsys (etc.) flips which sidebar widget shows.
   const view =
     typeof window !== "undefined"
       ? new URLSearchParams(window.location.search).get("view")
@@ -130,22 +134,16 @@ export function useCIPBool(join: string): readonly [boolean, (v: boolean) => voi
 
   useEffect(() => {
     if (!LIVE) return;
-    let id: any;
-    let cancelled = false;
-    (async () => {
-      const lib = await ensureLive();
-      if (cancelled) return;
-      id = lib.subscribeState("boolean", join, (val: boolean) => setV(!!val));
-    })();
-    return () => {
-      cancelled = true;
-      if (id && CrComLib) CrComLib.unsubscribeState("boolean", join, id);
-    };
+    const c = lib();
+    if (!c) return;
+    const id = c.subscribeState("boolean", join, (val) => setV(!!val));
+    return () => c.unsubscribeState("boolean", join, id);
   }, [join]);
 
   const publish = (val: boolean) => {
     setV(val);
-    if (LIVE && CrComLib) CrComLib.publishEvent("boolean", join, val);
+    const c = lib();
+    if (LIVE && c) c.publishEvent("boolean", join, val);
   };
   return [v, publish] as const;
 }
@@ -155,22 +153,16 @@ export function useCIPNumber(join: string): readonly [number, (v: number) => voi
 
   useEffect(() => {
     if (!LIVE) return;
-    let id: any;
-    let cancelled = false;
-    (async () => {
-      const lib = await ensureLive();
-      if (cancelled) return;
-      id = lib.subscribeState("numeric", join, (val: number) => setV(val));
-    })();
-    return () => {
-      cancelled = true;
-      if (id && CrComLib) CrComLib.unsubscribeState("numeric", join, id);
-    };
+    const c = lib();
+    if (!c) return;
+    const id = c.subscribeState("numeric", join, (val) => setV(val));
+    return () => c.unsubscribeState("numeric", join, id);
   }, [join]);
 
   const publish = (val: number) => {
     setV(val);
-    if (LIVE && CrComLib) CrComLib.publishEvent("numeric", join, val);
+    const c = lib();
+    if (LIVE && c) c.publishEvent("numeric", join, val);
   };
   return [v, publish] as const;
 }
@@ -180,27 +172,21 @@ export function useCIPString(join: string): string {
 
   useEffect(() => {
     if (!LIVE) return;
-    let id: any;
-    let cancelled = false;
-    (async () => {
-      const lib = await ensureLive();
-      if (cancelled) return;
-      id = lib.subscribeState("string", join, (val: string) => setV(val ?? ""));
-    })();
-    return () => {
-      cancelled = true;
-      if (id && CrComLib) CrComLib.unsubscribeState("string", join, id);
-    };
+    const c = lib();
+    if (!c) return;
+    const id = c.subscribeState("string", join, (val) => setV(val ?? ""));
+    return () => c.unsubscribeState("string", join, id);
   }, [join]);
 
   return v;
 }
 
-/** Momentary press: pulse digital join high on press, low on release. */
+/** Momentary press: pulse digital join high then release after 60ms. */
 export function pulse(join: string) {
-  if (LIVE && CrComLib) {
-    CrComLib.publishEvent("boolean", join, true);
-    setTimeout(() => CrComLib.publishEvent("boolean", join, false), 60);
+  const c = lib();
+  if (LIVE && c) {
+    c.publishEvent("boolean", join, true);
+    setTimeout(() => c.publishEvent("boolean", join, false), 60);
   } else {
     // eslint-disable-next-line no-console
     console.log("[CIP press]", join);
