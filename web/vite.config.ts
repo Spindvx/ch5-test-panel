@@ -17,8 +17,16 @@ export default defineConfig({
   build: {
     outDir: "dist",
     target: "es2020",
+    cssCodeSplit: false,
     rollupOptions: {
       external: ["@crestron/ch5-crcomlib", "@crestron/ch5-webxpanel"],
+      output: {
+        // Deterministic filenames so the embedded mainpage.html can
+        // reference them without knowing a content hash.
+        entryFileNames: "assets/index.js",
+        chunkFileNames: "assets/[name].js",
+        assetFileNames: "assets/[name][extname]",
+      },
     },
   },
 });

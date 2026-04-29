@@ -8,8 +8,10 @@
     "build": "vite build",
     "build:ch5z": "node ../deploy/build-react-ch5z.mjs",
     "build:ch5z:live": "node ../deploy/build-react-ch5z.mjs --live",
+    "build:embedded": "node ../deploy/build-embedded-ch5z.mjs",
+    "build:embedded:live": "node ../deploy/build-embedded-ch5z.mjs --live",
     "deploy": "npx ch5-cli deploy -p -H 192.168.50.105 -t touchscreen ../dist/prod/office-react.ch5z",
-    "deploy:full": "npm run build:ch5z:live && npm run deploy"
+    "deploy:full": "npm run build:embedded:live && npm run deploy"
   },
   "keywords": [],
   "author": "",
@@ -28,6 +30,7 @@
   "dependencies": {
     "@crestron/ch5-crcomlib": "^2.17.2",
     "@crestron/ch5-webxpanel": "^2.8.0",
+    "@fontsource-variable/plus-jakarta-sans": "^5.2.8",
     "lucide-react": "^1.12.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.5"
