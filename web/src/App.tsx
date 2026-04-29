@@ -1,6 +1,6 @@
 import { Sidebar } from "./components/Sidebar";
 import { LeftFrame } from "./components/LeftFrame";
-import { NvxWidget } from "./components/NvxWidget";
+import { RightPane } from "./components/RightPane";
 import { Slider, cn } from "./components/ui";
 import { useCIPNumber, useCIPString, useCIPBool, pulse } from "./cip";
 import { MicOff } from "lucide-react";
@@ -26,7 +26,7 @@ export default function App() {
         <TopBar />
         <Sidebar />
         <LeftFrame />
-        <NvxWidget />
+        <RightPane />
         <BottomBar />
       </div>
     </div>

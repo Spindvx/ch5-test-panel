@@ -20,6 +20,8 @@
     "vite": "^8.0.10"
   },
   "dependencies": {
+    "@crestron/ch5-crcomlib": "^2.17.2",
+    "@crestron/ch5-webxpanel": "^2.8.0",
     "lucide-react": "^1.12.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.5"

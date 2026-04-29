@@ -8,8 +8,7 @@ export function NvxWidget() {
   const [powered] = useCIPBool("24");
 
   return (
-    <div className="absolute left-[1016px] right-6 top-[108px] bottom-[124px] flex flex-col gap-5 rounded-glass border border-hairline bg-panel backdrop-blur-glass p-6"
-         style={{ boxShadow: "0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 8px 22px rgba(0, 0, 0, 0.35), inset 0 0 24px rgba(120, 180, 255, 0.05)" }}>
+    <>
       <header className="flex items-center justify-between gap-3 pb-3 border-b border-hairline">
         <div className="flex flex-col gap-1">
           <span className="eyebrow">Display Output</span>
@@ -34,7 +33,6 @@ export function NvxWidget() {
         </button>
       </header>
 
-      {/* Display row */}
       <section className="flex flex-col gap-2.5 flex-1 min-h-0">
         <span className="eyebrow">Displays</span>
         <div className="grid grid-cols-4 gap-3 flex-1 min-h-0">
@@ -45,7 +43,6 @@ export function NvxWidget() {
         </div>
       </section>
 
-      {/* Source grid */}
       <section className="flex flex-col gap-2.5 flex-[2] min-h-0">
         <span className="eyebrow">Sources</span>
         <div className="grid grid-cols-4 grid-rows-2 gap-3 flex-1 min-h-0">
@@ -59,7 +56,7 @@ export function NvxWidget() {
           <SourceTile name="57" status="30" press="97" enable="21" icon="PS5.png" />
         </div>
       </section>
-    </div>
+    </>
   );
 }
 
