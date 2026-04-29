@@ -148,6 +148,20 @@ ${cssFile ? `  <link rel="stylesheet" href="./assets/react/${cssFile}">` : ""}
   }
 
   log(`✅ Built ${OUT_FINAL}`);
+
+  // Optional: also copy the final .ch5z to a user-specified directory.
+  // Set CH5Z_OUT_DIR (PowerShell: $env:CH5Z_OUT_DIR = "C:\\path\\to\\folder")
+  // before running the build, and we'll mirror office-react.ch5z there.
+  const userOutDir = process.env.CH5Z_OUT_DIR;
+  if (userOutDir) {
+    if (!existsSync(userOutDir)) {
+      await mkdir(userOutDir, { recursive: true });
+    }
+    const userOutFile = join(userOutDir, "office-react.ch5z");
+    await cp(OUT_FINAL, userOutFile);
+    log(`📁 Mirrored to ${userOutFile}`);
+  }
+
   console.log("");
   console.log("Deploy from any TTY (PowerShell / VS Code terminal):");
   console.log(`  npx ch5-cli deploy -p -H 192.168.50.105 -t touchscreen "${OUT_FINAL}"`);
