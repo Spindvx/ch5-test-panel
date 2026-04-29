@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build": "vite build",
+    "build:ch5z": "node ../deploy/build-react-ch5z.mjs",
+    "build:ch5z:live": "node ../deploy/build-react-ch5z.mjs --live",
+    "deploy": "npx ch5-cli deploy -p -H 192.168.50.105 -t touchscreen ../dist/prod/office-react.ch5z",
+    "deploy:full": "npm run build:ch5z:live && npm run deploy"
   },
   "keywords": [],
   "author": "",
