@@ -61,8 +61,3 @@ npm run build:deploy
 - CH5 (Crestron HTML5)
 - Vanilla JS
 - Webpack
-
-## Panel
-
-**IP:** 192.168.50.105  
-**Credentials:** admin / CNZav2114
