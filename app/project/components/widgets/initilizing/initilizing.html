@@ -1,0 +1,11 @@
+<!-- Initilizing widget — receivestateshow=12, full-screen overlay during boot.
+     Note: spelling preserved as in original Office_V0.2 SIMPL program. -->
+<template id="Initilizing-widget">
+  <div class="init-widget">
+    <ch5-animation class="init-widget__spinner" size="x-large"></ch5-animation>
+    <h1 class="v3-title init-widget__title">Initializing</h1>
+    <p class="v3-subtitle">
+      <ch5-jointotext-string receivestatevalue="1" textwhenempty="Connecting to control system…"></ch5-jointotext-string>
+    </p>
+  </div>
+</template>

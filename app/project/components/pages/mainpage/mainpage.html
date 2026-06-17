@@ -1,0 +1,323 @@
+<!--
+  MainPage — Office TSW glass dashboard
+  Static frame (top bar / sidebar / left column / bottom bar) + swappable right pane.
+  Joins are real, sourced from reference/construct/JOIN_MAP.md.
+  Widget receivestateshow:  2=NVX  3=Q-SYS  4=AppleTV  5=Settings  12=Initializing  25=MusicPlayer
+-->
+
+<!-- Right-pane widget templates are pre-registered via the "widgets" array
+     in project-config.json. By the time this page renders, the
+     <template id="X-widget"> definitions exist in the DOM. -->
+
+<section id="MainPage-page" class="mainpage details-container" aria-labelledby="MainPage">
+
+  <!-- Wallpaper layer (under everything) -->
+  <ch5-background
+      id="mp-bg"
+      receivestateurl="MainPage.Background.Url"
+      url="./app/project/assets/img/Wallpaper2.jpg"
+      backgroundcolor="rgba(0,0,0,0)"
+      imgbackgroundcolor="transparent">
+  </ch5-background>
+  <div class="mainpage__overlay"></div>
+
+  <!-- ============ TOP BAR ============ -->
+  <header class="mainpage__topbar">
+    <div class="topbar__left">
+      <ch5-datetime class="clock-display" displaytype="time" id="mp-clock"></ch5-datetime>
+      <span class="topbar__clock-meta v3-eyebrow">
+        <ch5-jointotext-string receivestatevalue="11" textwhenempty=""></ch5-jointotext-string>
+      </span>
+    </div>
+    <div class="topbar__center">
+      <span class="v3-eyebrow">Q-SYS Core</span>
+      <span class="v3-readout">
+        <ch5-jointotext-string receivestatevalue="14" textwhenempty="—"></ch5-jointotext-string>
+      </span>
+    </div>
+    <div class="topbar__right">
+      <ch5-button
+          id="mp-mic"
+          customclass="topbar__mic glass-btn"
+          shape="rounded-rectangle"
+          sendeventontouch="40"
+          receivestateselected="40"
+          iconurl="./app/project/assets/img/Mic%20Unmute.png"
+          label="">
+      </ch5-button>
+    </div>
+  </header>
+
+  <!-- ============ SIDEBAR ============ -->
+  <nav class="mainpage__sidebar side-nav-rail" aria-label="Main navigation">
+    <ch5-button
+        id="mp-nav-nvx"
+        sendeventontouch="2" receivestateselected="2"
+        iconurl="./app/project/assets/img/NVXLogo.png"
+        iconposition="top"
+        shape="rounded-rectangle">
+    </ch5-button>
+    <ch5-button
+        id="mp-nav-qsys"
+        sendeventontouch="3" receivestateselected="3"
+        iconurl="./app/project/assets/img/Q-SYS%20White.png"
+        iconposition="top"
+        shape="rounded-rectangle">
+    </ch5-button>
+    <ch5-button
+        id="mp-nav-apple"
+        sendeventontouch="4" receivestateselected="4"
+        iconurl="./app/project/assets/img/Apple%20Logo.png"
+        iconposition="top"
+        shape="rounded-rectangle">
+    </ch5-button>
+    <ch5-button
+        id="mp-nav-music"
+        sendeventontouch="25" receivestateselected="25"
+        iconurl="./app/project/assets/img/Airplay%20Icon.png"
+        iconposition="top"
+        shape="rounded-rectangle">
+    </ch5-button>
+    <ch5-button
+        id="mp-nav-settings"
+        sendeventontouch="5" receivestateselected="5"
+        iconurl="./app/project/assets/img/Settings.png"
+        iconposition="top"
+        shape="rounded-rectangle">
+    </ch5-button>
+    <div class="sidebar__spacer"></div>
+    <ch5-button
+        id="mp-nav-power"
+        sendeventontouch="1" receivestateselected="1"
+        iconurl="./app/project/assets/img/Power.png"
+        iconposition="top"
+        shape="rounded-rectangle"
+        customclass="sidebar__power">
+    </ch5-button>
+  </nav>
+
+  <!-- ============ STATIC LEFT COLUMN ============ -->
+  <aside class="mainpage__left">
+
+    <!-- Yamaha source label — display headline -->
+    <section class="lh-section lh-yamaha">
+      <span class="v3-eyebrow">Yamaha</span>
+      <span class="v3-title">
+        <ch5-jointotext-string receivestatevalue="8" textwhenempty="…"></ch5-jointotext-string>
+      </span>
+    </section>
+
+    <!-- Source mode picker — segmented 3-up. Selected = filled glass + accent. -->
+    <section class="lh-section">
+      <span class="v3-eyebrow">Source</span>
+      <div class="seg-3">
+        <ch5-button
+            class="seg-btn"
+            shape="rounded-rectangle"
+            sendeventontouch="68" receivestateselected="68"
+            label="Q-SYS"
+            iconurl="./app/project/assets/img/Q-SYS%20White.png" iconposition="top">
+        </ch5-button>
+        <ch5-button
+            class="seg-btn"
+            shape="rounded-rectangle"
+            sendeventontouch="69" receivestateselected="69"
+            label="Bluetooth"
+            iconurl="./app/project/assets/img/Bluetooth%20Icon.svg" iconposition="top">
+        </ch5-button>
+        <ch5-button
+            class="seg-btn"
+            shape="rounded-rectangle"
+            sendeventontouch="70" receivestateselected="70"
+            label="AirPlay"
+            iconurl="./app/project/assets/img/Airplay%20Icon.png" iconposition="top">
+        </ch5-button>
+      </div>
+    </section>
+
+    <!-- Audio: gauge + dB readout paired (Sonos-style fader+value) + 3 mode toggles -->
+    <section class="lh-section">
+      <span class="v3-eyebrow">Audio</span>
+
+      <div class="audio-row">
+        <ch5-slider
+            class="audio-row__gauge"
+            slidertype="gauge" max="65535"
+            sendeventonchange="2" receivestatevalue="2"
+            nohandle="true" tapsettable="true">
+        </ch5-slider>
+        <span class="audio-row__db">
+          <ch5-jointotext-string receivestatevalue="4" textwhenempty="—"></ch5-jointotext-string>
+        </span>
+      </div>
+
+      <!-- iOS-style switch toggles with label beside each -->
+      <div class="toggle-row">
+        <label class="toggle-row__item">
+          <ch5-toggle
+              sendeventonclick="50" receivestatevalue="50"
+              labelon="" labeloff="">
+          </ch5-toggle>
+          <span class="toggle-row__label">7 Channel</span>
+        </label>
+        <label class="toggle-row__item">
+          <ch5-toggle
+              sendeventonclick="47" receivestatevalue="47"
+              labelon="" labeloff="">
+          </ch5-toggle>
+          <span class="toggle-row__label">Bass Boost</span>
+        </label>
+        <label class="toggle-row__item">
+          <ch5-toggle
+              sendeventonclick="11" receivestatevalue="11"
+              labelon="" labeloff="">
+          </ch5-toggle>
+          <span class="toggle-row__label">Occupancy</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Computer / actions — 4-up uniform row. Office Mode is a toggle (selected = on). -->
+    <section class="lh-section">
+      <span class="v3-eyebrow">Computer</span>
+      <div class="seg-4">
+        <ch5-button
+            class="action-btn"
+            shape="rounded-rectangle"
+            sendeventontouch="45" receivestateselected="45"
+            label="PC Audio"
+            iconurl="./app/project/assets/img/windows%20logo.png" iconposition="first">
+        </ch5-button>
+        <ch5-button
+            class="action-btn"
+            shape="rounded-rectangle"
+            sendeventontouch="6" receivestateselected="6"
+            label="Browser"
+            iconclass="fab fa-chrome" iconposition="first">
+        </ch5-button>
+        <ch5-button
+            class="action-btn seg-btn--toggle"
+            shape="rounded-rectangle"
+            sendeventontouch="48" receivestateselected="49"
+            label="Office Mode">
+        </ch5-button>
+        <ch5-button
+            class="action-btn"
+            shape="rounded-rectangle"
+            sendeventontouch="7" receivestateselected="7"
+            label="Lock PC"
+            iconurl="./app/project/assets/img/windows%20logo.png" iconposition="first">
+        </ch5-button>
+      </div>
+    </section>
+
+    <!-- USB Routing — NVX-side mouse/keyboard routing (MainPage.USBRouter SO) -->
+    <section class="lh-section lh-usb">
+      <span class="v3-eyebrow">USB Routing</span>
+      <ch5-button-list
+          numberofitems="4"
+          indexid="idx"
+          buttonshape="rounded-rectangle"
+          orientation="horizontal"
+          contractname="MainPage.USBRouter"
+          contractitemlabeltype="textContent"
+          labelmodebtnlist="simple"
+          buttoniconurl="./app/project/assets/img/USB.png">
+        <ch5-button-list-individual-button componentname="USB1"></ch5-button-list-individual-button>
+        <ch5-button-list-individual-button componentname="USB2"></ch5-button-list-individual-button>
+        <ch5-button-list-individual-button componentname="USB3"></ch5-button-list-individual-button>
+        <ch5-button-list-individual-button componentname="USB4"></ch5-button-list-individual-button>
+      </ch5-button-list>
+    </section>
+
+  </aside>
+
+  <!-- ============ RIGHT PANE (swappable) ============ -->
+  <main class="mainpage__right">
+    <ch5-template
+        templateid="NVXControl-widget"
+        id="rp-nvx"
+        componentname="NVXControl"
+        receivestateshow="2"
+        context="NVXControlCONTRACT:MainPage.YamahaAmp">
+    </ch5-template>
+    <ch5-template
+        templateid="QSYSLevels-widget"
+        id="rp-qsys"
+        componentname="QSYSLevels"
+        receivestateshow="3"
+        context="QSYSLevelsCONTRACT:.MainPage">
+    </ch5-template>
+    <ch5-template
+        templateid="AppleTV-widget"
+        id="rp-apple"
+        componentname="AppleTV"
+        receivestateshow="4"
+        context="AppleTVCONTRACT:MainPage.AppleTV">
+    </ch5-template>
+    <ch5-template
+        templateid="Settings-widget"
+        id="rp-settings"
+        componentname="Settings"
+        receivestateshow="5"
+        context="SettingsCONTRACT:MainPage.Sandbox">
+    </ch5-template>
+    <ch5-template
+        templateid="MusicPlayer-widget"
+        id="rp-music"
+        componentname="MusicPlayer"
+        receivestateshow="25"
+        context="MusicPlayerCONTRACT:MainPage.MusicPlayer">
+    </ch5-template>
+    <ch5-template
+        templateid="Initilizing-widget"
+        id="rp-init"
+        componentname="Initilizing"
+        receivestateshow="12">
+    </ch5-template>
+  </main>
+
+  <!-- ============ BOTTOM BAR — master volume (Construct-style: full-width slider + mute) ============ -->
+  <footer class="mainpage__bottom glass-panel-strong">
+    <ch5-button
+        id="mp-mute"
+        class="bottom__mute"
+        shape="rounded-rectangle"
+        sendeventontouch="10" receivestateselected="10"
+        iconurl="./app/project/assets/img/Mute%20Icon.png" label="">
+    </ch5-button>
+    <ch5-slider
+        class="bottom__volume"
+        slidertype="gauge"
+        max="65535" value="0"
+        sendeventonchange="1" receivestatevalue="1"
+        nohandle="true" handleshape="rectangle"
+        tapsettable="true">
+    </ch5-slider>
+  </footer>
+
+  <!-- Default the right pane to NVX on cold start so the panel never lands
+       on an empty pane. SIMPL takes over once it connects and drives the
+       receivestateshow signals normally. -->
+  <script>
+  (function () {
+    function defaultToNvx() {
+      if (typeof CrComLib === "undefined" || !CrComLib.Ch5SignalFactory) {
+        setTimeout(defaultToNvx, 200);
+        return;
+      }
+      try {
+        CrComLib.Ch5SignalFactory.getInstance()
+          .getBooleanSignal("2", true)
+          .publish(true);
+      } catch (e) {}
+    }
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", defaultToNvx);
+    } else {
+      defaultToNvx();
+    }
+  })();
+  </script>
+
+</section>

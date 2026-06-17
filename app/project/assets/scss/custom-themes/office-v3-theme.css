@@ -1,586 +1,530 @@
 /* ============================================================
-   Office V3 UI — Neo-Noir Touch Panel Theme
-   ----------------------------------------------------------------
-   Inspired by The Office Viz design language:
-   palette  #0A0A0B / #141416 / #4ADE80 + magenta #FF2E9F + cyan #00F0FF
-   fonts    JetBrains Mono (mono), Chakra Petch (titles), IBM Plex Sans (body)
-   effects  always-on scanlines, vignette, neon glow, kana sub-labels
+   Office TSW Glass Theme
+   Dark frosted-glass aesthetic for the TS-1070 panel.
+   Uses Plus Jakarta Sans (variable, italic) for typography.
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap');
+@import "~@fontsource-variable/plus-jakarta-sans/wght.css";
+@import "~@fontsource-variable/plus-jakarta-sans/wght-italic.css";
 
-/* ---------- Tokens ---------- */
 :root {
-  --noir-bg:        #0A0A0B;
-  --noir-panel:     #141416;
-  --noir-panel-2:   #1B1B20;
-  --noir-line:      #2A2A30;
-  --noir-edge:      #3A3A45;
-  --noir-text:      #E8E8EC;
-  --noir-text-dim:  #8A8A95;
-  --neon-magenta:   #FF2E9F;
-  --neon-cyan:      #00F0FF;
-  --neon-mint:      #4ADE80;
-  --neon-amber:     #FFB347;
-  --neon-red:       #FF4060;
-  --grid-line:      rgba(255, 46, 159, 0.05);
-  --grid-line-2:    rgba(0, 240, 255, 0.04);
+  /* Surface */
+  --bg:            #07090c;
+  --bg-grad:       radial-gradient(ellipse at 20% 0%, #0e1622 0%, #07090c 60%, #050608 100%);
+  --panel:         rgba(255, 255, 255, 0.045);
+  --panel-strong:  rgba(255, 255, 255, 0.075);
+  --panel-soft:    rgba(255, 255, 255, 0.025);
+
+  /* Lines */
+  --hairline:        rgba(255, 255, 255, 0.085);
+  --hairline-strong: rgba(255, 255, 255, 0.16);
+
+  /* Text */
+  --text:      rgba(255, 255, 255, 0.94);
+  --text-dim:  rgba(255, 255, 255, 0.58);
+  --text-mute: rgba(255, 255, 255, 0.34);
+
+  /* Accent (single cool white-cyan; no neon) */
+  --accent:        rgba(190, 220, 250, 0.92);
+  --accent-soft:   rgba(140, 190, 240, 0.55);
+  --accent-glow:   rgba(120, 180, 255, 0.18);
+
+  /* Status */
+  --danger:        rgba(255, 110, 110, 0.88);
+  --mint:          rgba(120, 220, 180, 0.88);
+
+  /* Shape */
+  --radius:    14px;
+  --radius-sm: 9px;
+  --radius-xs: 6px;
+
+  /* Glass effects */
+  --blur:          18px;
+  --blur-strong:   28px;
+  --shadow-inner:  inset 0 0 24px rgba(120, 180, 255, 0.05);
+  --shadow-rest:   0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 8px 22px rgba(0, 0, 0, 0.35);
+  --shadow-press:  0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 4px 12px rgba(0, 0, 0, 0.45);
+  --shadow-sel:    0 0 0 1px var(--accent-soft) inset, 0 0 24px var(--accent-glow);
+
+  /* Type */
+  --font-sans:    'Plus Jakarta Sans Variable', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-italic:  'Plus Jakarta Sans Italic Variable', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --tnum:         "tnum" on, "ss01" on;
 }
 
-/* ---------- Global background + scene ---------- */
+/* ============================================================
+   Page chrome — kill the shell-template header/footer, full-bleed
+   ============================================================ */
+
 html, body {
-  background: var(--noir-bg) !important;
-  color: var(--noir-text);
-  font-family: 'IBM Plex Sans', system-ui, sans-serif;
-  font-size: 18px;
-  letter-spacing: 0.01em;
+  background: var(--bg) var(--bg-grad);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-feature-settings: "calt" on, "liga" on;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-body, #content-index-page, .page-dark {
-  background:
-    radial-gradient(ellipse at 30% 20%, rgba(255, 46, 159, 0.06) 0%, transparent 55%),
-    radial-gradient(ellipse at 80% 90%, rgba(0, 240, 255, 0.05) 0%, transparent 55%),
-    linear-gradient(180deg, #0A0A0B 0%, #050507 100%) !important;
-  position: relative;
-}
-
-/* Grid floor — dual-tone neon hex-feel via crossing lines */
-body::before, .page-dark::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background-image:
-    linear-gradient(var(--grid-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-line-2) 1px, transparent 1px);
-  background-size: 40px 40px, 40px 40px;
-  z-index: 1;
-  opacity: 0.7;
-}
-
-/* Scanlines + vignette overlay */
-body::after, .page-dark::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background:
-    repeating-linear-gradient(
-      0deg,
-      rgba(0, 240, 255, 0.025) 0px,
-      rgba(0, 240, 255, 0.025) 1px,
-      transparent 1px,
-      transparent 3px
-    ),
-    radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.55) 100%);
-  z-index: 9999;
-  mix-blend-mode: screen;
-}
-
-/* Page section base */
-section.page-dark {
-  position: relative;
-  z-index: 2;
+#widgets-and-standalone-pages,
+#template-page-import-page,
+.template-page,
+.app-content,
+ch5-template-page,
+ch5-template-page > section,
+.details-container {
   background: transparent !important;
-  padding: 24px !important;
 }
 
-/* ---------- Sidebar (vertical menu) ---------- */
-.vertical-menu .nav-panel {
-  width: 72px !important;
-  min-width: 72px !important;
-  max-width: 72px !important;
-  background:
-    linear-gradient(180deg, #0E0E12 0%, #08080A 100%) !important;
-  border-right: 1px solid var(--noir-line);
-  box-shadow:
-    1px 0 0 rgba(255, 46, 159, 0.25),
-    4px 0 24px rgba(255, 46, 159, 0.08);
-  height: 100vh;
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 100;
-}
-
-.vertical-menu-child-col {
-  margin-left: 72px !important;
-  width: calc(100% - 72px) !important;
-  height: 100vh;
-}
-
-/* Sidebar nav buttons — even spacing, neon hover */
-#vertical-menu-swiper-thumb .vertical-list-item ch5-button {
-  width: 72px !important;
-  height: 72px !important;
-  background: transparent !important;
-  border: none !important;
-  border-left: 3px solid transparent !important;
-  border-radius: 0 !important;
-  color: var(--noir-text-dim) !important;
-  transition: all 0.15s ease;
-}
-
-#vertical-menu-swiper-thumb .vertical-list-item ch5-button .ch5-button--icon,
-#vertical-menu-swiper-thumb .vertical-list-item ch5-button i {
-  font-size: 20px !important;
-  color: var(--noir-text-dim);
-  filter: drop-shadow(0 0 0 transparent);
-  transition: all 0.15s ease;
-}
-
-#vertical-menu-swiper-thumb .vertical-list-item ch5-button:hover,
-#vertical-menu-swiper-thumb .vertical-list-item.selected ch5-button,
-#vertical-menu-swiper-thumb .vertical-list-item ch5-button.selected {
-  background: linear-gradient(90deg, rgba(255, 46, 159, 0.18) 0%, transparent 100%) !important;
-  border-left: 3px solid var(--neon-magenta) !important;
-  color: var(--neon-magenta) !important;
-}
-
-#vertical-menu-swiper-thumb .vertical-list-item ch5-button:hover i,
-#vertical-menu-swiper-thumb .vertical-list-item.selected ch5-button i {
-  color: var(--neon-magenta);
-  filter: drop-shadow(0 0 6px var(--neon-magenta));
-}
-
-/* Let shell's ch5-list flow items naturally; just style each button. */
-#vertical-menu-swiper-thumb .vertical-list-item {
-  width: 72px;
-  height: 72px;
-  position: relative;
-  display: block;
-  margin: 0;
-}
-
-#vertical-menu-swiper-thumb .vertical-list-item ch5-button .ch5-button {
-  background: transparent !important;
-  border: none !important;
-  width: 72px !important;
-  height: 72px !important;
-  border-radius: 0 !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-
-/* The label often shows the page name — hide in collapsed sidebar */
-#vertical-menu-swiper-thumb .vertical-list-item .cb-lbl,
-#vertical-menu-swiper-thumb .vertical-list-item .ch5-button--label {
+.shell-template-header,
+.shell-template-footer {
   display: none !important;
 }
 
-#header-index-page { display: none !important; }
+/* ============================================================
+   Glass primitives
+   ============================================================ */
 
-/* ---------- Typography utility classes ---------- */
-.v3-title {
-  font-family: 'Chakra Petch', 'IBM Plex Sans', sans-serif;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--noir-text);
-  text-shadow: 0 0 8px rgba(255, 46, 159, 0.4);
+.glass-panel,
+.v3-card {
+  background: var(--panel);
+  -webkit-backdrop-filter: blur(var(--blur));
+  backdrop-filter: blur(var(--blur));
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-rest), var(--shadow-inner);
 }
 
-.v3-kana {
-  font-family: 'Noto Sans JP', sans-serif;
-  font-weight: 500;
-  font-size: 12px;
-  letter-spacing: 0.2em;
-  color: var(--neon-cyan);
-  opacity: 0.8;
-  text-shadow: 0 0 4px rgba(0, 240, 255, 0.4);
+.glass-panel-strong {
+  background: var(--panel-strong);
+  -webkit-backdrop-filter: blur(var(--blur-strong));
+  backdrop-filter: blur(var(--blur-strong));
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-rest);
 }
 
-.v3-mono {
-  font-family: 'JetBrains Mono', 'IBM Plex Mono', monospace;
-  font-weight: 500;
-  letter-spacing: 0.04em;
+.hairline {
+  background: var(--hairline);
 }
+
+/* ============================================================
+   Typography
+   ============================================================ */
 
 .v3-eyebrow {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-italic);
+  font-style: italic;
+  font-weight: 200;
   font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--noir-text-dim);
+  color: var(--text-dim);
+  margin: 0;
 }
 
-/* ---------- Page header pattern ---------- */
-.v3-pageheader {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  padding-bottom: 16px;
-  margin-bottom: 24px;
-  border-bottom: 1px solid var(--noir-line);
-  position: relative;
+.v3-title {
+  font-family: var(--font-italic);
+  font-style: italic;
+  font-weight: 200;
+  font-size: 26px;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin: 0;
 }
 
-.v3-pageheader::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -1px;
-  width: 80px;
-  height: 1px;
-  background: linear-gradient(90deg, var(--neon-magenta) 0%, transparent 100%);
-  box-shadow: 0 0 8px var(--neon-magenta);
+.v3-subtitle {
+  font-family: var(--font-italic);
+  font-style: italic;
+  font-weight: 200;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  color: var(--text-dim);
+  margin: 0;
 }
 
-.v3-pageheader .v3-title { font-size: 28px; }
-.v3-pageheader .v3-kana { margin-top: 6px; display: block; }
-
-/* corner brackets — used on cards / dialog */
-.v3-bracket {
-  position: relative;
-  padding: 18px 20px;
-}
-.v3-bracket::before,
-.v3-bracket::after {
-  content: '';
-  position: absolute;
-  width: 14px;
-  height: 14px;
-  border: 1px solid var(--neon-cyan);
-  pointer-events: none;
-}
-.v3-bracket::before { top: 0; left: 0; border-right: none; border-bottom: none; }
-.v3-bracket::after  { bottom: 0; right: 0; border-left: none; border-top: none; }
-
-/* ---------- Card / panel ---------- */
-.v3-card {
-  background: linear-gradient(180deg, rgba(20, 20, 22, 0.95) 0%, rgba(14, 14, 16, 0.95) 100%);
-  border: 1px solid var(--noir-line);
-  border-radius: 4px;
-  padding: 18px 20px;
-  position: relative;
-  box-shadow:
-    0 4px 24px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+.v3-mono,
+.v3-readout {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-feature-settings: var(--tnum);
+  letter-spacing: 0.02em;
+  color: var(--text);
 }
 
-.v3-card.accent-magenta { border-left: 3px solid var(--neon-magenta); }
-.v3-card.accent-cyan    { border-left: 3px solid var(--neon-cyan); }
-.v3-card.accent-mint    { border-left: 3px solid var(--neon-mint); }
-.v3-card.accent-amber   { border-left: 3px solid var(--neon-amber); }
-
-.v3-card .v3-eyebrow { margin-bottom: 6px; }
-.v3-card .v3-value {
-  font-family: 'Chakra Petch', sans-serif;
-  font-size: 22px;
-  font-weight: 600;
-  color: var(--noir-text);
-  letter-spacing: 0.04em;
+.v3-label {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 13px;
+  color: var(--text);
 }
-.v3-card .v3-value.mint    { color: var(--neon-mint); text-shadow: 0 0 8px rgba(74,222,128,0.4); }
-.v3-card .v3-value.cyan    { color: var(--neon-cyan); text-shadow: 0 0 8px rgba(0,240,255,0.4); }
-.v3-card .v3-value.magenta { color: var(--neon-magenta); text-shadow: 0 0 8px rgba(255,46,159,0.4); }
 
-/* ---------- Buttons ---------- */
+.v3-kana { display: none; }                /* legacy: kill any leftover Japanese spans */
+.accent-magenta, .accent-cyan { color: var(--accent); }
+.glow, .glow-magenta, .glow-cyan {
+  text-shadow: 0 0 18px var(--accent-glow);
+}
+
+/* ============================================================
+   ch5-button: glass surface, hairline, accent on selected
+   ============================================================ */
+
+ch5-button.btn-noir,
+ch5-button.glass-btn,
 ch5-button {
-  min-height: 56px;
-  min-width: 56px;
+  --ch5-button--default-background-color:           var(--panel);
+  --ch5-button--default-border-color:               var(--hairline);
+  --ch5-button--default-border-style:               solid;
+  --ch5-button--default-border-width:               1px;
+  --ch5-button--default-label-font-color:           var(--text);
+
+  --ch5-button--regular-font-size:                  14px;
+
+  --ch5-button--default-pressed-background-color:   var(--panel-strong);
+  --ch5-button--default-pressed-border-color:       var(--accent-soft);
+
+  --ch5-button--default-selected-background-color:  rgba(120, 180, 255, 0.10);
+  --ch5-button--default-selected-border-color:      var(--accent-soft);
+  --ch5-button--default-selected-label-font-color:  var(--text);
 }
 
-/* Generic neo-noir tile button */
-.btn-noir {
-  background: linear-gradient(180deg, #16161A 0%, #0E0E10 100%) !important;
-  border: 1px solid var(--noir-edge) !important;
-  border-radius: 4px !important;
-  color: var(--noir-text) !important;
-  font-family: 'IBM Plex Sans', sans-serif !important;
-  font-weight: 500 !important;
-  letter-spacing: 0.04em !important;
-  text-transform: uppercase !important;
-  font-size: 14px !important;
-  transition: all 0.15s ease !important;
-  position: relative;
+ch5-button {
+  border-radius: var(--radius-sm);
   overflow: hidden;
 }
 
-.btn-noir:hover, .btn-noir.pressed, .btn-noir:active {
-  border-color: var(--neon-cyan) !important;
-  color: var(--neon-cyan) !important;
-  box-shadow:
-    0 0 0 1px var(--neon-cyan),
-    0 0 20px rgba(0, 240, 255, 0.25),
-    inset 0 0 18px rgba(0, 240, 255, 0.08) !important;
-  transform: translateY(-1px);
+/* All visual styling lives on .cb-btn (the inner <button>), not on the
+   outer <div class="ch5-button">. This avoids the "double rectangle"
+   effect where both the parent div and the child button render their
+   own background + border + padding. The parent div is fully
+   transparent and acts only as a sizing wrapper. */
+ch5-button > div.ch5-button {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
 }
 
-.btn-noir.selected, .btn-noir[data-selected="true"] {
-  background: linear-gradient(180deg, rgba(255, 46, 159, 0.18) 0%, rgba(255, 46, 159, 0.08) 100%) !important;
-  border-color: var(--neon-magenta) !important;
-  color: var(--neon-magenta) !important;
-  box-shadow:
-    0 0 0 1px var(--neon-magenta),
-    0 0 24px rgba(255, 46, 159, 0.35),
-    inset 0 0 24px rgba(255, 46, 159, 0.12) !important;
-  text-shadow: 0 0 8px rgba(255,46,159,0.5);
-}
-
-.btn-noir i, .btn-noir .ch5-button--icon {
-  filter: drop-shadow(0 0 4px currentColor);
-}
-
-/* Primary action — magenta neon, larger */
-.btn-primary, .btn-noir.primary {
-  background: linear-gradient(180deg, var(--neon-magenta) 0%, #C8217D 100%) !important;
-  border: 1px solid var(--neon-magenta) !important;
-  color: #FFFFFF !important;
-  font-family: 'Chakra Petch', sans-serif !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.12em !important;
-  text-transform: uppercase !important;
-  font-size: 18px !important;
-  min-height: 80px !important;
-  border-radius: 4px !important;
-  box-shadow:
-    0 0 0 1px var(--neon-magenta),
-    0 0 32px rgba(255, 46, 159, 0.5),
-    0 8px 24px rgba(0, 0, 0, 0.6),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
-  text-shadow: 0 1px 0 rgba(0,0,0,0.4);
-  transition: all 0.12s ease !important;
-}
-
-.btn-primary:hover, .btn-noir.primary:hover {
-  filter: brightness(1.1);
-  box-shadow:
-    0 0 0 1px var(--neon-magenta),
-    0 0 48px rgba(255, 46, 159, 0.7),
-    0 8px 32px rgba(0, 0, 0, 0.7),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
-}
-
-.btn-primary:active, .btn-noir.primary:active {
-  transform: scale(0.98);
-}
-
-/* Cyan secondary action */
-.btn-noir.secondary {
-  background: linear-gradient(180deg, var(--neon-cyan) 0%, #0AAEC0 100%) !important;
-  border: 1px solid var(--neon-cyan) !important;
-  color: #04101A !important;
-  font-weight: 700 !important;
-  box-shadow:
-    0 0 0 1px var(--neon-cyan),
-    0 0 24px rgba(0, 240, 255, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
-}
-
-/* Danger / mute — red */
-.btn-noir.danger {
-  background: linear-gradient(180deg, var(--neon-red) 0%, #B82A45 100%) !important;
-  border: 1px solid var(--neon-red) !important;
-  color: #FFFFFF !important;
-  box-shadow:
-    0 0 0 1px var(--neon-red),
-    0 0 24px rgba(255, 64, 96, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
-}
-
-/* ---------- Sliders / faders ---------- */
-ch5-slider {
-  --slider-track-bg: rgba(255, 255, 255, 0.06);
-  --slider-fill-bg: var(--neon-cyan);
-  --slider-handle-bg: var(--neon-magenta);
-}
-
-/* Stock ch5-slider tweaks (works on the inner noUiSlider DOM) */
-ch5-slider .noUi-target {
-  background: rgba(255, 255, 255, 0.04) !important;
-  border: 1px solid var(--noir-line) !important;
-  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.5) !important;
-  border-radius: 2px !important;
-}
-
-ch5-slider .noUi-connect {
-  background: linear-gradient(90deg, var(--neon-cyan) 0%, var(--neon-magenta) 100%) !important;
-  box-shadow: 0 0 12px rgba(0, 240, 255, 0.5) !important;
-}
-
-ch5-slider .noUi-handle {
-  background: var(--noir-bg) !important;
-  border: 2px solid var(--neon-magenta) !important;
-  border-radius: 50% !important;
-  box-shadow:
-    0 0 0 1px var(--neon-magenta),
-    0 0 18px var(--neon-magenta),
-    inset 0 0 8px rgba(255, 46, 159, 0.5) !important;
-}
-
-ch5-slider .noUi-handle:before,
-ch5-slider .noUi-handle:after { display: none !important; }
-
-/* ---------- Status / data rows ---------- */
-.status-row {
-  display: flex;
-  align-items: center;
-  padding: 14px 18px;
-  background: linear-gradient(90deg, rgba(20, 20, 22, 0.7) 0%, rgba(14, 14, 16, 0.4) 100%);
-  border: 1px solid var(--noir-line);
-  border-left: 3px solid var(--neon-mint);
-  border-radius: 2px;
-  margin-bottom: 8px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  color: var(--noir-text);
-  letter-spacing: 0.04em;
-  position: relative;
-}
-
-.status-row::before {
-  content: '▸';
-  color: var(--neon-mint);
-  margin-right: 12px;
-  text-shadow: 0 0 4px var(--neon-mint);
-}
-
-/* ---------- Fader strip ---------- */
-.fader-strip {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 18px 20px;
-  background: linear-gradient(180deg, rgba(20,20,22,0.85) 0%, rgba(14,14,16,0.85) 100%);
-  border: 1px solid var(--noir-line);
-  border-radius: 4px;
-  margin: 8px;
-  min-width: 120px;
-  position: relative;
-}
-
-.fader-strip::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 8px; height: 8px;
-  border: 1px solid var(--neon-cyan);
-  border-right: none; border-bottom: none;
-}
-.fader-strip::after {
-  content: '';
-  position: absolute;
-  bottom: 0; right: 0;
-  width: 8px; height: 8px;
-  border: 1px solid var(--neon-cyan);
-  border-left: none; border-top: none;
-}
-
-.fader-strip label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--noir-text-dim);
-  margin-bottom: 12px;
-}
-
-.fader-strip ch5-slider {
-  width: 100%;
-}
-
-.fader-strip .fader-value {
-  font-family: 'Chakra Petch', sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--neon-cyan);
-  text-shadow: 0 0 6px rgba(0, 240, 255, 0.5);
-  margin-top: 12px;
-  letter-spacing: 0.05em;
-}
-
-/* ---------- Volume page ---------- */
-.volume-gauge-container {
-  display: flex;
-  flex-direction: column;
+/* Center the icon + label stack inside the inner button. */
+ch5-button .cb-btn {
+  display: flex !important;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  height: 100%;
-  padding: 32px;
-  position: relative;
+  gap: 8px;
+  text-align: center;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 0 14px;
+  -webkit-backdrop-filter: blur(var(--blur));
+  backdrop-filter: blur(var(--blur));
+  box-shadow: var(--shadow-rest);
+  transition: box-shadow 120ms ease, background-color 120ms ease, border-color 120ms ease;
 }
 
-.volume-gauge-container ch5-slider {
-  width: 80%;
-  max-width: 480px;
+/* When iconposition=top, stack vertically with the icon above the label */
+ch5-button[iconposition="top"] .cb-btn {
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 12px;
 }
 
-.volume-value {
-  font-family: 'Chakra Petch', sans-serif;
-  font-size: 96px;
-  font-weight: 700;
-  color: var(--neon-cyan);
-  margin-top: 24px;
-  letter-spacing: 0.08em;
-  text-shadow:
-    0 0 12px var(--neon-cyan),
-    0 0 32px rgba(0, 240, 255, 0.4);
+/* The actual <i.cb-icon> element — never collapse, fill the size CH5 expects */
+ch5-button .cb-icon,
+ch5-button .ch5-button--img {
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  display: inline-block !important;
+  flex-shrink: 0;
+  opacity: 0.9;
+  transition: opacity 120ms ease;
 }
 
-/* ---------- Clock page ---------- */
+ch5-button[selected="true"] .cb-icon,
+ch5-button[selected] .cb-icon { opacity: 1; }
+
+/* Labels: single line, never truncate. Override CH5's internal
+   text-overflow:ellipsis with stronger specificity. */
+ch5-button .cb-lbl,
+ch5-button .ch5-button--label,
+ch5-button .ch5-button--label.cb-lbl,
+ch5-button button .cb-lbl,
+ch5-button button .ch5-button--label {
+  font-family: var(--font-sans) !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.2 !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  text-overflow: unset !important;
+  max-width: none !important;
+  width: auto !important;
+  flex: 0 0 auto;
+}
+
+ch5-button[selected="true"] .cb-btn,
+ch5-button[selected] .cb-btn,
+ch5-button[selected="true"] button,
+ch5-button[selected] button {
+  box-shadow: var(--shadow-sel);
+}
+
+ch5-button.btn-noir.primary,
+ch5-button.glass-btn.accent {
+  --ch5-button--default-background-color:    rgba(120, 180, 255, 0.08);
+  --ch5-button--default-border-color:        var(--accent-soft);
+}
+
+ch5-button.btn-noir.danger,
+ch5-button.glass-btn.danger {
+  --ch5-button--default-background-color:    rgba(255, 110, 110, 0.06);
+  --ch5-button--default-border-color:        rgba(255, 110, 110, 0.32);
+  --ch5-button--default-label-font-color:    var(--danger);
+}
+
+/* Toggle pill — selected = filled accent (NO leading dot, the fill IS the indicator) */
+ch5-button.toggle-pill,
+ch5-button.seg-btn--toggle {
+  --ch5-button--default-background-color:           rgba(255, 255, 255, 0.025);
+  --ch5-button--default-border-color:               var(--hairline);
+  --ch5-button--default-label-font-color:           var(--text-dim);
+  --ch5-button--default-selected-background-color:  rgba(120, 180, 255, 0.16);
+  --ch5-button--default-selected-border-color:      var(--accent);
+  --ch5-button--default-selected-label-font-color:  var(--text);
+}
+
+/* ============================================================
+   ch5-toggle: glass pill
+   ============================================================ */
+
+ch5-toggle {
+  --ch5-toggle--background-color:                 var(--panel);
+  --ch5-toggle--border-color:                     var(--hairline);
+  --ch5-toggle--label-font-color:                 var(--text-dim);
+  --ch5-toggle--on-background-color:              rgba(120, 180, 255, 0.18);
+  --ch5-toggle--on-border-color:                  var(--accent-soft);
+  --ch5-toggle--on-label-font-color:              var(--text);
+  border-radius: 999px;
+}
+
+/* ============================================================
+   ch5-slider: glass track + cyan-white fill
+   ============================================================ */
+
+ch5-slider {
+  --ch5-slider--background-color:           transparent;
+  --ch5-slider--border-color:               transparent;
+  --ch5-slider--bar-color:                  rgba(255, 255, 255, 0.06);
+  --ch5-slider--filled-bar-color:           var(--accent);
+  --ch5-slider--handle-color:               var(--text);
+  --ch5-slider--handle-border-color:        var(--accent-soft);
+  --ch5-slider--tooltip-background-color:   rgba(0, 0, 0, 0.7);
+  --ch5-slider--tooltip-color:              var(--text);
+  display: block;
+  width: 100%;
+  border-radius: var(--radius);
+}
+
+/* Bottom-bar full-width slider — bigger track + glass treatment */
+ch5-slider.bottom__volume {
+  --ch5-slider--filled-bar-color:           rgba(190, 220, 250, 0.85);
+}
+
+ch5-slider .noUi-base,
+ch5-slider .noUi-target {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid var(--hairline) !important;
+  border-radius: 999px !important;
+  -webkit-backdrop-filter: blur(var(--blur));
+  backdrop-filter: blur(var(--blur));
+  height: 100% !important;
+}
+
+ch5-slider .noUi-connect,
+ch5-slider .noUi-connects {
+  background: linear-gradient(90deg, var(--accent-soft), var(--accent)) !important;
+  box-shadow: 0 0 22px var(--accent-glow);
+  border-radius: 999px !important;
+}
+
+.fader-strip,
+.volume-gauge-container {
+  background: var(--panel);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-rest);
+  -webkit-backdrop-filter: blur(var(--blur));
+  backdrop-filter: blur(var(--blur));
+}
+
+/* ============================================================
+   ch5-button-list: render as a row of glass cards
+   ============================================================ */
+
+ch5-button-list {
+  --ch5-button-list--background-color:    transparent;
+  --ch5-button-list--border-color:        transparent;
+  gap: 8px;
+}
+
+ch5-button-list ch5-button {
+  --ch5-button--default-background-color:           var(--panel);
+  --ch5-button--default-border-color:               var(--hairline);
+}
+
+/* ============================================================
+   ch5-text / readouts
+   ============================================================ */
+
+ch5-text {
+  color: var(--text);
+}
+
+ch5-jointotext-string,
+ch5-jointotext-numeric {
+  color: var(--text);
+  font-feature-settings: var(--tnum);
+}
+
+/* ============================================================
+   ch5-dpad / ch5-keypad — full glass theming
+   ============================================================ */
+
+ch5-dpad {
+  --ch5-dpad--default-background:                rgba(255, 255, 255, 0.04);
+  --ch5-dpad--default-border-color:              var(--hairline);
+  --ch5-dpad--default-color:                     var(--text);
+  --ch5-dpad--label-font-color:                  var(--text);
+  --ch5-dpad--background-color:                  transparent;
+}
+
+/* Each ch5-dpad-button gets the same glass pill look */
+ch5-dpad-button,
+ch5-dpad-button button,
+ch5-dpad button.ch5-dpad-btn {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid var(--hairline) !important;
+  color: var(--text) !important;
+  -webkit-backdrop-filter: blur(var(--blur));
+  backdrop-filter: blur(var(--blur));
+  border-radius: 14px;
+  transition: background-color 120ms ease, box-shadow 120ms ease;
+}
+
+ch5-dpad-button[selected="true"] button,
+ch5-dpad-button[selected] button,
+ch5-dpad button.ch5-dpad-btn:active {
+  background-color: rgba(120, 180, 255, 0.18) !important;
+  border-color: var(--accent-soft) !important;
+  box-shadow: var(--shadow-sel);
+}
+
+ch5-keypad {
+  --ch5-keypad--background-color:                transparent;
+  --ch5-keypad--default-color:                   var(--text);
+  --ch5-keypad--label-font-color:                var(--text);
+  background: transparent;
+}
+
+/* Each ch5-keypad-button glass pill */
+ch5-keypad-button,
+ch5-keypad-button button,
+ch5-keypad button.ch5-keypad-btn,
+ch5-keypad .keypad-btn {
+  background-color: rgba(255, 255, 255, 0.04) !important;
+  background-image: none !important;
+  border: 1px solid var(--hairline) !important;
+  color: var(--text) !important;
+  -webkit-backdrop-filter: blur(var(--blur));
+  backdrop-filter: blur(var(--blur));
+  border-radius: var(--radius-sm);
+  transition: background-color 120ms ease, box-shadow 120ms ease;
+}
+
+ch5-keypad-button:active button,
+ch5-keypad-button[pressed] button,
+ch5-keypad button.ch5-keypad-btn:active,
+ch5-keypad .keypad-btn:active {
+  background-color: rgba(120, 180, 255, 0.18) !important;
+  border-color: var(--accent-soft) !important;
+}
+
+/* Major/minor labels inside keypad buttons */
+ch5-keypad .ch5-keypad-btn-major,
+ch5-keypad .ch5-keypad-btn-text-major {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  color: var(--text);
+}
+
+ch5-keypad .ch5-keypad-btn-minor,
+ch5-keypad .ch5-keypad-btn-text-minor {
+  font-family: var(--font-italic);
+  font-style: italic;
+  font-weight: 200;
+  color: var(--text-dim);
+  letter-spacing: 0.06em;
+}
+
+/* ============================================================
+   ch5-background: keep wallpaper as bottom layer; tint above it
+   ============================================================ */
+
+ch5-background {
+  filter: brightness(0.55) saturate(0.85);
+}
+
+/* ============================================================
+   Layout helpers used by the mainpage
+   ============================================================ */
+
 .clock-display {
-  font-family: 'Chakra Petch', sans-serif;
-  font-size: 120px;
-  font-weight: 700;
-  color: var(--noir-text);
-  text-align: center;
-  padding: 32px;
-  letter-spacing: 0.1em;
-  text-shadow:
-    0 0 16px rgba(255, 46, 159, 0.3),
-    0 0 48px rgba(0, 240, 255, 0.2);
+  font-family: var(--font-italic);
+  font-style: italic;
+  font-weight: 200;
+  letter-spacing: -0.01em;
+  color: var(--text);
 }
 
-.clock-date {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 18px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--noir-text-dim);
-  text-align: center;
+.now-playing-meta {
+  font-family: var(--font-italic);
+  font-style: italic;
+  font-weight: 200;
+  font-size: 12px;
+  color: var(--text-dim);
 }
 
-/* ---------- Settings groups ---------- */
-.settings-group {
-  display: flex;
-  gap: 16px;
-  padding: 18px 20px;
-  background: linear-gradient(180deg, rgba(20,20,22,0.85) 0%, rgba(14,14,16,0.85) 100%);
-  border: 1px solid var(--noir-line);
-  border-radius: 4px;
-  margin-bottom: 12px;
-  align-items: center;
+.now-playing-song {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--text);
+  letter-spacing: -0.01em;
 }
 
-/* ---------- Loader ---------- */
-.loader {
-  background: var(--noir-bg) !important;
+/* Side-nav rail */
+.side-nav-rail {
+  background: var(--panel-soft);
+  border-right: 1px solid var(--hairline);
+  -webkit-backdrop-filter: blur(var(--blur));
+  backdrop-filter: blur(var(--blur));
 }
 
-.loader::after {
-  border-top-color: var(--neon-magenta) !important;
-  border-right-color: var(--neon-cyan) !important;
-  filter: drop-shadow(0 0 8px var(--neon-magenta));
+.side-nav-rail ch5-button {
+  --ch5-button--regular-image-width: 24px;
+  --ch5-button--regular-image-height: 24px;
+  --ch5-button--default-background-color: transparent;
+  --ch5-button--default-border-color: transparent;
 }
 
-/* ---------- Misc utility ---------- */
-.v3-divider {
-  height: 1px;
-  background: linear-gradient(90deg, transparent 0%, var(--noir-line) 20%, var(--noir-line) 80%, transparent 100%);
-  margin: 16px 0;
+.side-nav-rail ch5-button[selected],
+.side-nav-rail ch5-button[selected="true"] {
+  --ch5-button--default-selected-background-color: rgba(120, 180, 255, 0.08);
+  --ch5-button--default-selected-border-color: var(--accent-soft);
 }
-
-.v3-glow-magenta { text-shadow: 0 0 8px var(--neon-magenta); }
-.v3-glow-cyan    { text-shadow: 0 0 8px var(--neon-cyan); }
-.v3-glow-mint    { text-shadow: 0 0 8px var(--neon-mint); }
-
-/* Scrollbar */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: var(--noir-bg); }
-::-webkit-scrollbar-thumb { background: var(--neon-magenta); border-radius: 3px; box-shadow: 0 0 6px var(--neon-magenta); }
-
-/* Make sure ch5-jointotext / ch5-datetime renders inherit our colors */
-ch5-jointotext, ch5-datetime { color: inherit; font-family: inherit; }

@@ -1,0 +1,174 @@
+/* NVX Control widget — glass tiles for displays + sources.
+   Tiles flex to fill the widget's available height (1fr displays / 2fr sources). */
+
+.nvx-widget {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  height: 100%;
+  padding: 18px;
+  background: var(--panel);
+  -webkit-backdrop-filter: blur(var(--blur));
+  backdrop-filter: blur(var(--blur));
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-rest), var(--shadow-inner);
+}
+
+/* Header — fixed-height, sits above flex grids */
+.nvx-widget__header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--hairline);
+  flex-shrink: 0;
+
+  .nvx-widget__title {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    .v3-eyebrow { font-size: 11px; }
+    h1.v3-title {
+      font-family: var(--font-italic);
+      font-style: italic;
+      font-weight: 200;
+      font-size: 22px;
+      letter-spacing: -0.005em;
+    }
+    h1.v3-title .v3-readout {
+      font-family: var(--font-sans);
+      font-style: normal;
+      font-weight: 400;
+      font-size: 16px;
+      color: var(--text-dim);
+      letter-spacing: 0.04em;
+    }
+  }
+
+  /* Power: small, hairline outline, red wash only on press */
+  ch5-button.nvx-widget__power {
+    --ch5-button--regular-width: 44px;
+    --ch5-button--regular-height: 44px;
+    --ch5-button--regular-image-width: 20px;
+    --ch5-button--regular-image-height: 20px;
+    --ch5-button--default-background-color: transparent;
+    --ch5-button--default-border-color: rgba(255, 110, 110, 0.30);
+    --ch5-button--default-pressed-background-color: rgba(255, 110, 110, 0.18);
+    --ch5-button--default-pressed-border-color: var(--danger);
+  }
+}
+
+/* Display + source rows */
+.nvx-widget__displays,
+.nvx-widget__sources {
+  display: flex;
+  flex-direction: column;
+}
+
+.nvx-widget__rowlabel {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.nvx-widget__display-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.nvx-widget__source-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+/* Tiles sized to fill the widget vertically (sized so 1 row of displays
+   + 2 rows of sources + header + paddings = ~932px available). */
+.nvx-tile {
+  --ch5-button--regular-image-width: 60px;
+  --ch5-button--regular-image-height: 60px;
+}
+
+.nvx-tile--display {
+  --ch5-button--regular-height: 220px;
+}
+
+.nvx-tile--source {
+  --ch5-button--regular-height: 230px;
+}
+
+/* Display tile — destination, heavier card treatment */
+.nvx-tile--display {
+  --ch5-button--default-background-color: var(--panel-strong);
+  --ch5-button--default-border-color: var(--hairline-strong);
+  position: relative;
+
+  /* Combine the display height with the destination styling */
+  --ch5-button--regular-height: 220px;
+}
+.nvx-tile--display::before {
+  content: "OUT";
+  position: absolute;
+  top: 12px; right: 16px;
+  font-family: var(--font-italic);
+  font-style: italic;
+  font-weight: 200;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--text-mute);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Source tile — lighter card */
+.nvx-tile--source {
+  --ch5-button--default-background-color: var(--panel);
+  --ch5-button--default-border-color: var(--hairline);
+}
+
+.nvx-tile__name {
+  display: block;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: -0.005em;
+  color: var(--text);
+  margin-top: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nvx-tile__status {
+  display: block;
+  font-family: var(--font-italic);
+  font-style: italic;
+  font-weight: 200;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
+/* Disabled tile — dimmed when receivestateenable is false */
+.nvx-tile[disabled],
+.nvx-tile[disabled="true"] {
+  opacity: 0.32;
+  pointer-events: none;
+  filter: saturate(0.6);
+}
+
+/* Selected highlight */
+.nvx-tile--source[selected="true"],
+.nvx-tile--source[selected] {
+  --ch5-button--default-selected-background-color: rgba(120, 180, 255, 0.16);
+  --ch5-button--default-selected-border-color: var(--accent);
+}
+.nvx-tile--display[selected="true"],
+.nvx-tile--display[selected] {
+  --ch5-button--default-selected-background-color: rgba(120, 180, 255, 0.22);
+  --ch5-button--default-selected-border-color: var(--accent);
+}

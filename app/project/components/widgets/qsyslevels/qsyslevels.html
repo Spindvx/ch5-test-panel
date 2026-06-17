@@ -1,0 +1,70 @@
+<!-- Q-SYS Levels widget — receivestateshow=3. 3 zones with mute + fader. -->
+<template id="QSYSLevels-widget">
+  <div class="qsys-widget">
+    <header class="qsys-widget__header">
+      <span class="v3-eyebrow">Core Status</span>
+      <h1 class="v3-title">
+        <ch5-jointotext-string receivestatevalue="14" textwhenempty="—"></ch5-jointotext-string>
+      </h1>
+      <ch5-button
+          class="qsys-widget__reset glass-btn accent"
+          shape="rounded-rectangle"
+          sendeventontouch="58" receivestateselected="58"
+          label="Audio Reset">
+      </ch5-button>
+    </header>
+
+    <section class="qsys-widget__zones">
+      <!-- AV Rack -->
+      <div class="qsys-zone glass-panel">
+        <span class="v3-eyebrow">AV Rack</span>
+        <ch5-slider
+            slidertype="fader" max="65535"
+            handleshape="circle" tooltipdisplaytype="value"
+            sendeventonchange="25" receivestatevalue="25">
+        </ch5-slider>
+        <ch5-button
+            class="qsys-zone__mute"
+            shape="rounded-rectangle"
+            iconurl="./app/project/assets/img/Mute%20Icon.png"
+            sendeventontouch="55" receivestateselected="55"
+            label="">
+        </ch5-button>
+      </div>
+
+      <!-- Source -->
+      <div class="qsys-zone glass-panel">
+        <span class="v3-eyebrow">Source</span>
+        <ch5-slider
+            slidertype="fader" max="65535"
+            handleshape="circle" tooltipdisplaytype="value"
+            sendeventonchange="26" receivestatevalue="26">
+        </ch5-slider>
+        <ch5-button
+            class="qsys-zone__mute"
+            shape="rounded-rectangle"
+            iconurl="./app/project/assets/img/Mute%20Icon.png"
+            sendeventontouch="56" receivestateselected="56"
+            label="">
+        </ch5-button>
+      </div>
+
+      <!-- Downstairs -->
+      <div class="qsys-zone glass-panel">
+        <span class="v3-eyebrow">Downstairs</span>
+        <ch5-slider
+            slidertype="fader" max="65535"
+            handleshape="circle" tooltipdisplaytype="value"
+            sendeventonchange="27" receivestatevalue="27">
+        </ch5-slider>
+        <ch5-button
+            class="qsys-zone__mute"
+            shape="rounded-rectangle"
+            iconurl="./app/project/assets/img/Mute%20Icon.png"
+            sendeventontouch="57" receivestateselected="57"
+            label="">
+        </ch5-button>
+      </div>
+    </section>
+  </div>
+</template>

@@ -1,0 +1,58 @@
+<!-- Apple TV widget — receivestateshow=4. Dpad + Home/Back + 12-key keypad. -->
+<template id="AppleTV-widget">
+  <div class="appletv-widget">
+    <header class="appletv-widget__header">
+      <span class="v3-eyebrow">Apple TV</span>
+      <h1 class="v3-title">Remote</h1>
+    </header>
+
+    <div class="appletv-widget__body">
+      <!-- Left: Dpad + nav buttons -->
+      <div class="appletv-widget__nav">
+        <ch5-dpad
+            class="appletv-widget__dpad"
+            contractname="AppleTVCONTRACT.Dpad"
+            receivestatedisablecenterbutton="AppleTVCONTRACT.Dpad.DisableCenterButton"
+            receivestatehidecenterbutton="AppleTVCONTRACT.Dpad.HideCenterButton"
+            sendeventonshow="AppleTVCONTRACT.Dpad.Visibility">
+          <ch5-dpad-button componentname="Up"     key="up"     iconclass="fas fa-caret-up"></ch5-dpad-button>
+          <ch5-dpad-button componentname="Down"   key="down"   iconclass="fas fa-caret-down"></ch5-dpad-button>
+          <ch5-dpad-button componentname="Left"   key="left"   iconclass="fas fa-caret-left"></ch5-dpad-button>
+          <ch5-dpad-button componentname="Right"  key="right"  iconclass="fas fa-caret-right"></ch5-dpad-button>
+          <ch5-dpad-button componentname="Center" key="center"></ch5-dpad-button>
+        </ch5-dpad>
+
+        <div class="appletv-widget__hb">
+          <ch5-button
+              shape="rounded-rectangle"
+              sendeventontouch="75" receivestateselected="75"
+              iconurl="./app/project/assets/img/Home.svg" iconposition="top"
+              label="Home">
+          </ch5-button>
+          <ch5-button
+              shape="rounded-rectangle"
+              sendeventontouch="75" receivestateselected="75"
+              label="Back">
+          </ch5-button>
+        </div>
+      </div>
+
+      <!-- Right: 12-key keypad -->
+      <ch5-keypad class="appletv-widget__keypad" indexid="idx">
+        <ch5-keypad-button key="button1" labelmajor="1" labelminor=""></ch5-keypad-button>
+        <ch5-keypad-button key="button2" labelmajor="2" labelminor="ABC"></ch5-keypad-button>
+        <ch5-keypad-button key="button3" labelmajor="3" labelminor="DEF"></ch5-keypad-button>
+        <ch5-keypad-button key="button4" labelmajor="4" labelminor="GHI"></ch5-keypad-button>
+        <ch5-keypad-button key="button5" labelmajor="5" labelminor="JKL"></ch5-keypad-button>
+        <ch5-keypad-button key="button6" labelmajor="6" labelminor="MNO"></ch5-keypad-button>
+        <ch5-keypad-button key="button7" labelmajor="7" labelminor="PQRS"></ch5-keypad-button>
+        <ch5-keypad-button key="button8" labelmajor="8" labelminor="TUV"></ch5-keypad-button>
+        <ch5-keypad-button key="button9" labelmajor="9" labelminor="WXYZ"></ch5-keypad-button>
+        <ch5-keypad-button key="buttonstar" labelmajor="*" labelminor=""></ch5-keypad-button>
+        <ch5-keypad-button key="button0" labelmajor="0" labelminor="+"></ch5-keypad-button>
+        <ch5-keypad-button key="buttonhash" labelmajor="#" labelminor=""></ch5-keypad-button>
+        <ch5-keypad-button key="buttonextra" iconclass="fas fa-phone" labelmajor="" labelminor=""></ch5-keypad-button>
+      </ch5-keypad>
+    </div>
+  </div>
+</template>

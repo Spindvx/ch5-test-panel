@@ -1,0 +1,91 @@
+<!-- Settings widget — receivestateshow=5, context MainPage.Sandbox.
+     Best-effort layout; the original mixed several pickers + TX/RX mode
+     toggles + sleep button. Joins per JOIN_MAP.md. -->
+<template id="Settings-widget">
+  <div class="settings-widget">
+    <header class="settings-widget__header">
+      <span class="v3-eyebrow">Settings</span>
+      <h1 class="v3-title">
+        <ch5-jointotext-string receivestatevalue="41" textwhenempty="NVX"></ch5-jointotext-string>
+        <ch5-jointotext-string receivestatevalue="42" textwhenempty=""></ch5-jointotext-string>
+        :
+        <span class="v3-readout"><ch5-jointotext-string receivestatevalue="43" textwhenempty="—"></ch5-jointotext-string></span>
+      </h1>
+    </header>
+
+    <section class="settings-widget__row">
+      <span class="v3-eyebrow">Mode</span>
+      <div class="settings-widget__btn-row">
+        <ch5-button
+            shape="rounded-rectangle" label="TX Mode"
+            sendeventontouch="22" receivestateselected="22" receivestateenable="18">
+        </ch5-button>
+        <ch5-button
+            shape="rounded-rectangle" label="RX Mode"
+            sendeventontouch="23" receivestateselected="23" receivestateenable="18">
+        </ch5-button>
+        <ch5-button
+            shape="rounded-rectangle" label="Sleep" customclass="glass-btn danger"
+            sendeventontouch="27" receivestateselected="27">
+        </ch5-button>
+      </div>
+    </section>
+
+    <section class="settings-widget__row">
+      <span class="v3-eyebrow">Lock-screen wallpaper</span>
+      <ch5-button-list
+          numberofitems="9" scrollbar="true"
+          indexid="idx" buttonshape="rounded-rectangle"
+          contractname="SettingsCONTRACT.TPLockscreenWallpaper"
+          contractitemlabeltype="textContent" contractitemicontype="iconClass"
+          usecontractfornumitems="true"
+          receivestatenumberofitems="SettingsCONTRACT.TPLockscreenWallpaper.ListNumberOfItems">
+        <ch5-button-list-individual-button componentname="Lock1"></ch5-button-list-individual-button>
+        <ch5-button-list-individual-button componentname="Lock2"></ch5-button-list-individual-button>
+        <ch5-button-list-individual-button componentname="Lock3"></ch5-button-list-individual-button>
+        <ch5-button-list-individual-button componentname="Lock4"></ch5-button-list-individual-button>
+        <ch5-button-list-individual-button componentname="Lock5"></ch5-button-list-individual-button>
+        <ch5-button-list-individual-button componentname="Lock6"></ch5-button-list-individual-button>
+        <ch5-button-list-individual-button componentname="Lock7"></ch5-button-list-individual-button>
+        <ch5-button-list-individual-button componentname="Lock8"></ch5-button-list-individual-button>
+        <ch5-button-list-individual-button componentname="Lock9"></ch5-button-list-individual-button>
+      </ch5-button-list>
+    </section>
+
+    <section class="settings-widget__row">
+      <span class="v3-eyebrow">Homescreen wallpaper</span>
+      <ch5-button-list
+          numberofitems="9" scrollbar="true"
+          indexid="idx" buttonshape="rounded-rectangle"
+          contractname="SettingsCONTRACT.TPHomescreenWP"
+          contractitemlabeltype="textContent" contractitemicontype="iconClass"
+          usecontractfornumitems="true"
+          receivestatenumberofitems="SettingsCONTRACT.TPHomescreenWP.ListNumberOfItems">
+        <ch5-button-list-individual-button componentname="Home1"></ch5-button-list-individual-button>
+        <ch5-button-list-individual-button componentname="Home2"></ch5-button-list-individual-button>
+        <ch5-button-list-individual-button componentname="Home3"></ch5-button-list-individual-button>
+        <ch5-button-list-individual-button componentname="Home4"></ch5-button-list-individual-button>
+        <ch5-button-list-individual-button componentname="Home5"></ch5-button-list-individual-button>
+        <ch5-button-list-individual-button componentname="Home6"></ch5-button-list-individual-button>
+        <ch5-button-list-individual-button componentname="Home7"></ch5-button-list-individual-button>
+        <ch5-button-list-individual-button componentname="Home8"></ch5-button-list-individual-button>
+        <ch5-button-list-individual-button componentname="Home9"></ch5-button-list-individual-button>
+      </ch5-button-list>
+    </section>
+
+    <section class="settings-widget__row">
+      <span class="v3-eyebrow">Occupancy timeout</span>
+      <ch5-button-list
+          numberofitems="5" scrollbar="true"
+          indexid="idx" buttonshape="rounded-rectangle"
+          contractname="SettingsCONTRACT.OccupancyTimeout"
+          contractitemlabeltype="textContent">
+        <ch5-button-list-individual-button componentname="Occ1"></ch5-button-list-individual-button>
+        <ch5-button-list-individual-button componentname="Occ2"></ch5-button-list-individual-button>
+        <ch5-button-list-individual-button componentname="Occ3"></ch5-button-list-individual-button>
+        <ch5-button-list-individual-button componentname="Occ4"></ch5-button-list-individual-button>
+        <ch5-button-list-individual-button componentname="Occ5"></ch5-button-list-individual-button>
+      </ch5-button-list>
+    </section>
+  </div>
+</template>
